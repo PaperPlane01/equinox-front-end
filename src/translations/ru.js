@@ -110,8 +110,13 @@ export default {
     newBlogPostPublished: "{displayedName} опубликовал новый пост",
     unreadNotifications: "Непрочитанные уведомления:",
     readNotifications: "Прочитанные уведомления:",
-    commentsDisplayMode: "Режим отображения комментариев",
+    commentsDisplayMode: "Режим отображения комментариев: ",
     commentsDisplayMode_flat: "Сплошной",
     commentsDisplayMode_rootComment: "Комментарии с ответами",
-    reply: "Ответить"
+    reply: "Ответить",
+    sortBy: "Сортировать по: ",
+    sortingDirection: "Направление сортировки: ",
+    ascending: "По возрастанию",
+    descending: "По убыванию",
+    creationDate: "Дате создания"
 }

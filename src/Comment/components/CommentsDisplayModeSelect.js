@@ -10,7 +10,7 @@ import {withLocale} from "../../localization";
 @withLocale
 @inject('commentListStore')
 @observer
-class SwitchCommentDisplayMode extends React.Component {
+class CommentsDisplayModeSelect extends React.Component {
     render() {
         const {l, commentListStore} = this.props;
         const {paginationParameters} = commentListStore;
@@ -35,9 +35,9 @@ class SwitchCommentDisplayMode extends React.Component {
     }
 }
 
-SwitchCommentDisplayMode.propTypes = {
+CommentsDisplayModeSelect.propTypes = {
     l: PropTypes.func,
     commentListStore: PropTypes.object
 };
 
-export default SwitchCommentDisplayMode;
+export default CommentsDisplayModeSelect;

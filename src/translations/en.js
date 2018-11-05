@@ -110,8 +110,13 @@ export default {
     newBlogPostPublished: "{displayedName} published a new blog post",
     unreadNotifications: "Unread notifications:",
     readNotifications: "Read notifications:",
-    commentsDisplayMode: "Comments display mode",
+    commentsDisplayMode: "Comments display mode: ",
     commentsDisplayMode_flat: "Flat",
     commentsDisplayMode_rootComment: "Root comment",
-    reply: "Reply"
+    reply: "Reply",
+    sortBy: "Sort by: ",
+    sortingDirection: "Sorting direction: ",
+    ascending: "Ascending",
+    descending: "Descending",
+    creationDate: "Creation date"
 }

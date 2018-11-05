@@ -35,8 +35,8 @@ export default class CommentListStore {
     @observable comments = COMMENTS_INITIAL_STATE;
     @observable blogPostStore = undefined;
     @observable paginationParameters = {
-        sortingDirection: 'desc',
-        sortBy: 'id',
+        sortingDirection: localStorage.getItem('commentsSortingDirection') || 'desc',
+        sortBy: localStorage.getItem('commentsSortingProperty') || 'id',
         commentsDisplayMode: localStorage.getItem('commentsDisplayMode') || CommentsDisplayMode.FLAT,
         pageSize: 50
     };
@@ -137,8 +137,23 @@ export default class CommentListStore {
         reaction(
             () => this.paginationParameters.commentsDisplayMode,
             () => {
-                this.comments = COMMENTS_INITIAL_STATE;
-                this.currentPageNumber = 0;
+                this.reset();
+                this.fetchComments();
+            }
+        );
+
+        reaction(
+            () => this.paginationParameters.sortingDirection,
+            () => {
+                this.reset();
+                this.fetchComments()
+            }
+        );
+
+        reaction(
+            () => this.paginationParameters.sortBy,
+            () => {
+                this.reset();
                 this.fetchComments();
             }
         )
@@ -255,7 +270,11 @@ export default class CommentListStore {
 
     @action restoreComment = (id, comment) => {
         if (this.comments.entities.comments[id]) {
-            this.comments.entities.comments[id] = comment;
+            const replies = this.comments.entities.comments[id].replies;
+            this.comments.entities.comments[id] = {
+                ...comment,
+                replies: [...replies]
+            }
         } else if (this.comments.entities.replies[id]) {
             this.comments.entities.replies[id] = comment;
         }
@@ -309,5 +328,21 @@ export default class CommentListStore {
     @action setCommentsDisplayMode = commentsDisplayMode => {
         localStorage.setItem('commentsDisplayMode', commentsDisplayMode);
         this.paginationParameters.commentsDisplayMode = commentsDisplayMode;
+    };
+
+    @action setCommentsSortingProperty = sortBy => {
+        localStorage.setItem('commentsSortingProperty', sortBy);
+        this.paginationParameters.sortBy = sortBy;
+    };
+
+    @action setCommentsSortingDirection = sortingDirection => {
+        localStorage.setItem('commentsSortingDirection', sortingDirection);
+        this.paginationParameters.sortingDirection = sortingDirection;
+    };
+
+    @action reset = () => {
+        this.comments = COMMENTS_INITIAL_STATE;
+        this.pages = PAGES_INITIAL_STATE;
+        this.currentPageNumber = 0;
     }
 }
