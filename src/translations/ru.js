@@ -109,5 +109,9 @@ export default {
     newBlogPostPublished_withTitle: "{displayedName} опубликовал новый пост \"{title}\"",
     newBlogPostPublished: "{displayedName} опубликовал новый пост",
     unreadNotifications: "Непрочитанные уведомления:",
-    readNotifications: "Прочитанные уведомления:"
+    readNotifications: "Прочитанные уведомления:",
+    commentsDisplayMode: "Режим отображения комментариев",
+    commentsDisplayMode_flat: "Сплошной",
+    commentsDisplayMode_rootComment: "Комментарии с ответами",
+    reply: "Ответить"
 }

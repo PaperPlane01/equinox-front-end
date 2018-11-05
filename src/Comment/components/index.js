@@ -6,3 +6,6 @@ export {default as DeleteCommentMenuItem} from './DeleteCommentMenuItem';
 export {default as CommentActionsMenu} from './CommentActionsMenu';
 export {default as CommentLikeButton} from './CommentLikeButton';
 export {default as RestoreCommentMenuItem} from './RestoreCommentMenuItem';
+export {default as CommentListItemWithReplies} from './CommentListItemWithReplies';
+export {default as SwitchCommentsDisplayMode} from './SwitchCommentDisplayMode';
+export {default as ReplyToCommentButton} from './ReplyToCommentButton';

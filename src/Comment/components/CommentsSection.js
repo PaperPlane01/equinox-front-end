@@ -3,6 +3,7 @@ import {inject, observer} from 'mobx-react';
 import Grid from '@material-ui/core/Grid';
 import CreateCommentForm from './CreateCommentForm';
 import CommentList from './CommentList';
+import SwitchCommentsDisplayMode from './SwitchCommentDisplayMode';
 import {canCreateComment} from "../permissions";
 
 @inject('blogPostStore')
@@ -15,6 +16,7 @@ class CommentsSection extends React.Component {
         const {currentUser} = authStore;
 
         return <Grid container spacing={16}>
+            <SwitchCommentsDisplayMode/>
             {canCreateComment(currentUser, blogPost.blogId) &&  <Grid item xs={12}>
                 <CreateCommentForm/>
             </Grid>}

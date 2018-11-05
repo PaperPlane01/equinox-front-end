@@ -1,7 +1,9 @@
 import {action, computed, observable, reaction} from 'mobx';
 import localStorage from 'mobx-localstorage';
+import addSeconds from 'date-fns/addSeconds';
 import {createErrorFromResponse, userService} from "../../Api";
 import {validateLoginPassword, validateLoginUsername} from "../validation";
+import {getUTCDate} from "../../utils";
 
 export default class AuthStore {
     @observable pending = false;
@@ -86,6 +88,9 @@ export default class AuthStore {
         return userService.doLogin(
             this.loginFormValues.username, this.loginFormValues.password
         ).then(response => {
+            const currentDate = new Date();
+            const expirationDate = addSeconds(currentDate, response.data.expires_in);
+            localStorage.setItem('accessTokenExpirationDate', getUTCDate(expirationDate));
             localStorage.setItem('accessToken', response.data.access_token);
             localStorage.setItem('refreshToken', response.data.refresh_token);
             this.loginError = undefined;
@@ -116,11 +121,13 @@ export default class AuthStore {
                 this.currentUser = undefined;
                 localStorage.delete('accessToken');
                 localStorage.delete('refreshToken');
+                localStorage.delete('accessTokenExpirationDate');
             }).catch(() => {
                 console.log('failed to revoke token');
                 this.currentUser = undefined;
                 localStorage.delete('accessToken');
                 localStorage.delete('refreshToken');
+                localStorage.delete('accessTokenExpirationDate');
             }).then(() => {
                 this.loginSuccess = false;
             })

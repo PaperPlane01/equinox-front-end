@@ -42,3 +42,15 @@ export const isImage = ({url, timeout = 5000}) => {
         image.src = url
     });
 };
+
+export const getUTCDate = date => {
+    return Date.UTC(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDay(),
+        date.getHours(),
+        date.getMinutes(),
+        date.getSeconds(),
+        date.getMilliseconds()
+    )
+};

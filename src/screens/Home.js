@@ -21,8 +21,8 @@ class Home extends React.Component {
                 <Grid item xs={12}>
                     <AppBar/>
                 </Grid>
-                <Grid xs={1} lg={2}/>
-                <Grid xs={10} lg={8}>
+                <Grid item xs={1} lg={2}/>
+                <Grid item xs={10} lg={8}>
                     <Card raised
                           style={{
                               marginTop: '16px',

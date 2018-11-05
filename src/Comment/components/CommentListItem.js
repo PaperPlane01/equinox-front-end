@@ -4,20 +4,26 @@ import {inject, observer} from 'mobx-react';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Avatar from '@material-ui/core/Avatar';
+import Divider from '@material-ui/core/Divider';
 import {Link} from 'mobx-router';
 import CommentLikeButton from './CommentLikeButton';
 import CommentActionsMenu from './CommentActionsMenu';
+import ReplyToCommentButton from './ReplyToCommentButton';
+import CreateCommentForm from './CreateCommentForm';
 import views from '../../router-config';
 import {withLocale} from "../../localization";
+import Avatar from '../../Avatar';
+import {canCreateComment} from "../permissions";
 
 @withLocale
+@inject('createCommentStore')
 @inject('store')
 @inject('authStore')
 @observer
 class CommentListItem extends React.Component {
     render() {
-        const {comment, store, authStore, l} = this.props;
+        const {comment, store, authStore, l, createCommentStore} = this.props;
+        const canComment = canCreateComment(authStore.currentUser, comment.blogId);
 
         return <div>
             <CardHeader title={<Link store={store}
@@ -29,19 +35,12 @@ class CommentListItem extends React.Component {
             >
                 {comment.author.displayedName}
             </Link>}
-                        avatar={comment.author.avatarUri
-                            ? <Avatar imgProps={{
-                                width: '60px',
-                                height: '60px'
-                            }}
-                                      src={comment.author.avatarUri}/>
-                            : <Avatar imgProps={{
-                                width: '60px',
-                                height: '60px'
-                            }}
-                                      style={{backgroundColor: comment.author.letterAvatarColor}}>
-                                {comment.author.displayedName[0]}
-                            </Avatar>}
+                        avatar={<Avatar avatarUri={comment.author.avatarUri}
+                                        avatarColor={comment.author.letterAvatarColor}
+                                        avatarLetter={comment.author.displayedName[0]}
+                                        height={60}
+                                        width={60}
+                        />}
                         subheader={comment.createdAt}
                         action={<CommentActionsMenu comment={comment}/>}
             />
@@ -55,7 +54,12 @@ class CommentListItem extends React.Component {
                                    commentId={comment.id}
                                    commentLikeId={comment.likeId}
                 />
+                {canComment && <ReplyToCommentButton rootCommentId={comment.rootCommentId || comment.id}
+                                         referredCommentId={comment.id}
+                />}
             </CardActions>
+            {(canComment && createCommentStore.referredCommentId === comment.id) && <CreateCommentForm/>}
+            <Divider/>
         </div>
     }
 }
@@ -64,6 +68,7 @@ CommentListItem.propTypes = {
     comment: PropTypes.object,
     store: PropTypes.object,
     authStore: PropTypes.object,
+    createCommentStore: PropTypes.object,
     l: PropTypes.func
 };
 

@@ -1,10 +1,14 @@
 import {normalize, schema} from 'normalizr';
-import {action, computed, observable, reaction} from 'mobx';
+import {action, computed, observable, reaction, toJS} from 'mobx';
+import _ from 'lodash';
+import localStorage from 'mobx-localstorage';
 import CommentsDisplayMode from '../CommentsDisplayMode';
 import {commentService, createErrorFromResponse} from "../../Api";
-import _ from 'lodash';
 
-const commentSchema = new schema.Entity('comments');
+const replySchema = new schema.Entity('replies');
+const commentSchema = new schema.Entity('comments', {
+    replies: new schema.Array(replySchema)
+});
 const commentListSchema = new schema.Array(commentSchema);
 
 const PAGES_INITIAL_STATE = {
@@ -21,7 +25,8 @@ const PAGES_INITIAL_STATE = {
 const COMMENTS_INITIAL_STATE = {
     result: [],
     entities: {
-        comments: {}
+        comments: {},
+        replies: {}
     }
 };
 
@@ -32,7 +37,7 @@ export default class CommentListStore {
     @observable paginationParameters = {
         sortingDirection: 'desc',
         sortBy: 'id',
-        commentsDisplayMode: CommentsDisplayMode.FLAT,
+        commentsDisplayMode: localStorage.getItem('commentsDisplayMode') || CommentsDisplayMode.FLAT,
         pageSize: 50
     };
     @observable currentPageNumber = undefined;
@@ -124,15 +129,17 @@ export default class CommentListStore {
             () => this.persistedComment,
             () => {
                 if (this.persistedComment) {
-                    this.comments.result = _.union([this.persistedComment.id], this.comments.result);
-                    this.comments.entities = {
-                        ...this.comments.entities,
-                        comments: {
-                            ...this.comments.entities.comments,
-                            [this.persistedComment.id]: this.persistedComment
-                        }
-                    }
+                    this.addComment();
                 }
+            }
+        );
+
+        reaction(
+            () => this.paginationParameters.commentsDisplayMode,
+            () => {
+                this.comments = COMMENTS_INITIAL_STATE;
+                this.currentPageNumber = 0;
+                this.fetchComments();
             }
         )
     }
@@ -159,10 +166,15 @@ export default class CommentListStore {
                         comments: {
                             ...this.comments.entities.comments,
                             ...normalizedResponse.entities.comments
+                        },
+                        replies: {
+                            ...this.comments.entities.replies,
+                            ...normalizedResponse.entities.replies
                         }
                     }
                 };
                 this.currentPageNumber = this.currentPageNumber + 1;
+                console.log(toJS(this.comments));
             } else if (this.currentPageNumber === 0) {
                 this.pages.pageNumbers.push(0);
                 this.pages.pageNumbers[0] = {
@@ -197,6 +209,10 @@ export default class CommentListStore {
                     comments: {
                         ...this.comments.entities.comments,
                         ...normalizedResponse.entities.comments
+                    },
+                    replies: {
+                        ...this.comments.entities.replies,
+                        ...normalizedResponse.entities.replies
                     }
                 }
             }
@@ -211,12 +227,17 @@ export default class CommentListStore {
         if (this.comments.entities.comments[id]) {
             this.comments.entities.comments[id].likedByCurrentUser = likedByCurrentUser;
             this.comments.entities.comments[id].likeId = commentLikeId;
+        } else if (this.comments.entities.replies[id]) {
+            this.comments.entities.replies[id].likedByCurrentUser = likedByCurrentUser;
+            this.comments.entities.replies[id].likeId = commentLikeId;
         }
     };
 
     @action setNumberOfLikes = (id, numberOfLikes) => {
         if (this.comments.entities.comments[id]) {
             this.comments.entities.comments[id].numberOfLikes = numberOfLikes;
+        } else if (this.comments.entities.replies[id]) {
+            this.comments.entities.replies[id].numberOfLikes = numberOfLikes;
         }
     };
 
@@ -225,12 +246,68 @@ export default class CommentListStore {
             this.comments.entities.comments[id].deleted = true;
             this.comments.entities.comments[id].deletedByUserId = this.authStore.currentUser
                 && this.authStore.currentUser.id;
+        } else if (this.comments.entities.replies[id]) {
+            this.comments.entities.replies[id].deleted = true;
+            this.comments.entities.replies[id].deletedByUserId = this.authStore.currentUser
+                && this.authStore.currentUser.id;
         }
     };
 
     @action restoreComment = (id, comment) => {
         if (this.comments.entities.comments[id]) {
             this.comments.entities.comments[id] = comment;
+        } else if (this.comments.entities.replies[id]) {
+            this.comments.entities.replies[id] = comment;
         }
+    };
+
+    @action addComment = () => {
+        if (this.paginationParameters.commentsDisplayMode === CommentsDisplayMode.FLAT) {
+           this.addCommentForFlatDisplayMode();
+        } else {
+            this.addCommentForCommentWithRepliesDisplayMode();
+        }
+    };
+
+    @action addCommentForFlatDisplayMode = () => {
+        if (this.paginationParameters.sortingDirection === 'desc') {
+            this.comments.result = _.union([this.persistedComment.id], this.comments.result);
+        } else {
+            this.comments.result = _.union(this.comments.result, [this.persistedComment.id]);
+        }
+        this.comments.entities = {
+            ...this.comments.entities,
+            comments: {
+                ...this.comments.entities.comments,
+                [this.persistedComment.id]: this.persistedComment
+            }
+        }
+    };
+
+    @action addCommentForCommentWithRepliesDisplayMode = () => {
+        if (this.persistedComment.rootCommentId) {
+            this.comments.entities = {
+                ...this.comments.entities,
+                comments: {
+                    ...this.comments.entities.comments,
+                    [this.persistedComment.rootCommentId]: {
+                        ...this.comments.entities.comments[this.persistedComment.rootCommentId],
+                        replies: _.union(this.comments.entities.comments[this.persistedComment.rootCommentId].replies,
+                            [this.persistedComment.id])
+                    }
+                },
+                replies: {
+                    ...this.comments.entities.replies,
+                    [this.persistedComment.id]: this.persistedComment
+                }
+            };
+        } else {
+            this.addCommentForFlatDisplayMode();
+        }
+    };
+
+    @action setCommentsDisplayMode = commentsDisplayMode => {
+        localStorage.setItem('commentsDisplayMode', commentsDisplayMode);
+        this.paginationParameters.commentsDisplayMode = commentsDisplayMode;
     }
 }

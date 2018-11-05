@@ -109,5 +109,9 @@ export default {
     newBlogPostPublished_withTitle: "{displayedName} published a new blog post \"{title}\"",
     newBlogPostPublished: "{displayedName} published a new blog post",
     unreadNotifications: "Unread notifications:",
-    readNotifications: "Read notifications:"
+    readNotifications: "Read notifications:",
+    commentsDisplayMode: "Comments display mode",
+    commentsDisplayMode_flat: "Flat",
+    commentsDisplayMode_rootComment: "Root comment",
+    reply: "Reply"
 }
