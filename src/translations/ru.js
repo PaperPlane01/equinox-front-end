@@ -56,7 +56,7 @@ export default {
     bioIsTooLong: "Биография слишком длинная",
     invalidEmail: "Некорректный email",
     emailIsTooLong: "Email слишком длинный",
-    bio: "Биография",
+    bio: "О себе",
     displayedName: "Отображаемое имя",
     avatarUrl: "Ссылка на аватар",
     birthDate: "Дата рождения",
@@ -118,5 +118,10 @@ export default {
     sortingDirection: "Направление сортировки: ",
     ascending: "По возрастанию",
     descending: "По убыванию",
-    creationDate: "Дате создания"
+    creationDate: "Дате создания",
+    errorWhenAttemptedToBlockUserInBlog: "Во время попытки заблокировать пользователя в блоге произошла ошибка. Сервер ответил со статусом {errorStatus}. Пожалуйста, попробуйте позже",
+    blockUserInBlog: "Заблокировать пользователя в блоге",
+    userBlockedSuccessfully: "Пользователь был успешно заблокирован",
+    block: "Заблокировать",
+    reason: "Причина"
 }

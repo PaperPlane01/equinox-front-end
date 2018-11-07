@@ -4,7 +4,6 @@ import {inject, observer} from 'mobx-react';
 import Menu from '@material-ui/core/Menu';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import Typography from '@material-ui/core/Typography';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import LoginDialog from './LoginDialog';
 import LoginMenuItem from './LoginMenuItem';

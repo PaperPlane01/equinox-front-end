@@ -1,5 +1,4 @@
 import BlogManagersVisibilityLevel from '../BlogManagersVisibilityLevel';
-import appStore from '../stores';
 
 export const canCreateBlogPost = (currentUser, blogId) => {
     return currentUser
@@ -28,4 +27,9 @@ export const canSeeBlogManagers = (currentUser, blog) => {
 
 export const canEditBlog = (currentUser, blog) => {
     return currentUser && currentUser.id === blog.owner.id;
+};
+
+export const canBlockUserInBlog = (currentUser, blogId) => {
+    return currentUser && currentUser.ownedBlogs.includes(blogId)
+        || currentUser.managedBlogs.filter(managedBlog => managedBlog.id === blogId).length !== 0
 };

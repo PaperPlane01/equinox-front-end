@@ -7,3 +7,4 @@ export {default as commentService} from './CommentService';
 export {default as commentLikeService} from './CommetLikeService';
 export {default as subscriptionService} from './SubscriptionService';
 export {default as notificationService} from './NotificationService';
+export {default as blogBlockingService} from './BlogBlockingService';

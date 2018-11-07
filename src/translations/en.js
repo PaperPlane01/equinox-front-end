@@ -118,5 +118,10 @@ export default {
     sortingDirection: "Sorting direction: ",
     ascending: "Ascending",
     descending: "Descending",
-    creationDate: "Creation date"
+    creationDate: "Creation date",
+    errorWhenAttemptedToBlockUserInBlog: "Error occurred when attempted to block user in blog. Server responded with {errorStatus} status. Please try again later",
+    blockUserInBlog: "Block user in blog",
+    userBlockedSuccessfully: "User has been blocked successfully",
+    block: "Block",
+    reason: "Reason"
 }

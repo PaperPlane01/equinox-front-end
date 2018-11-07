@@ -48,6 +48,40 @@ class NotificationsHolder extends React.Component {
             return null;
         }
 
+        const menuListItems = [];
+
+        const unreadNotificationsItem = unreadNotifications.length !== 0 ? (<div>
+            <Typography style={{
+                margin: '15px'
+            }}
+                        variant="subheading">
+                {l('unreadNotifications')}
+            </Typography>
+            {unreadNotifications.map(notification => (
+                <NotificationItem notification={notification}
+                                  onClick={this.closeMenu}
+                />
+            ))}
+        </div>) : null;
+
+        const readNotificationsItem = (<div>
+            <Typography style={{
+                margin: '15px'
+            }}
+                        variant="subheading">
+                {l('readNotifications')}
+            </Typography>
+            {readNotifications.map(notification => (
+                <NotificationItem notification={notification}
+                                  onClick={this.closeMenu}
+                />
+            ))}
+        </div>);
+
+        menuListItems.push(unreadNotificationsItem);
+        unreadNotificationsItem && menuListItems.push(<Divider/>);
+        menuListItems.push(readNotificationsItem);
+
         return <div>
             <IconButton color="inherit"
                         onClick={this.openMenu}
@@ -84,32 +118,8 @@ class NotificationsHolder extends React.Component {
                             {l('noNotifications')}
                         </Typography>
                     </CardContent>
-                    : <React.Fragment>
-                        {unreadNotifications.length !== 0 &&  <Typography style={{
-                            margin: '15px'
-                        }}
-                                                                          variant="subheading">
-                            {l('unreadNotifications')}
-                        </Typography>}
-                        {unreadNotifications.map(notification => (<React.Fragment>
-                            <NotificationItem notification={notification}
-                                              onClick={this.closeMenu}
-                            />
-                            <Divider/>
-                        </React.Fragment>))}
-                        {readNotifications.length !== 0 && <Typography style={{
-                            margin: '15px'
-                        }}
-                                                                variant="subheading">
-                            {l('readNotifications')}
-                        </Typography>}
-                        {readNotifications.map(notification => (<React.Fragment>
-                            <NotificationItem notification={notification}
-                                              onClick={this.closeMenu}
-                            />
-                            <Divider/>
-                        </React.Fragment>))}
-                    </React.Fragment>}
+                    : menuListItems
+                }
                 <Button variant="outlined"
                         color="secondary"
                         onClick={this.closeMenu}

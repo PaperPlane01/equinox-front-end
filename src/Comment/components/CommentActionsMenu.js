@@ -7,7 +7,10 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import DeleteCommentMenuItem from './DeleteCommentMenuItem';
 import {canDeleteComment, canRestoreComment} from "../permissions";
 import RestoreCommentMenuItem from "./RestoreCommentMenuItem";
+import {canBlockUserInBlog, BlogBlockingDialog, BlockUserInBlogMenuItem} from "../../Blog";
 
+@inject('blockCommentAuthorInBlogStore')
+@inject('createBlogBlockingStore')
 @inject('authStore')
 @observer
 class CommentActionsMenu extends React.Component {
@@ -28,23 +31,26 @@ class CommentActionsMenu extends React.Component {
     };
 
     render() {
-        const {authStore, comment} = this.props;
-        let shouldShowMenu = false;
+        const {authStore, createBlogBlockingStore, comment, blockCommentAuthorInBlogStore} = this.props;
+        const items = [];
 
-        const items = (<div>
-            {canDeleteComment(authStore.currentUser, comment) && <DeleteCommentMenuItem commentId={comment.id}
-                                                                                        onClick={this.closeMenu}
-            >
-                {shouldShowMenu = true}
-            </DeleteCommentMenuItem>}
-            {canRestoreComment(authStore.currentUser, comment) && <RestoreCommentMenuItem commentId={comment.id}
-                                                                                         onClick={this.closeMenu}
-            >
-                {shouldShowMenu = true}
-            </RestoreCommentMenuItem>}
-        </div>);
+        canDeleteComment(authStore.currentUser, comment) && items.push(<DeleteCommentMenuItem commentId={comment.id}
+                                                                                             onClick={this.closeMenu}
+        />);
 
-        if (shouldShowMenu) {
+        canRestoreComment(authStore.currentUser, comment) && items.push(<RestoreCommentMenuItem commentId={comment.id}
+                                                                                               onClick={this.closeMenu}
+        />);
+
+        canBlockUserInBlog(authStore.currentUser, comment.blogId) && items
+            .push(<BlockUserInBlogMenuItem onClick={() => {
+                this.closeMenu();
+                blockCommentAuthorInBlogStore.setCommentId(comment.id)
+            }}
+                                           blockedUserId={comment.author.id}
+        />);
+
+        if (items.length !== 0) {
             const menuId = `commentActionsMenu-${comment.id}`;
             const {anchorElement} = this.state;
 
@@ -67,6 +73,10 @@ class CommentActionsMenu extends React.Component {
                 >
                     {items}
                 </Menu>
+                {createBlogBlockingStore.blockedUserId === comment.author.id
+                && blockCommentAuthorInBlogStore.commentId === comment.id
+                && <BlogBlockingDialog/>
+                };
             </div>
         } else {
             return null;
@@ -76,7 +86,9 @@ class CommentActionsMenu extends React.Component {
 
 CommentActionsMenu.propTypes = {
     comment: PropTypes.object,
-    authStore: PropTypes.object
+    authStore: PropTypes.object,
+    createBlogBlockingStore: PropTypes.object,
+    blockCommentAuthorInBlogStore: PropTypes.object
 };
 
 export default CommentActionsMenu;
