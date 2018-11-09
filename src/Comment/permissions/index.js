@@ -3,9 +3,12 @@ export const canCreateComment = (currentUser, blogId) => {
 };
 
 export const canDeleteComment = (currentUser, comment) => {
-    return currentUser && !comment.deleted && (currentUser.id === comment.author.id
-        || currentUser.authorities.map(authority => authority.name).includes('ROLE_ADMIN')
-        || currentUser.managedBlogs.filter(managedBlog => managedBlog.id === comment.blogId).length !== 0);
+    return currentUser && !comment.deleted && (
+        currentUser.authorities.includes('ROLE_ADMIN')
+        || currentUser.managedBlogs.filter(managedBlog => managedBlog.id === comment.blogId).length !== 0
+        || (!currentUser.blockedGlobally && !currentUser.blockedInBlogs.includes(comment.blogId)
+            && currentUser.id === comment.author.id)
+    )
 };
 
 export const canUpdateComment = (currentUser, comment) => {
