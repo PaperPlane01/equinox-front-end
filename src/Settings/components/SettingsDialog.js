@@ -14,28 +14,28 @@ import {withLocale} from "../../localization";
 
 @withLocale
 @inject('localeStore')
-@inject('settingsDialogStore')
+@inject('settingsStore')
 @observer
 class SettingsDialog extends React.Component {
     render() {
-        const {l, localeStore, settingsDialogStore, fullScreen} = this.props;
-        const {open} = settingsDialogStore;
+        const {l, localeStore, settingsStore, fullScreen} = this.props;
+        const {settingsDialogOpened, colorTheme} = settingsStore;
 
-        if (open) {
-            return <Dialog open={open}
-                           onClose={() => settingsDialogStore.setOpen(false)}
+        if (settingsDialogOpened) {
+            return <Dialog open={settingsDialogOpened}
+                           onClose={() => settingsStore.setSettingsDialogOpened(false)}
                            fullScreen={fullScreen}
             >
                 <DialogTitle>
                     {l('settings')}
                 </DialogTitle>
                 <DialogContent>
-                    <InputLabel htmlFor="language">{l('language')}</InputLabel>
+                    <InputLabel htmlFor="languageSelect">{l('language')}</InputLabel>
                     <Select value={localeStore.currentLocale}
                             onChange={event => localeStore.setLocale(event.target.value)}
                             fullWidth
                             inputProps={{
-                                name: 'language'
+                                name: 'languageSelect'
                             }}
                     >
                         <MenuItem value="en">
@@ -45,11 +45,26 @@ class SettingsDialog extends React.Component {
                             {l('russianLanguage')}
                         </MenuItem>
                     </Select>
+                    <InputLabel htmlFor="colorThemeSelect">{l('colorTheme')}</InputLabel>
+                    <Select value={colorTheme}
+                            onChange={event => settingsStore.setColorTheme(event.target.value)}
+                            fullWidth
+                            inputProps={{
+                                name: 'colorThemeSelect'
+                            }}
+                    >
+                        <MenuItem value="pink">
+                            {l('pink')}
+                        </MenuItem>
+                        <MenuItem value="green">
+                            {l('green')}
+                        </MenuItem>
+                    </Select>
                 </DialogContent>
                 <DialogActions>
                     <Button variant="outlined"
                             color="secondary"
-                            onClick={() => settingsDialogStore.setOpen(false)}
+                            onClick={() => settingsStore.setSettingsDialogOpened(false)}
                     >
                         {l('close')}
                     </Button>
@@ -64,7 +79,7 @@ class SettingsDialog extends React.Component {
 SettingsDialog.propTypes = {
     l: PropTypes.func,
     localeStore: PropTypes.object,
-    settingsDialogStore: PropTypes.object,
+    settingsStore: PropTypes.object,
     fullScreen: PropTypes.bool
 };
 

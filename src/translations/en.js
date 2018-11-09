@@ -127,5 +127,8 @@ export default {
     subscribersOfBlog: "Subscribers of blog",
     subscribersOfBlog_withBlogName: "Subscribers of blog \"{blogName}\"",
     errorWhenAttemptedToFetchSubscriptions: "",
-    youWereBlockedInBlog: "You were blocked in blog \"{blogName}\""
+    youWereBlockedInBlog: "You were blocked in blog \"{blogName}\"",
+    colorTheme: "Color theme",
+    pink: "Pink",
+    green: "Green"
 }

@@ -1,1 +1,1 @@
-export {default as SettingsDialogStore} from './SettingsDialogStore';
+export {default as SettingsStore} from './SettingsStore';

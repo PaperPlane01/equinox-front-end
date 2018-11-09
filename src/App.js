@@ -7,17 +7,7 @@ import ruLocale from 'date-fns/locale/ru';
 import enLocale from 'date-fns/locale/en-US';
 import {inject, observer} from 'mobx-react';
 import {Helmet} from 'react-helmet';
-
-const theme = createMuiTheme({
-    palette: {
-        primary: {
-            main: '#d81b60',
-        },
-        secondary: {
-            main: '#9c27b0',
-        },
-    },
-});
+import themes from './themes';
 
 const styles = {
     root: {
@@ -37,6 +27,7 @@ const muiPickersLocaleMap = {
     en: enLocale
 };
 
+@inject('settingsStore')
 @inject('authStore')
 @inject('localeStore')
 @observer
@@ -51,8 +42,9 @@ class App extends Component {
     }
 
     render() {
-        const {localeStore} = this.props;
+        const {localeStore, settingsStore} = this.props;
         const pickersLocale = muiPickersLocaleMap[localeStore.currentLocale] || enLocale;
+        const theme = themes[settingsStore.colorTheme] || themes.pink;
 
         return <div style={{
             flexGrow: 1

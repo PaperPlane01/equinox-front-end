@@ -126,5 +126,9 @@ export default {
     reason: "Причина",
     subscribersOfBlog: "Подписчики блога",
     subscribersOfBlog_withBlogName: "Подписчики блога \"{blogName}\"",
-    errorWhenAttemptedToFetchSubscriptions: ""
+    youWereBlockedInBlog: "Вас заблокировали в блоге \"{blogName}\"",
+    errorWhenAttemptedToFetchSubscriptions: "",
+    colorTheme: "Цветовая тема",
+    pink: "Розовая",
+    green: "Зелёная"
 }

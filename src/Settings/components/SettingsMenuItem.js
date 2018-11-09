@@ -8,17 +8,17 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import {withLocale} from "../../localization";
 
 @withLocale
-@inject('settingsDialogStore')
+@inject('settingsStore')
 @observer
 class SettingsMenuItem extends React.Component {
     handleClick = () => {
-        const {onClick, settingsDialogStore} = this.props;
+        const {onClick, settingsStore} = this.props;
 
         if (onClick) {
             onClick();
         }
 
-        settingsDialogStore.setOpen(true);
+        settingsStore.setSettingsDialogOpened(true);
     };
 
     render() {
@@ -36,7 +36,7 @@ class SettingsMenuItem extends React.Component {
 }
 
 SettingsMenuItem.propTypes = {
-    settingsDialogStore: PropTypes.object,
+    settingsStore: PropTypes.object,
     l: PropTypes.func,
     onClick: PropTypes.func
 };

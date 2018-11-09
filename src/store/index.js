@@ -1,5 +1,5 @@
 import {AuthStore, SignUpStore, EditProfileStore, UserProfileStore} from '../User'
-import {SettingsDialogStore} from '../Settings';
+import {SettingsStore} from '../Settings';
 import {BlogPostListStore, CreateBlogPostStore, BlogPostLikeStore, DeleteBlogPostDialogStore,
     BlogPostStore} from "../BlogPost";
 import {CreateBlogStore, BlogStore, BlogSubscribersBlockStore, SubscribeToBlogStore, UnsubscribeFromBlogStore,
@@ -39,7 +39,7 @@ export default {
     blogPostListStore: blogPostListStore,
     blogPostLikeStore: blogPostLikeStore,
     signUpStore: new SignUpStore(),
-    settingsDialogStore: new SettingsDialogStore(),
+    settingsStore: new SettingsStore(),
     createBlogStore: new CreateBlogStore(),
     editProfileStore: editProfileStore,
     userProfileStore: userProfileStore,
