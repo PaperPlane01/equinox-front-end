@@ -4,8 +4,6 @@ import {blogBlockingService, createErrorFromResponse} from "../../../Api";
 import {validateEndDate, validateReason} from "../validation";
 
 export default class CreateBlogBlockingStore {
-    @observable blogStore = undefined;
-    @observable blogPostStore = undefined;
     @observable createBlogBlockingFormValues = {
         endDate: addHours(new Date(), 1),
         reason: ""
@@ -20,13 +18,24 @@ export default class CreateBlogBlockingStore {
     @observable submissionError = undefined;
     @observable persistedBlogBlocking = undefined;
 
-    @computed get blogId() {
-        return this.blogStore.blogId || (this.blogPostStore.blogPost && this.blogPostStore.blogPost.blogId);
-    }
-
-    constructor(blogStore, blogPostStore) {
-        this.blogStore = blogStore;
-        this.blogPostStore = blogPostStore;
+    constructor() {
+        reaction(
+            () => this.createBlogBlockingDialogOpened,
+            () => {
+                if (this.persistedBlogBlocking) {
+                    this.createBlogBlockingFormValues = {
+                        endDate: addHours(new Date(), 1),
+                        reason: ""
+                    };
+                    this.createBlogBlockingFormErrors = {
+                        endDate: undefined,
+                        reason: undefined
+                    };
+                    this.persistedBlogBlocking = undefined;
+                    this.submissionError = undefined;
+                }
+            }
+        )
     }
 
     @action setCreateBlogBlockingFormValue = (value, propertyName) => {
@@ -41,14 +50,14 @@ export default class CreateBlogBlockingStore {
         this.blockedUserId = id;
     };
 
-    @action saveBlogBlocking = () => {
+    @action saveBlogBlocking = blogId => {
         if (this.isFormValid()) {
             this.pending = true;
             this.submissionError = undefined;
 
             return blogBlockingService.save({
                 ...this.createBlogBlockingFormValues,
-                blogId: this.blogId,
+                blogId,
                 blockedUserId: this.blockedUserId
             }).then(response => {
                 this.persistedBlogBlocking = response.data;

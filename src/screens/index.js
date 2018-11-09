@@ -4,3 +4,4 @@ export {default as EditProfile} from './EditProfile';
 export {default as User} from './UserProfile';
 export {default as Blog} from './Blog';
 export {default as BlogPost} from './BlogPost';
+export {default as BlogSubscribers} from './BlogSubscribers';

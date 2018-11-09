@@ -123,5 +123,8 @@ export default {
     blockUserInBlog: "Block user in blog",
     userBlockedSuccessfully: "User has been blocked successfully",
     block: "Block",
-    reason: "Reason"
+    reason: "Reason",
+    subscribersOfBlog: "Subscribers of blog",
+    subscribersOfBlog_withBlogName: "Subscribers of blog \"{blogName}\"",
+    errorWhenAttemptedToFetchSubscriptions: ""
 }

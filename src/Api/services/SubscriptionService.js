@@ -20,7 +20,7 @@ const isUserSubscribedToBlog = (userId, blogId) => {
 
 const findSubscriptionsOfCurrentUser = paginationParams => {
     return Api.get(`/${Routes.CURRENT_USER}/${Routes.SUBSCRIPTIONS}${paginationParams && `?$${queryString.stringify(paginationParams)}`}`);
-}
+};
 
 export default {
     save,

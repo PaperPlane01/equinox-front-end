@@ -3,7 +3,7 @@ import {SettingsDialogStore} from '../Settings';
 import {BlogPostListStore, CreateBlogPostStore, BlogPostLikeStore, DeleteBlogPostDialogStore,
     BlogPostStore} from "../BlogPost";
 import {CreateBlogStore, BlogStore, BlogSubscribersBlockStore, SubscribeToBlogStore, UnsubscribeFromBlogStore,
-    BlogManagersBlockStore, EditBlogDialogStore, CreateBlogBlockingStore} from "../Blog";
+    BlogManagersBlockStore, EditBlogDialogStore, CreateBlogBlockingStore, BlogSubscribersListStore} from "../Blog";
 import {AppBarStore, CurrentUserSubscriptionsStore} from "../AppBar";
 import {CommentListStore, CreateCommentStore, CommentLikeStore, DeleteCommentStore,
     RestoreCommentStore, BlockCommentAuthorInBlogStore} from "../Comment";
@@ -32,6 +32,7 @@ const restoreCommentStore = new RestoreCommentStore(commentListStore);
 const editBlogDialogStore = new EditBlogDialogStore(blogStore);
 const notificationHolderStore = new NotificationsHolderStore(authStore);
 const createBlogBlockingStore = new CreateBlogBlockingStore(blogStore, blogPostStore);
+const blogSubscribersListStore = new BlogSubscribersListStore();
 
 export default {
     authStore: authStore,
@@ -60,5 +61,6 @@ export default {
     editBlogDialogStore: editBlogDialogStore,
     notificationsHolderStore: notificationHolderStore,
     createBlogBlockingStore: createBlogBlockingStore,
-    blockCommentAuthorInBlogStore: new BlockCommentAuthorInBlogStore()
+    blockCommentAuthorInBlogStore: new BlockCommentAuthorInBlogStore(),
+    blogSubscribersListStore: blogSubscribersListStore
 };

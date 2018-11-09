@@ -75,7 +75,7 @@ class CommentActionsMenu extends React.Component {
                 </Menu>
                 {createBlogBlockingStore.blockedUserId === comment.author.id
                 && blockCommentAuthorInBlogStore.commentId === comment.id
-                && <BlogBlockingDialog/>
+                && <BlogBlockingDialog blogId={comment.blogId}/>
                 };
             </div>
         } else {

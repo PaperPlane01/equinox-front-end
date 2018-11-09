@@ -30,6 +30,6 @@ export const canEditBlog = (currentUser, blog) => {
 };
 
 export const canBlockUserInBlog = (currentUser, blogId) => {
-    return currentUser && currentUser.ownedBlogs.includes(blogId)
-        || currentUser.managedBlogs.filter(managedBlog => managedBlog.id === blogId).length !== 0
+    return currentUser && (currentUser.ownedBlogs.includes(blogId)
+        || currentUser.managedBlogs.filter(managedBlog => managedBlog.id === blogId).length !== 0)
 };

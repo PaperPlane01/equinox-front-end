@@ -17,6 +17,10 @@ const findById = id => {
     return Api.get(`/${Routes.BLOGS}/${id}`);
 };
 
+const findMinifiedById = id => {
+    return Api.get(`/${Routes.BLOGS}/${id}/${Routes.MINIFIED}`);
+};
+
 export default {
     save,
     update,

@@ -83,11 +83,17 @@ class BlogSubscribersBlock extends React.Component {
     };
 
     render() {
-        const {l, blogSubscribersBlockStore} = this.props;
+        const {l, blogSubscribersBlockStore, store} = this.props;
         const {subscribers} = blogSubscribersBlockStore;
 
         return <Card>
-            <CardHeader title={`${l('subscribers')}: ${subscribers.length}`}/>
+            <Link style={{textDecoration: 'none'}}
+                  store={store}
+                  view={views.blogSubscribers}
+                  params={{id: blogSubscribersBlockStore.blogId}}
+            >
+                <CardHeader title={`${l('subscribers')}: ${subscribers.length}`}/>
+            </Link>
             <CardContent>
                 {this.renderCardContent()}
             </CardContent>

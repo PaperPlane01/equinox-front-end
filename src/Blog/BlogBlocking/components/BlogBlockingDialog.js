@@ -18,7 +18,7 @@ import {withLocale} from "../../../localization";
 @observer
 class BlogBlockingDialog extends React.Component {
     render() {
-        const {createBlogBlockingStore, l, fullScreen} = this.props;
+        const {createBlogBlockingStore, l, fullScreen, blogId} = this.props;
         const {createBlogBlockingFormValues, createBlogBlockingFormErrors, pending, submissionError,
             persistedBlogBlocking, createBlogBlockingDialogOpened} = createBlogBlockingStore;
 
@@ -62,7 +62,7 @@ class BlogBlockingDialog extends React.Component {
                 </Typography>}
                 <Button variant="contained"
                         color="primary"
-                        onClick={createBlogBlockingStore.saveBlogBlocking}
+                        onClick={() => createBlogBlockingStore.saveBlogBlocking(blogId)}
                 >
                     {l('block')}
                 </Button>
@@ -77,13 +77,13 @@ class BlogBlockingDialog extends React.Component {
                 </Button>
             </DialogActions>
         </Dialog>
-
     }
 }
 
 BlogBlockingDialog.propTypes = {
     createBlogBlockingStore: PropTypes.object,
     l: PropTypes.func,
+    blogId: PropTypes.func,
     fullScreen: PropTypes.bool
 };
 

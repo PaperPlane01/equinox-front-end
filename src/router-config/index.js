@@ -1,6 +1,6 @@
 import React from 'react';
 import {Route} from 'mobx-router';
-import {Home, CreateBlog, EditProfile, User, Blog, BlogPost} from '../screens';
+import {Home, CreateBlog, EditProfile, User, Blog, BlogPost, BlogSubscribers} from '../screens';
 import appStore from '../store';
 
 export default {
@@ -53,6 +53,19 @@ export default {
         },
         onExit: () => {
             appStore.blogPostStore.reset();
+        }
+    }),
+    blogSubscribers: new Route({
+        path: '/blog/:id/subscribers',
+        component: <BlogSubscribers/>,
+        onEnter: (route, params) => {
+            appStore.blogSubscribersListStore.setBlogId(params.id);
+        },
+        onParamsChange: (route, params) => {
+            appStore.blogSubscribersListStore.setBlogId(params.id);
+        },
+        onExit: () => {
+            appStore.blogSubscribersListStore.reset();
         }
     })
 };
