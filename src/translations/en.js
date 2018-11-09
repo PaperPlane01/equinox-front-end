@@ -126,5 +126,6 @@ export default {
     reason: "Reason",
     subscribersOfBlog: "Subscribers of blog",
     subscribersOfBlog_withBlogName: "Subscribers of blog \"{blogName}\"",
-    errorWhenAttemptedToFetchSubscriptions: ""
+    errorWhenAttemptedToFetchSubscriptions: "",
+    youWereBlockedInBlog: "You were blocked in blog \"{blogName}\""
 }
