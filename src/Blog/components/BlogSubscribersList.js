@@ -29,15 +29,17 @@ class BlogSubscribersList extends React.Component {
                 <CardHeader title={l('subscribersOfBlog_withBlogName', {blogName: blog.name})}/>
             </Link>}
             <CardContent>
-                <List>
-                    {subscriptions.map(subscription => (<BlogSubscribersListItem subscription={subscription}/>))}
-                </List>
-                {fetchingSubscriptions && <CircularProgress color="primary"
-                                                            size={50}
-                                                            style={{
-                                                                marginLeft: 'calc(50% - 50px)',
-                                                            }}
-                />}
+                <div>
+                    <List>
+                        {subscriptions.map(subscription => (<BlogSubscribersListItem subscription={subscription}/>))}
+                    </List>
+                    {fetchingSubscriptions && <CircularProgress color="primary"
+                                                                size={50}
+                                                                style={{
+                                                                    marginLeft: 'calc(50% - 50px)',
+                                                                }}
+                    />}
+                </div>
                 <LoadMoreSubscribersButton/>
             </CardContent>
         </Card>
