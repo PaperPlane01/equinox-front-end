@@ -130,5 +130,6 @@ export default {
     youWereBlockedInBlog: "You were blocked in blog \"{blogName}\"",
     colorTheme: "Color theme",
     pink: "Pink",
-    green: "Green"
+    green: "Green",
+    userLikedYourComment: "{username} liked your comment"
 }

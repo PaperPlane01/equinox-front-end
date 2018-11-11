@@ -130,5 +130,6 @@ export default {
     errorWhenAttemptedToFetchSubscriptions: "",
     colorTheme: "Цветовая тема",
     pink: "Розовая",
-    green: "Зелёная"
+    green: "Зелёная",
+    userLikedYourComment: "{username} поставил(а) лайк к вашему комментарию"
 }

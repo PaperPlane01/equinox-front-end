@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {inject} from 'mobx-react';
 import {Link} from 'mobx-router';
-import Divider from '@material-ui/core/Divider';
 import NewBlogPostNotification from './NewBlogPostNotification';
 import BlogBlockingNotification from './BlogBlockingNotification';
+import NewCommentLikeNotification from './NewCommentLikeNotification';
 import NotificationType from '../NotificationType';
 import {withLocale} from "../../localization";
 import views from '../../router-config';
@@ -43,6 +43,17 @@ class NotificationItem extends React.Component {
                 >
                     <BlogBlockingNotification onClick={this.handleClick}
                                               blogBlocking={notification.blogBlocking}
+                    />
+                </Link>;
+            case NotificationType.NEW_COMMENT_LIKE:
+                return <Link store={store}
+                             view={views.blogPost}
+                             params={{id: notification.comment.blogPostId}}
+                             style={{textDecoration: 'none'}}
+                >
+                    <NewCommentLikeNotification onClick={this.handleClick}
+                                                comment={notification.comment}
+                                                commentLike={notification.commentLike}
                     />
                 </Link>;
             default:
