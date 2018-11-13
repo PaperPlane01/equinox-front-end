@@ -6,9 +6,11 @@ import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import DeleteBlogPostMenuItem from './DeleteBlogPostMenuItem';
 import DeleteBlogPostDialog from './DeleteBlogPostDialog';
-import {canDeleteBlogPost} from "../permissions";
+import {BlockUserGloballyMenuItem, CreateGlobalBlockingDialog, canBlockUser} from "../../User";
+import * as blogPostPermissions from "../permissions";
 
 @inject('authStore')
+@inject('blockBlogPostAuthorStore')
 @observer
 class BlogPostActionsMenu extends React.Component {
     constructor(props) {
@@ -29,19 +31,32 @@ class BlogPostActionsMenu extends React.Component {
         this.setState({anchorElement: null});
     };
 
+    handleBlockBlogPostAuthorMenuItemClick = () => {
+        this.closeMenu();
+
+        const {blockBlogPostAuthorStore, blogPost} = this.props;
+        blockBlogPostAuthorStore.setBlogPostPublisher(blogPost.publisher);
+        blockBlogPostAuthorStore.setBlogPostId(blogPost.id);
+    };
+
     render() {
-        const {authStore, blogPost} = this.props;
-        let shouldShowMenu = false;
+        const {authStore, blogPost, blockBlogPostAuthorStore} = this.props;
+        const items = [];
 
-        const items = (<div>
-            {canDeleteBlogPost(authStore.currentUser, blogPost) && <DeleteBlogPostMenuItem blogPostId={blogPost.id}
-                                                                                           onClick={this.closeMenu}
-            >
-                {shouldShowMenu = true}
-            </DeleteBlogPostMenuItem>}
-        </div>);
+        const canDeleteBlogPost = blogPostPermissions.canDeleteBlogPost(authStore.currentUser, blogPost);
+        const canBlockAuthor = canBlockUser(authStore.currentUser);
 
-        if (shouldShowMenu) {
+        if (canDeleteBlogPost) {
+            items.push(<DeleteBlogPostMenuItem onClick={this.closeMenu}
+                                               blogPostId={blogPost}
+            />)
+        }
+
+        if (canBlockAuthor) {
+            items.push(<BlockUserGloballyMenuItem onClick={this.handleBlockBlogPostAuthorMenuItemClick}/>)
+        }
+
+        if (items.length !== 0) {
             const menuId = `blogPostActionsMenu-${blogPost.id}`;
             const {anchorElement} = this.state;
 
@@ -64,7 +79,8 @@ class BlogPostActionsMenu extends React.Component {
                 >
                     {items}
                 </Menu>
-                {canDeleteBlogPost(authStore.currentUser, blogPost) && <DeleteBlogPostDialog blogPostId={blogPost.id}/>}
+                {canDeleteBlogPost && <DeleteBlogPostDialog blogPostId={blogPost.id}/>}
+                {(canBlockAuthor && blockBlogPostAuthorStore.blogPostId === blogPost.id) && <CreateGlobalBlockingDialog/>}
             </div>
         } else {
             return null;
@@ -74,6 +90,7 @@ class BlogPostActionsMenu extends React.Component {
 
 BlogPostActionsMenu.propTypes = {
     authStore: PropTypes.object,
+    blockBlogPostAuthorStore: PropTypes.object,
     blogPost: PropTypes.object
 };
 

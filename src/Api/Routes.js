@@ -32,5 +32,7 @@ export default {
     MARK_READ: 'mark-read',
     MARK_UNREAD: 'mark-unread',
     NOT_ENDED: 'not-ended',
-    MINIFIED: 'minified'
+    MINIFIED: 'minified',
+    CREATED: 'created',
+    AUTHOR: 'author'
 };

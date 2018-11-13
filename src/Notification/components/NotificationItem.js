@@ -5,6 +5,7 @@ import {Link} from 'mobx-router';
 import NewBlogPostNotification from './NewBlogPostNotification';
 import BlogBlockingNotification from './BlogBlockingNotification';
 import NewCommentLikeNotification from './NewCommentLikeNotification';
+import GlobalBlockingNotification from './GlobalBlockingNotification';
 import NotificationType from '../NotificationType';
 import {withLocale} from "../../localization";
 import views from '../../router-config';
@@ -56,6 +57,10 @@ class NotificationItem extends React.Component {
                                                 commentLike={notification.commentLike}
                     />
                 </Link>;
+            case NotificationType.GLOBAL_BLOCKING:
+                return <GlobalBlockingNotification onClick={this.handleClick}
+                                                   globalBlocking={notification.globalBlocking}
+                />;
             default:
                 return null;
         }

@@ -1,10 +1,10 @@
-import {observable, action} from 'mobx';
-import Api, {Routes, createErrorFromResponse} from "../../Api";
+import {action, observable} from 'mobx';
+import {createErrorFromResponse, globalBlockingService} from "../../../Api/index";
 
 export default class GlobalBlockingStore {
-    @observable globalBlockingDialogOpen = false;
+    @observable globalBlockingDialogOpened = false;
     @observable globalBlockingFormValues = {
-        endDate: undefined,
+        endDate: new Date(),
         reason: ''
     };
     @observable globalBlockingFormErrors = {
@@ -14,22 +14,33 @@ export default class GlobalBlockingStore {
     @observable pending = false;
     @observable submissionError = undefined;
     @observable persistedGlobalBlocking = undefined;
+    @observable blockedUser = undefined;
+    @observable fetchingUser = false;
 
     @action setGlobalBlockingFormValue = (value, propertyName) => {
         this.globalBlockingFormValues[propertyName] = value;
     };
 
-    @action setCreateGlobalBlockingDialogOpen = open => {
-        this.globalBlockingDialogOpen = open;
+    @action setBlockedUser = user => {
+        this.blockedUser = user;
     };
 
-    @action blockUser = userId => {
+    @action setFetchingUser = fetchingUser => {
+        this.fetchingUser = fetchingUser;
+    };
+
+    @action setCreateGlobalBlockingDialogOpened = opened => {
+        console.log('setting global blocking dialog opened ' + opened);
+        this.globalBlockingDialogOpened = opened;
+    };
+
+    @action blockUser = () => {
         if (this.isFormValid()) {
             this.pending = true;
-            return Api.post(`/${Routes.GLOBAL_BLOCKINGS}`, JSON.stringify({
+            return globalBlockingService.save({
                 ...this.globalBlockingFormValues,
-                userId
-            })).then(response => {
+                blockedUserId: this.blockedUser.id
+            }).then(response => {
                 this.persistedGlobalBlocking = response.data;
                 this.submissionError = undefined;
             }).catch(error => {
