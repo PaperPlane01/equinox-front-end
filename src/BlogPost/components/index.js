@@ -8,3 +8,4 @@ export {default as NumberOfViews} from './NumberOfViews';
 export {default as NumberOfComments} from './NumberOfComments';
 export {default as BlogPostHeader} from './BlogPostHeader';
 export {default as BlogPostListItem} from './BlogPostListItem';
+export {default as FeedList} from './FeedList';

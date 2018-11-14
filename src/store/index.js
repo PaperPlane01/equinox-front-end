@@ -1,7 +1,7 @@
 import {AuthStore, SignUpStore, EditProfileStore, UserProfileStore, CreateGlobalBlockingStore} from '../User'
 import {SettingsStore} from '../Settings';
 import {BlogPostListStore, CreateBlogPostStore, BlogPostLikeStore, DeleteBlogPostDialogStore,
-    BlogPostStore, BlockBlogPostAuthorStore} from "../BlogPost";
+    BlogPostStore, BlockBlogPostAuthorStore, FeedStore} from "../BlogPost";
 import {CreateBlogStore, BlogStore, BlogSubscribersBlockStore, SubscribeToBlogStore, UnsubscribeFromBlogStore,
     BlogManagersBlockStore, EditBlogDialogStore, CreateBlogBlockingStore, BlogSubscribersListStore} from "../Blog";
 import {AppBarStore, CurrentUserSubscriptionsStore} from "../AppBar";
@@ -19,11 +19,11 @@ const currentUserSubscriptionsStore = new CurrentUserSubscriptionsStore(authStor
 const subscribeToBlogStore = new SubscribeToBlogStore(blogStore, currentUserSubscriptionsStore);
 const unsubscribeFromBlogStore = new UnsubscribeFromBlogStore(blogStore, currentUserSubscriptionsStore);
 const createBlogPostStore = new CreateBlogPostStore();
-const blogPostListStore = new BlogPostListStore(blogStore, authStore, createBlogPostStore);
+const blogPostLikeStore = new BlogPostLikeStore();
+const blogPostListStore = new BlogPostListStore(blogStore, authStore, createBlogPostStore, blogPostLikeStore);
 const deleteBlogPostDialogStore = new DeleteBlogPostDialogStore(blogPostListStore);
 const blogManagersBlockStore = new BlogManagersBlockStore(authStore, blogStore);
 const blogPostStore = new BlogPostStore(authStore);
-const blogPostLikeStore = new BlogPostLikeStore(blogPostListStore, blogPostStore);
 const createCommentStore = new CreateCommentStore(blogPostStore);
 const commentListStore = new CommentListStore(blogPostStore, authStore, createCommentStore);
 const commentLikeStore = new CommentLikeStore(commentListStore);
@@ -35,6 +35,7 @@ const createBlogBlockingStore = new CreateBlogBlockingStore(blogStore, blogPostS
 const blogSubscribersListStore = new BlogSubscribersListStore();
 const createGlobalBlockingStore = new CreateGlobalBlockingStore();
 const blockBlogPostAuthorStore = new BlockBlogPostAuthorStore(createGlobalBlockingStore);
+const feedStore = new FeedStore(authStore, blogPostLikeStore);
 
 export default {
     authStore: authStore,
@@ -66,5 +67,6 @@ export default {
     blockCommentAuthorInBlogStore: new BlockCommentAuthorInBlogStore(),
     blogSubscribersListStore: blogSubscribersListStore,
     createGlobalBlockingStore: createGlobalBlockingStore,
-    blockBlogPostAuthorStore: blockBlogPostAuthorStore
+    blockBlogPostAuthorStore: blockBlogPostAuthorStore,
+    feedStore: feedStore
 };

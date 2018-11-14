@@ -1,6 +1,6 @@
 import React from 'react';
 import {Route} from 'mobx-router';
-import {Home, CreateBlog, EditProfile, User, Blog, BlogPost, BlogSubscribers} from '../screens';
+import {Home, CreateBlog, EditProfile, User, Blog, BlogPost, BlogSubscribers, Feed} from '../screens';
 import appStore from '../store';
 
 export default {
@@ -66,6 +66,16 @@ export default {
         },
         onExit: () => {
             appStore.blogSubscribersListStore.reset();
+        }
+    }),
+    feed: new Route({
+        path: '/feed',
+        component: <Feed/>,
+        onEnter: () => {
+            appStore.feedStore.setShouldRefresh(true)
+        },
+        onExit: () => {
+            appStore.feedStore.setShouldRefresh(false);
         }
     })
 };

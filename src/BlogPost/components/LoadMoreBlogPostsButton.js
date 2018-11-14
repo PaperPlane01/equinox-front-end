@@ -6,14 +6,17 @@ import {withLocale} from "../../localization";
 
 @withLocale
 @inject('blogPostListStore')
+@inject('feedStore')
 @observer
 class LoadMoreBlogPostsButton extends React.Component {
     render() {
-        const {blogPostListStore, l} = this.props;
+        const {blogPostListStore, feedStore, source, l} = this.props;
+
+        const fetchBlogPosts = source === "feedStore" ? feedStore.fetchFeed : blogPostListStore.fetchBlogPosts;
 
         return <Button variant="outlined"
                        color="primary"
-                       onClick={blogPostListStore.fetchBlogPosts}
+                       onClick={fetchBlogPosts}
         >
             {l('loadMore')}
         </Button>
@@ -22,6 +25,8 @@ class LoadMoreBlogPostsButton extends React.Component {
 
 LoadMoreBlogPostsButton.propTypes = {
     blogPostListStore: PropTypes.object,
+    feedStore: PropTypes.object,
+    source: PropTypes.string,
     l: PropTypes.func
 };
 

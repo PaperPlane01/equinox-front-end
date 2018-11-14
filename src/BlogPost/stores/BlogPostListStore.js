@@ -1,9 +1,7 @@
-import {normalize, schema} from 'normalizr';
+import {normalize} from 'normalizr';
 import {action, computed, observable, reaction} from 'mobx';
+import {blogPostListSchema} from "./schemas";
 import {blogPostService, createErrorFromResponse} from "../../Api";
-
-const blogPostSchema = new schema.Entity('blogPosts');
-const blogPostListSchema = new schema.Array(blogPostSchema);
 
 export default class BlogPostListStore {
     @observable pending = false;
@@ -23,6 +21,7 @@ export default class BlogPostListStore {
     @observable blogStore = undefined;
     @observable authStore = undefined;
     @observable createBlogPostStore = undefined;
+    @observable blogPostLikeStore = undefined;
 
     @computed get blogId() {
         return this.blogStore.blogId;
@@ -32,10 +31,11 @@ export default class BlogPostListStore {
         return this.createBlogPostStore.persistedBlogPost;
     }
 
-    constructor(blogStore, authStore, createBlogPostStore) {
+    constructor(blogStore, authStore, createBlogPostStore, blogPostLikeStore) {
         this.blogStore = blogStore;
         this.authStore = authStore;
         this.createBlogPostStore = createBlogPostStore;
+        this.blogPostLikeStore = blogPostLikeStore;
 
         reaction(
             () => this.paginationParams,
@@ -110,6 +110,20 @@ export default class BlogPostListStore {
                     this.blogPosts.entities.blogPosts[this.persistedBlogPost.id] = this.persistedBlogPost;
                 }
             }
+        );
+
+        reaction(
+            () => this.blogPostLikeStore.affectedBlogPostId,
+            blogPostId => {
+                if (blogPostId && this.blogPosts.entities.blogPosts[blogPostId]) {
+                    this.blogPosts.entities.blogPosts[blogPostId].likedByCurrentUser
+                        = Boolean(this.blogPostLikeStore.persistedBlogPostLikeId);
+                    this.blogPosts.entities.blogPosts[blogPostId].numberOfLikes
+                        = this.blogPostLikeStore.updatedNumberOfLikes;
+                    this.blogPosts.entities.blogPosts[blogPostId].likeId
+                        = this.blogPostLikeStore.persistedBlogPostLikeId;
+                }
+            }
         )
     }
 
@@ -164,19 +178,6 @@ export default class BlogPostListStore {
         }).then(() => {
             this.pending = false;
         });
-    };
-
-    @action setBlogPostLikedByCurrentUser = (id, likedByCurrentUser, blogPostLikeId) => {
-        if (this.blogPosts.entities.blogPosts[id]) {
-            this.blogPosts.entities.blogPosts[id].likedByCurrentUser = likedByCurrentUser;
-            this.blogPosts.entities.blogPosts[id].likeId = blogPostLikeId;
-        }
-    };
-
-    @action setNumberOfLikes = (id, numberOfLikes) => {
-        if (this.blogPosts.entities.blogPosts[id]) {
-            this.blogPosts.entities.blogPosts[id].numberOfLikes = numberOfLikes;
-        }
     };
 
     @action deleteBlogPost = id => {

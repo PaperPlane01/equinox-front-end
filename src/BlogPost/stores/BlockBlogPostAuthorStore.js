@@ -39,7 +39,7 @@ export default class BlockBlogPostAuthorStore {
         this.pending = true;
         this.error = undefined;
 
-        return blogPostService.getAuhtorOfBlogPost(this.blogPostId)
+        return blogPostService.getAuthorOfBlogPost(this.blogPostId)
             .then(response => {
                 this.blogPostAuthor = response.data;
                 this.createGlobalBlockingStore.setBlockedUser(this.blogPostAuthor);

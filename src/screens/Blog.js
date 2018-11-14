@@ -69,7 +69,7 @@ class Blog extends React.Component {
                             <BlogPostList/>
                         </Grid>
                         <Grid item xs={12} lg={9} alignContent="center">
-                            <LoadMoreBlogPostsButton/>
+                            <LoadMoreBlogPostsButton source="blogPostStore"/>
                         </Grid>
                     </Grid>
                 </Hidden>

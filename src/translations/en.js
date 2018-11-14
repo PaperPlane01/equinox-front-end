@@ -134,4 +134,6 @@ export default {
     userLikedYourComment: "{username} liked your comment",
     youWereBlockedGlobally: "You were blocked globally by {blockedByUsername}",
     userHasBeenBlockedSuccessfully: "User has been blocked successfully",
+    feed: "Feed",
+    emptyFeed: "Feed is empty"
 }

@@ -7,9 +7,11 @@ export default class BlogPostStore {
     @observable authStore = undefined;
     @observable pending = false;
     @observable error = undefined;
+    @observable blogPostLikeStore = undefined;
 
-    constructor(authStore) {
+    constructor(authStore, blogPostLikeStore) {
         this.authStore = authStore;
+        this.blogPostLikeStore = blogPostLikeStore;
 
         reaction(
             () => this.blogPostId,
@@ -37,24 +39,22 @@ export default class BlogPostStore {
                     this.fetchBlogPost();
                 }
             }
+        );
+
+        reaction(
+            () => this.blogPostLikeStore.affectedBlogPostId,
+            blogPostId => {
+                if (blogPostId && this.blogPost && this.blogPost.id === blogPostId) {
+                    this.blogPost.likedByCurrentUser = Boolean(this.blogPostLikeStore.persistedBlogPostLikeId);
+                    this.blogPost.numberOfLikes = this.blogPostLikeStore.updatedNumberOfLikes;
+                    this.blogPost.likeId = this.blogPostLikeStore.persistedBlogPostLikeId;
+                }
+            }
         )
     }
 
     @action setBlogPostId = id => {
         this.blogPostId = id;
-    };
-
-    @action setBlogPostLikedByCurrentUser = (blogPostId, likedByCurrentUser, likeId) => {
-        if (this.blogPost && this.blogPost.id === blogPostId) {
-            this.blogPost.likedByCurrentUser = likedByCurrentUser;
-            this.blogPost.likeId = likeId;
-        }
-    };
-
-    @action setNumberOfLikes = (id, numberOfLikes) => {
-        if (this.blogPost && this.blogPost.id === id) {
-            this.blogPost.numberOfLikes = numberOfLikes;
-        }
     };
 
     @action fetchBlogPost = () => {

@@ -133,5 +133,7 @@ export default {
     green: "Зелёная",
     userLikedYourComment: "{username} поставил(а) лайк к вашему комментарию",
     youWereBlockedGlobally: "{blockedByUsername} заблокировал(а) вас глобально",
-    userHasBeenBlockedSuccessfully: "Пользователь успешно заблокирован"
+    userHasBeenBlockedSuccessfully: "Пользователь успешно заблокирован",
+    feed: "Лента",
+    emptyFeed: "Лента пуста"
 }

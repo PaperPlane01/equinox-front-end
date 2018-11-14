@@ -14,6 +14,7 @@ import Divider from '@material-ui/core/Divider';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import RssFeedIcon from '@material-ui/icons/RssFeed';
 import SubscriptionDrawerItem from './SubscriptionDrawerItem';
 import {withLocale} from "../../localization";
 import views from '../../router-config';
@@ -99,6 +100,21 @@ class Drawer extends React.Component {
                     </ListItem>
                 </Link>
                 <Divider/>
+                {authStore.loggedIn && <Link view={views.feed}
+                                             store={store}
+                                             style={{
+                                                 textDecoration: 'none'
+                                             }}
+                >
+                    <ListItem>
+                        <ListItemIcon>
+                            <RssFeedIcon/>
+                        </ListItemIcon>
+                        <ListItemText>
+                            {l('feed')}
+                        </ListItemText>
+                    </ListItem>
+                </Link>}
                 {subscriptionsMenuItem}
             </List>
         </SwipableDrawer>

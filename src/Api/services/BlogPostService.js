@@ -22,8 +22,12 @@ const findByBlog = (blogId, paginationParameters) => {
     return Api.get(`/${Routes.BLOGS}/${blogId}/${Routes.BLOG_POSTS}${paginationParameters && `?${queryString.stringify(paginationParameters)}`}`);
 };
 
-const getAuhtorOfBlogPost = blogPostId => {
+const getAuthorOfBlogPost = blogPostId => {
     return Api.get(`/${Routes.BLOG_POSTS}/${blogPostId}/${Routes.AUTHOR}`);
+};
+
+const getFeed = paginationParameters => {
+    return Api.get(`/${Routes.BLOG_POSTS}/${Routes.FEED}${paginationParameters && `?${queryString.stringify(paginationParameters)}`}`);
 };
 
 export default {
@@ -32,5 +36,6 @@ export default {
     delete: _delete,
     findById,
     findByBlog,
-    getAuhtorOfBlogPost
+    getAuthorOfBlogPost,
+    getFeed
 };

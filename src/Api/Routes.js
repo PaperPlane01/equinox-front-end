@@ -34,5 +34,6 @@ export default {
     NOT_ENDED: 'not-ended',
     MINIFIED: 'minified',
     CREATED: 'created',
-    AUTHOR: 'author'
+    AUTHOR: 'author',
+    FEED: 'feed'
 };
