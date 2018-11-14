@@ -95,7 +95,6 @@ CreateGlobalBlockingDialog.propTypes = {
     createGlobalBlockingStore: PropTypes.object,
     fullScreen: PropTypes.bool,
     l: PropTypes.func,
-    userId: PropTypes.func
 };
 
 export default withMobileDialog()(CreateGlobalBlockingDialog);

@@ -1,5 +1,6 @@
 export const canCreateComment = (currentUser, blogId) => {
-    return currentUser && !currentUser.blockedInBlogs.includes(blogId);
+    return currentUser && !currentUser.blockedInBlogs.includes(blogId)
+        && (!currentUser.authorities.includes('ROLE_ADMIN') && !currentUser.blockedGlobally);
 };
 
 export const canDeleteComment = (currentUser, comment) => {
