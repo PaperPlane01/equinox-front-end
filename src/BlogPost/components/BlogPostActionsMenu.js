@@ -48,7 +48,7 @@ class BlogPostActionsMenu extends React.Component {
 
         if (canDeleteBlogPost) {
             items.push(<DeleteBlogPostMenuItem onClick={this.closeMenu}
-                                               blogPostId={blogPost}
+                                               blogPostId={blogPost.id}
             />)
         }
 
