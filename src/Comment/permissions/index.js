@@ -1,12 +1,14 @@
 export const canCreateComment = (currentUser, blogId) => {
     return currentUser && !currentUser.blockedInBlogs.includes(blogId)
-        && (!currentUser.authorities.includes('ROLE_ADMIN') && !currentUser.blockedGlobally);
+        && (!currentUser.authorities.map(authority => authority.name).includes('ROLE_ADMIN')
+            && !currentUser.blockedGlobally);
 };
 
 export const canDeleteComment = (currentUser, comment) => {
     return currentUser && !comment.deleted && (
-        currentUser.authorities.includes('ROLE_ADMIN')
+        currentUser.authorities.map(authority => authority.name).includes('ROLE_ADMIN')
         || currentUser.managedBlogs.filter(managedBlog => managedBlog.id === comment.blogId).length !== 0
+        || currentUser.ownedBlogs.includes(comment.blogId)
         || (!currentUser.blockedGlobally && !currentUser.blockedInBlogs.includes(comment.blogId)
             && currentUser.id === comment.author.id)
     )

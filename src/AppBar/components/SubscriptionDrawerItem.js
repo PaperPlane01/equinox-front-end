@@ -2,16 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Avatar from '@material-ui/core/Avatar';
 import {inject, observer} from 'mobx-react';
 import {Link} from 'mobx-router';
+import Avatar from '../../Avatar';
 import views from '../../router-config';
 
 @inject('store')
+@inject('appBarStore')
 @observer
 class SubscriptionDrawerItem extends React.Component {
     render() {
-        const {blogId, blogAvatarUri, blogName, blogLetterAvatarColor, store} = this.props;
+        const {blogId, blogAvatarUri, blogName, blogLetterAvatarColor, store, appBarStore} = this.props;
 
         return <Link view={views.blog}
                      store={store}
@@ -20,26 +21,13 @@ class SubscriptionDrawerItem extends React.Component {
                          textDecoration: 'none'
                      }}
         >
-            <ListItem>
-                {blogAvatarUri
-                    ? <Avatar src={blogAvatarUri}
-                              imgProps={{
-                                  width: 'auto',
-                                  height: 'auto'
-                              }}
-                    />
-                    : <Avatar imgProps={{
-                                  width: 'auto',
-                                  height: 'auto',
-
-                              }}
-                              style={{
-                                  backgroundColor: blogLetterAvatarColor
-                              }}
-                    >
-                        {blogName[0]}
-                    </Avatar>
-                }
+            <ListItem onClick={() => appBarStore.setDrawerOpened(false)}>
+                <Avatar avatarLetter={blogName[0]}
+                        avatarColor={blogLetterAvatarColor}
+                        avatarUri={blogAvatarUri}
+                        width={60}
+                        height={60}
+                />
                 <ListItemText>
                     {blogName}
                 </ListItemText>
@@ -53,7 +41,8 @@ SubscriptionDrawerItem.propTypes = {
     blogName: PropTypes.string,
     blogAvatarUri: PropTypes.string,
     blogLetterAvatarColor: PropTypes.string,
-    store: PropTypes.object
+    store: PropTypes.object,
+    appBarStore: PropTypes.object
 };
 
 export default SubscriptionDrawerItem;

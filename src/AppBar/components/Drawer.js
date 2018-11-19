@@ -88,7 +88,7 @@ class Drawer extends React.Component {
                           textDecoration: 'none'
                       }}
                 >
-                    <ListItem>
+                    <ListItem onClick={() => appBarStore.setDrawerOpened(false)}>
                         <ListItemIcon>
                             <HomeIcon/>
                         </ListItemIcon>
@@ -106,7 +106,7 @@ class Drawer extends React.Component {
                                                  textDecoration: 'none'
                                              }}
                 >
-                    <ListItem>
+                    <ListItem onClick={() => appBarStore.setDrawerOpened(false)}>
                         <ListItemIcon>
                             <RssFeedIcon/>
                         </ListItemIcon>

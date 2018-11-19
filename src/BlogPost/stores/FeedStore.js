@@ -26,10 +26,6 @@ export default class FeedStore {
         return this.authStore.currentUser;
     }
 
-    blogPostById = id => {
-        return this.blogPosts.entities.blogPosts[id];
-    };
-
     constructor(authStore, blogPostLikeStore) {
         this.authStore = authStore;
         this.blogPostLikeStore = blogPostLikeStore;
@@ -38,6 +34,7 @@ export default class FeedStore {
             () => this.shouldRefresh,
             shouldRefresh => {
                 if (shouldRefresh && this.currentUser) {
+                    this.fetchFeed();
                     this.refreshingSchedule = setInterval(this.refreshFeed, 20000);
                 } else {
                     clearInterval(this.refreshingSchedule);
