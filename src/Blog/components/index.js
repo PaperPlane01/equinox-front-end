@@ -13,3 +13,4 @@ export {default as BlogSubscribersActionsMenu} from './BlogSubscriberActionsMenu
 export {default as BlogSubscriberListItem} from './BlogSubscriberListItem';
 export {default as BlogSubscribersList} from './BlogSubscribersList';
 export {default as LoadMoreSubscribersButton} from './LoadMoreSubscribersButton';
+export {default as BLockedUsersInBlogMenuItem} from './BlockedUsersInBlogMenuItem';

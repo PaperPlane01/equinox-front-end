@@ -6,3 +6,4 @@ export {default as Blog} from './Blog';
 export {default as BlogPost} from './BlogPost';
 export {default as BlogSubscribers} from './BlogSubscribers';
 export {default as Feed} from './Feed';
+export {default as BlogBlockings} from './BlogBlockings';

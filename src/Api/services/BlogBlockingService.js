@@ -15,11 +15,15 @@ const _delete = id => {
 };
 
 const findNotEndedByBlog = (blogId, paginationParameters) => {
-    return Api.get(`/${Routes.BLOGS}/${blogId}/${Routes.BLOG_BLOCKINGS}/${Routes.NOT_ENDED}${paginationParameters && `?${queryString.stringify(paginationParameters)}`}`);
+    return Api.get(`/${Routes.BLOGS}/${blogId}/${Routes.BLOCKINGS}/${Routes.NOT_ENDED}${paginationParameters && `?${queryString.stringify(paginationParameters)}`}`);
 };
 
 const findNotEndedByBlogAndBlockedUserUsername = (blogId, username, paginationParameters) => {
-    return Api.get(`/${Routes.BLOGS}/${blogId}/${Routes.BLOG_BLOCKINGS}/${Routes.NOT_ENDED}?blockedUserDisplayedUsername=${username}${paginationParameters && `&${queryString.stringify(paginationParameters)}`}`)
+    return Api.get(`/${Routes.BLOGS}/${blogId}/${Routes.BLOCKINGS}/${Routes.NOT_ENDED}?blockedUserDisplayedUsername=${username}${paginationParameters && `&${queryString.stringify(paginationParameters)}`}`)
+};
+
+const findById = id => {
+    return Api.get(`/${Routes.BLOG_BLOCKINGS}/${id}`);
 };
 
 export default {
@@ -27,5 +31,6 @@ export default {
     update,
     delete: _delete,
     findNotEndedByBlog,
-    findNotEndedByBlogAndBlockedUserUsername
+    findNotEndedByBlogAndBlockedUserUsername,
+    findById
 }

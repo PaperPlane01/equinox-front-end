@@ -35,5 +35,6 @@ export default {
     MINIFIED: 'minified',
     CREATED: 'created',
     AUTHOR: 'author',
-    FEED: 'feed'
+    FEED: 'feed',
+    BLOCKINGS: 'blockings'
 };

@@ -4,26 +4,24 @@ import {inject, observer} from 'mobx-react';
 import Menu from '@material-ui/core/Menu';
 import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import EditBlogMenuItem from './EditBlogMenuItem';
-import EditBlogDialog from './EditBlogDialog';
-import BlockedUsersInBlogMenuItem from './BlockedUsersInBlogMenuItem';
-import {canEditBlog, canSeeBlockedUsers} from "../permissions";
+import UpdateBlogBlockingMenuItem from './UpdateBlogBlockingMenuItem';
+import UpdateBlogBlockingDialog from './UpdateBlogBlockingDialog';
+import UnblockUserMenuItem from './UnblockUserMenuItem';
+import {canUpdateBlogBlocking, canDeleteBlogBlocking} from "../permissions";
 
 @inject('authStore')
 @observer
-class BlogActionsMenu extends React.Component {
+class BlogBlockingActionsMenu extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            anchorElement: undefined
+            anchorElement: null
         }
-    };
+    }
 
     openMenu = event => {
-        this.setState({
-            anchorElement: event.currentTarget
-        })
+        this.setState({anchorElement: event.target});
     };
 
     closeMenu = () => {
@@ -31,17 +29,23 @@ class BlogActionsMenu extends React.Component {
     };
 
     render() {
-        const {authStore, blog} = this.props;
+        const {authStore, blogBlocking} = this.props;
+
+        const _canUpdateBlogBlocking = canUpdateBlogBlocking(authStore.currentUser, blogBlocking);
+        const _canDeleteBlogBlocking = canDeleteBlogBlocking(authStore.currentUser, blogBlocking);
+
         const items = [];
 
-        canEditBlog(authStore.currentUser, blog) && items.push(<EditBlogMenuItem onClick={this.closeMenu}/>);
-        canSeeBlockedUsers(authStore.currentUser, blog.id)
-        && items.push(<BlockedUsersInBlogMenuItem onClick={this.closeMenu}
-                                                  blogId={blog.id}
+        _canUpdateBlogBlocking && items.push(<UpdateBlogBlockingMenuItem onClick={this.closeMenu}
+                                                                         blockingId={blogBlocking.id}
         />);
+        _canDeleteBlogBlocking && items.push(<UnblockUserMenuItem onClick={this.closeMenu}
+                                                                  blogBlockingId={blogBlocking.od}
+            />
+        );
 
         if (items.length !== 0) {
-            const menuId = `blogActionsMenu-${blog.id}`;
+            const menuId = `blogBlockingMenu-${blogBlocking.id}`;
             const {anchorElement} = this.state;
 
             return <div>
@@ -63,7 +67,7 @@ class BlogActionsMenu extends React.Component {
                 >
                     {items}
                 </Menu>
-                {canEditBlog(authStore.currentUser, blog) && <EditBlogDialog/>}
+                {_canUpdateBlogBlocking && <UpdateBlogBlockingDialog/>}
             </div>
         } else {
             return null;
@@ -71,9 +75,9 @@ class BlogActionsMenu extends React.Component {
     }
 }
 
-BlogActionsMenu.propTypes = {
+BlogBlockingActionsMenu.propTypes = {
     authStore: PropTypes.object,
-    blog: PropTypes.object
+    blogBlocking: PropTypes.object
 };
 
-export default BlogActionsMenu;
+export default BlogBlockingActionsMenu;

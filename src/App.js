@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {createMuiTheme, MuiThemeProvider, withStyles} from '@material-ui/core/styles';
+import {MuiThemeProvider, withStyles} from '@material-ui/core/styles';
 import {MuiPickersUtilsProvider} from 'material-ui-pickers';
 import {MobxRouter} from 'mobx-router';
 import DateFnsUtils from 'material-ui-pickers/utils/date-fns-utils';

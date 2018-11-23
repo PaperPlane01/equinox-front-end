@@ -42,7 +42,6 @@ class BlogBlockingDialog extends React.Component {
                 <DateTimePicker label={l('blockingEndDate')}
                                 value={createBlogBlockingFormValues.endDate}
                                 onChange={date => createBlogBlockingStore.setCreateBlogBlockingFormValue(date, 'endDate')}
-                                autoOk
                                 disablePast
                                 cancelLabel={l('cancel')}
                                 openToYearSelection

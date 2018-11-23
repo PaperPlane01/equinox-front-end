@@ -33,3 +33,10 @@ export const canBlockUserInBlog = (currentUser, blogId) => {
     return currentUser && (currentUser.ownedBlogs.includes(blogId)
         || currentUser.managedBlogs.filter(managedBlog => managedBlog.id === blogId).length !== 0)
 };
+
+export const canSeeBlockedUsers = (currentUser, blogId) => {
+    return currentUser && (currentUser.ownedBlogs.includes(blogId)
+        || currentUser.managedBlogs.filter(managedBlog => managedBlog.blogId === blogId
+            && managedBlog.blogRole === 'MODERATOR').length !== 0
+    );
+};

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Route} from 'mobx-router';
-import {Home, CreateBlog, EditProfile, User, Blog, BlogPost, BlogSubscribers, Feed} from '../screens';
+import {Home, CreateBlog, EditProfile, User, Blog, BlogPost, BlogSubscribers, Feed, BlogBlockings} from '../screens';
 import appStore from '../store';
 
 export default {
@@ -79,6 +79,19 @@ export default {
         },
         onExit: () => {
             appStore.feedStore.setShouldRefresh(false);
+        }
+    }),
+    blogBlockings: new Route({
+        path: '/blog/:blogId/blockings',
+        component: <BlogBlockings/>,
+        onEnter: (route, params) => {
+            appStore.blogBlockingsStore.setBlogId(params.blogId);
+        },
+        onParamsChange: (route, params) => {
+            appStore.blogBlockingsStore.setBlogId(params.blogId);
+        },
+        onExit: () => {
+            appStore.blogBlockingsStore.reset();
         }
     })
 };

@@ -135,5 +135,18 @@ export default {
     youWereBlockedGlobally: "{blockedByUsername} заблокировал(а) вас глобально",
     userHasBeenBlockedSuccessfully: "Пользователь успешно заблокирован",
     feed: "Лента",
-    emptyFeed: "Лента пуста"
+    emptyFeed: "Лента пуста",
+    blogBlockings: "Блокировки в блоге",
+    blogBlockings_withBlogSpecified: "Блокировки в блоге {blogName}",
+    errorWhenAttemptedToFetchBlogBlockings: "При попытке загрузить блокировки в блоге произошла ошибка. Сервер ответил со статусом {errorStatus}. Пожалуйста, попробуйте позже",
+    blockedUserUsername: "Имя заблокированного пользователя",
+    blockedUsers: "Заблокированные пользователи",
+    noBlockedUsers: "Заблокированных пользователей нет",
+    errorWhenAttemptedToUpdateBlogBlocking: "При попытке обновить блокировку произошла ошибка. Сервер ответил со статусом {errorStatus}. Пожалуйста, попробуйте позже",
+    blogBlockingUpdated: "Блокировка успешно обновлена",
+    blogBlockingNotFound: "Блокировка не найдена",
+    updateBlogBlocking: "Обновить блокировку",
+    updateBlogBlocking_withUsernameSpecified: "Обновить блокировку пользователя {username}",
+    update: "Обновить",
+    unblockUser: "Разблокировать пользователя"
 }

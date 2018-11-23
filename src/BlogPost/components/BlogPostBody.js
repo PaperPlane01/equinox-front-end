@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import draftJsToHtml from 'draftjs-to-html';
-import {Editor} from 'react-draft-wysiwyg';
 import Typography from '@material-ui/core/Typography';
 
 class BlogPostBody extends React.Component {

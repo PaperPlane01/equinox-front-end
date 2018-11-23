@@ -135,5 +135,18 @@ export default {
     youWereBlockedGlobally: "You were blocked globally by {blockedByUsername}",
     userHasBeenBlockedSuccessfully: "User has been blocked successfully",
     feed: "Feed",
-    emptyFeed: "Feed is empty"
+    emptyFeed: "Feed is empty",
+    blogBlockings: "Blog blockings",
+    blogBlockings_withBlogSpecified: "Blog blockings in blog {blogName}",
+    errorWhenAttemptedToFetchBlogBlockings: "Error occurred when attempted to fetch blog blockings. Server responded with {errorStatus} status. Please try again later",
+    blockedUserUsername: "Blocked user username",
+    blockedUsers: "Blocked users",
+    noBlockedUsers: "No blocked users",
+    errorWhenAttemptedToUpdateBlogBlocking: "Error occurred when attempted to update blog blocking. Server responded with {errorStatus} status. Please try again later",
+    blogBlockingUpdated: "Blocking has been updated successfully",
+    blogBlockingNotFound: "Blocking was not found",
+    updateBlogBlocking: "Update blocking",
+    updateBlogBlocking_withUsernameSpecified: "Update blocking of {username}",
+    update: "Update",
+    unblockUser: "Unblock user"
 }

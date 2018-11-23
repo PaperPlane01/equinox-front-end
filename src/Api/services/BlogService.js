@@ -25,5 +25,6 @@ export default {
     save,
     update,
     delete: _delete,
-    findById
+    findById,
+    findMinifiedById
 };

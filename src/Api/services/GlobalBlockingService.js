@@ -32,6 +32,10 @@ const findAllCreatedByUser = (userId, paginationParameters) => {
     return Api.get(`/${Routes.USERS}/${userId}/${Routes.GLOBAL_BLOCKINGS}/${Routes.CREATED}${paginationParameters && `?${queryString.stringify(paginationParameters)}`}`);
 };
 
+const findById = id => {
+    return Api.get(`/${Routes.BLOG_BLOCKINGS}/${id}`);
+};
+
 export default {
     save,
     update,
@@ -39,5 +43,6 @@ export default {
     findAllByBlockedUser,
     findNotEndedByBlockedUser,
     findAllCreatedByUser,
-    findNotEndedAndCreatedByUser
+    findNotEndedAndCreatedByUser,
+    findById
 }

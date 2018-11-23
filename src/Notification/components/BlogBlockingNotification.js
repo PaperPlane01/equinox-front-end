@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
 import Avatar from '../../Avatar';
 import {withLocale} from "../../localization";
 
