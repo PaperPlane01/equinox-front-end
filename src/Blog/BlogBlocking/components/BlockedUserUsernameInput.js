@@ -22,6 +22,7 @@ class BlockedUserUsernameInput extends React.Component {
                           value={blogBlockingsStore.blockedUserUsername}
                           margin="dense"
                           fullWidth
+                          variant="outlined"
         />
     }
 }
