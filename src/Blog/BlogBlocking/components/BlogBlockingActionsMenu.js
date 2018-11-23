@@ -40,7 +40,7 @@ class BlogBlockingActionsMenu extends React.Component {
                                                                          blockingId={blogBlocking.id}
         />);
         _canDeleteBlogBlocking && items.push(<UnblockUserMenuItem onClick={this.closeMenu}
-                                                                  blogBlockingId={blogBlocking.od}
+                                                                  blogBlockingId={blogBlocking.id}
             />
         );
 

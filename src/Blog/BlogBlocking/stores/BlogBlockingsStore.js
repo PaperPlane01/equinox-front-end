@@ -105,7 +105,7 @@ export default class BlogBlockingsStore {
     @action deleteBlogBlocking = id => {
         return blogBlockingService.delete(id)
             .then(() => {
-                this.blogBlockings.filter(blogBlocking => blogBlocking.id !== id);
+                this.blogBlockings = this.blogBlockings.filter(blogBlocking => blogBlocking.id !== id);
             });
     };
 
