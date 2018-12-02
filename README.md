@@ -1,5 +1,5 @@
-## Equinox
-Equinox is a blogging web application built with
+## Aphelion
+Aphelion is a blogging web application built with
 Spring Framework and ReactJS. 
 
 ## Used frameworks and libraries for client application
