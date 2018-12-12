@@ -19,10 +19,16 @@ class CommentsSection extends React.Component {
         const {currentUser} = authStore;
 
         return <Grid container spacing={16}>
-            <CommentsDisplayModeSelect/>
-            <CommentsSortingPropertySelect/>
-            <CommentsSortingDirectionSelect/>
-            {canCreateComment(currentUser, blogPost.blogId) &&  <Grid item xs={12}>
+            <Grid item xs={12} lg={4}>
+                <CommentsDisplayModeSelect/>
+            </Grid>
+            <Grid item xs={12} lg={4}>
+                <CommentsSortingPropertySelect/>
+            </Grid>
+            <Grid item xs={12} lg={4}>
+                <CommentsSortingDirectionSelect/>
+            </Grid>
+            {canCreateComment(currentUser, blogPost.blogId) && <Grid item xs={12}>
                 <CreateCommentForm/>
             </Grid>}
             <Grid item xs={12}>

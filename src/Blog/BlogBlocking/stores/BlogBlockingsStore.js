@@ -1,6 +1,7 @@
-import {observable, action, reaction} from 'mobx';
+import {observable, action, reaction, computed} from 'mobx';
 import {blogBlockingService, blogService, createErrorFromResponse} from "../../../Api";
 import {isBlank} from "../../../utils";
+import {canSeeUsersBlockedInBlog} from "../permissions";
 
 export default class BlogBlockingsStore {
     @observable blogId = undefined;
@@ -12,8 +13,15 @@ export default class BlogBlockingsStore {
     @observable fetchingBlogBlockings = false;
     @observable fetchingBlog = false;
     @observable blog = undefined;
+    @observable authStore = undefined;
 
-    constructor() {
+    @computed get currentUser() {
+        return this.authStore.currentUser;
+    }
+
+    constructor(authStore) {
+        this.authStore = authStore;
+
         reaction(
             () => this.blogId,
             () => {
@@ -29,6 +37,17 @@ export default class BlogBlockingsStore {
 
         reaction(
             () => this.blockedUserUsername,
+            () => {
+                if (this.blogId) {
+                    this.blogBlockings = [];
+                    this.currentPage = 0;
+                    this.fetchBlogBlockings();
+                }
+            }
+        );
+
+        reaction(
+            () => this.currentUser,
             () => {
                 if (this.blogId) {
                     this.blogBlockings = [];
@@ -62,6 +81,10 @@ export default class BlogBlockingsStore {
     };
 
     @action fetchBlogBlockings = () => {
+        if (!canSeeUsersBlockedInBlog(this.authStore.currentUser, this.blogId)) {
+            return;
+        }
+
         this.pending = true;
         this.blockingsError = undefined;
 

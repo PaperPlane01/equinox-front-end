@@ -20,14 +20,17 @@ class CreateGlobalBlockingDialog extends React.Component {
     render() {
         const {createGlobalBlockingStore, l, fullScreen} = this.props;
         const {globalBlockingDialogOpened, globalBlockingFormErrors, submissionError, pending,
-            persistedGlobalBlocking, fetchingUser} = createGlobalBlockingStore;
+            persistedGlobalBlocking, fetchingUser, blockedUser} = createGlobalBlockingStore;
 
         return <Dialog open={globalBlockingDialogOpened}
                        fullScreen={fullScreen}
                        onClose={() => createGlobalBlockingStore.setCreateGlobalBlockingDialogOpened(false)}
         >
             <DialogTitle>
-                {l('blockUserGlobally')}
+                {blockedUser
+                    ? l('blockUserGlobally_withUsernameSpecified', {username: blockedUser.displayedName})
+                    : l('blockUserGlobally')
+                }
             </DialogTitle>
             {fetchingUser
                 ? <DialogContent>

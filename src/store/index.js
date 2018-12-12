@@ -1,13 +1,15 @@
-import {AuthStore, SignUpStore, EditProfileStore, UserProfileStore, CreateGlobalBlockingStore} from '../User'
+import {AuthStore, SignUpStore, EditProfileStore, UserProfileStore, CreateGlobalBlockingStore,
+    GoogleAuthStore} from '../User'
 import {SettingsStore} from '../Settings';
 import {BlogPostListStore, CreateBlogPostStore, BlogPostLikeStore, DeleteBlogPostDialogStore,
     BlogPostStore, BlockBlogPostAuthorStore, FeedStore} from "../BlogPost";
-import {CreateBlogStore, BlogStore, BlogSubscribersBlockStore, SubscribeToBlogStore, UnsubscribeFromBlogStore,
-    BlogManagersBlockStore, EditBlogDialogStore, CreateBlogBlockingStore, BlogSubscribersListStore,
-    BlogBlockingsStore, UpdateBlogBlockingStore} from "../Blog";
+import {CreateBlogStore, BlogStore, BlogSubscribersBlockStore, SubscribeToBlogStore,
+    UnsubscribeFromBlogStore, BlogManagersBlockStore, EditBlogDialogStore, CreateBlogBlockingStore,
+    BlogSubscribersListStore, BlogBlockingsStore, UpdateBlogBlockingStore, CreateBlogManagerStore,
+    UpdateBlogManagerStore, BlogManagersStore} from "../Blog";
 import {AppBarStore, CurrentUserSubscriptionsStore} from "../AppBar";
 import {CommentListStore, CreateCommentStore, CommentLikeStore, DeleteCommentStore,
-    RestoreCommentStore, BlockCommentAuthorInBlogStore} from "../Comment";
+    RestoreCommentStore, BlockCommentAuthorInBlogStore, BlockCommentAuthorGloballyStore} from "../Comment";
 import {NotificationsHolderStore} from "../Notification";
 
 const authStore = new AuthStore();
@@ -37,8 +39,13 @@ const blogSubscribersListStore = new BlogSubscribersListStore();
 const createGlobalBlockingStore = new CreateGlobalBlockingStore();
 const blockBlogPostAuthorStore = new BlockBlogPostAuthorStore(createGlobalBlockingStore);
 const feedStore = new FeedStore(authStore, blogPostLikeStore);
-const blogBlockingsStore = new BlogBlockingsStore();
+const blogBlockingsStore = new BlogBlockingsStore(authStore);
 const updateBlogBlockingStore = new UpdateBlogBlockingStore();
+const createBlogManagerStore = new CreateBlogManagerStore();
+const updateBlogManagerStore = new UpdateBlogManagerStore();
+const blogManagersStore = new BlogManagersStore(updateBlogManagerStore);
+const blockCommentAuthorGloballyStore = new BlockCommentAuthorGloballyStore();
+const googleAuthStore = new GoogleAuthStore(authStore);
 
 export default {
     authStore: authStore,
@@ -73,5 +80,10 @@ export default {
     blockBlogPostAuthorStore: blockBlogPostAuthorStore,
     feedStore: feedStore,
     blogBlockingsStore: blogBlockingsStore,
-    updateBlogBlockingStore: updateBlogBlockingStore
+    updateBlogBlockingStore: updateBlogBlockingStore,
+    createBlogManagerStore: createBlogManagerStore,
+    updateBlogManagerStore: updateBlogManagerStore,
+    blogManagersStore: blogManagersStore,
+    blockCommentAuthorGloballyStore: blockCommentAuthorGloballyStore,
+    googleAuthStore: googleAuthStore
 };

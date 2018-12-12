@@ -58,9 +58,11 @@ class NotificationsHolder extends React.Component {
                 {l('unreadNotifications')}
             </Typography>
             {unreadNotifications.map(notification => (
-                <NotificationItem notification={notification}
-                                  onClick={this.closeMenu}
-                />
+                <div>
+                    <NotificationItem notification={notification}
+                                      onClick={this.closeMenu}
+                    />
+                </div>
             ))}
         </div>) : null;
 
@@ -72,9 +74,12 @@ class NotificationsHolder extends React.Component {
                 {l('readNotifications')}
             </Typography>
             {readNotifications.map(notification => (
-                <NotificationItem notification={notification}
-                                  onClick={this.closeMenu}
-                />
+                <div>
+                    <NotificationItem notification={notification}
+                                      onClick={this.closeMenu}
+                    />
+                    <Divider/>
+                </div>
             ))}
         </div>);
 

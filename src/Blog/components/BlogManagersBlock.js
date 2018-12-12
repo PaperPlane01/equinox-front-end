@@ -8,9 +8,9 @@ import CardContent from '@material-ui/core/CardContent';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Avatar from '@material-ui/core/Avatar';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
+import Avatar from '../../Avatar';
 import {withLocale} from "../../localization";
 import views from '../../router-config';
 
@@ -42,25 +42,15 @@ class BlogManagersBlock extends React.Component {
                       style={{textDecoration: 'none'}}
                 >
                     <ListItem>
-                        {blogOwner.avatarUri
-                            ? <Avatar src={blogOwner.avatarUri}
-                                      imgProps={{
-                                          width: '100%',
-                                          height: '100%'
-                                      }}
-                            />
-                            : <Avatar imgProps={{
-                                width: '100%',
-                                height: '100%'
-                            }}
-                                      style={{
-                                          backgroundColor: blogOwner.letterAvatarColor
-                                      }}>
-                                {blogOwner.displayedName[0]}
-                                </Avatar>}
-                                <ListItemText>
-                                    {`${blogOwner.displayedName} - ${l('owner')}`}
-                                </ListItemText>
+                        <Avatar avatarLetter={blogOwner.displayedName[0]}
+                                avatarColor={blogOwner.letterAvatarColor}
+                                avatarUri={blogOwner.avatarUri}
+                                width={60}
+                                height={60}
+                        />
+                        <ListItemText>
+                            {`${blogOwner.displayedName} - ${l('owner')}`}
+                        </ListItemText>
                     </ListItem>
                 </Link>
                 {blogManagers.map(blogManager => (
@@ -72,31 +62,15 @@ class BlogManagersBlock extends React.Component {
                           }}
                     >
                         <ListItem>
-                            <Grid container>
-                                <Grid item xs={3}>
-                                    {blogManager.avatarUri
-                                        ? <Avatar src={blogManager.avatarUri}
-                                                  imgProps={{
-                                                      width: '100%',
-                                                      height: '100%'
-                                                  }}
-                                        />
-                                        : <Avatar imgProps={{
-                                            width: '100%',
-                                            height: '100%'
-                                        }}
-                                                  style={{
-                                                      backgroundColor: blogManager.user.letterAvatarColor
-                                                  }}>
-                                            {blogManager.user.displayedName[0]}
-                                        </Avatar>}
-                                </Grid>
-                                <Grid item xs={9}>
-                                    <ListItemText>
-                                        {`${blogManager.user.displayedName} - ${l(blogManager.blogManager.blogRole)}`}
-                                    </ListItemText>
-                                </Grid>
-                            </Grid>
+                            <Avatar avatarUri={blogManager.user.avatarUri}
+                                    avatarColor={blogManager.user.letterAvatarColor}
+                                    avatarLetter={blogManager.user.displayedName[0]}
+                                    width={60}
+                                    height={60}
+                            />
+                            <ListItemText>
+                                {`${blogManager.user.displayedName} - ${l(blogManager.blogRole)}`}
+                            </ListItemText>
                         </ListItem>
                     </Link>
                 ))}

@@ -4,3 +4,4 @@ export {default as CommentLikeStore} from './CommentLikeStore';
 export {default as DeleteCommentStore} from './DeleteCommentStore';
 export {default as RestoreCommentStore} from './RestoreCommentStore';
 export {default as BlockCommentAuthorInBlogStore} from './BlockCommentAuthorInBlogStore';
+export {default as BlockCommentAuthorGloballyStore} from './BlockCommentAuthorGloballyStore';

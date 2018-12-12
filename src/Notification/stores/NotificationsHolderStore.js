@@ -31,7 +31,7 @@ export default class NotificationsHolderStore {
                 this.notifications = [];
                 if (currentUser) {
                     this.fetchNewNotifications();
-                    this.scheduledTimer = setInterval(this.fetchNewNotifications, 10000);
+                    this.scheduledTimer = setInterval(this.fetchNewNotifications, 30000);
                 }
             }
         )

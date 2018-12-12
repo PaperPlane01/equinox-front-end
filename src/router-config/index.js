@@ -1,7 +1,11 @@
 import React from 'react';
+import {toJS} from 'mobx';
 import {Route} from 'mobx-router';
-import {Home, CreateBlog, EditProfile, User, Blog, BlogPost, BlogSubscribers, Feed, BlogBlockings} from '../screens';
+import {Home, CreateBlog, EditProfile, User, Blog, BlogPost, BlogSubscribers, Feed,
+    BlogBlockings, GoogleAuth} from '../screens';
 import appStore from '../store';
+import _getViewByPath from './getViewByPath';
+export const getViewByPath = _getViewByPath;
 
 export default {
     home: new Route({
@@ -55,6 +59,13 @@ export default {
             appStore.blogPostStore.reset();
         }
     }),
+    googleAuth: new Route({
+        path: '/auth/google',
+        component: <GoogleAuth/>,
+        onEnter: (route, params, store) => {
+            appStore.googleAuthStore.setGoogleToken(store.router.queryParams.access_token);
+        }
+    }),
     blogSubscribers: new Route({
         path: '/blog/:id/subscribers',
         component: <BlogSubscribers/>,
@@ -95,4 +106,3 @@ export default {
         }
     })
 };
-

@@ -6,15 +6,22 @@ import {observer, inject} from 'mobx-react';
 import AppBar from '../AppBar';
 import {withLocale} from "../localization";
 import Typography from "@material-ui/core/Typography/Typography";
-import {BlockedUsersList, LoadMoreBlogBlockingsButton} from "../Blog/BlogBlocking/components";
+import {BlockedUsersList, LoadMoreBlogBlockingsButton, canSeeUsersBlockedInBlog} from "../Blog/BlogBlocking";
 
 @withLocale
+@inject('authStore')
 @inject('blogBlockingsStore')
 @observer
 class BlogBlockings extends React.Component {
     renderContent = () => {
-        const {blogBlockingsStore, l} = this.props;
+        const {blogBlockingsStore, l, authStore} = this.props;
         const {fetchingBlog, blogError, blockingsError} = blogBlockingsStore;
+
+        if (!canSeeUsersBlockedInBlog(authStore.currentUser, blogBlockingsStore.blogId)) {
+            return <Typography variant="headline">
+                {l('accessToPageDenied')}
+            </Typography>
+        }
 
         if (fetchingBlog) {
             return <CircularProgress color="primary"
@@ -81,6 +88,7 @@ class BlogBlockings extends React.Component {
 
 BlogBlockings.propTypes = {
     blogBlockingsStore: PropTypes.object,
+    authStore: PropTypes.object,
     l: PropTypes.func
 };
 

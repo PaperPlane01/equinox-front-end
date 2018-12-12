@@ -119,15 +119,33 @@ class Blog extends React.Component {
             <Grid item xs={12}>
                 <AppBar title={blogStore.blog && blogStore.blog.name}/>
             </Grid>
-            <Grid item xs={1} lg={2}/>
-            <Grid item xs={10} lg={9}>
-                <div style={{
-                    marginTop: '16px',
-                    width: '100%'
-                }}>
-                    {this.renderContent()}
-                </div>
-            </Grid>
+            <Hidden mdUp>
+                <Grid item xs={12}>
+                    <div style={{
+                        marginLeft: '2.08333333334%',
+                        marginRight: '2.08333333334%',
+                        width: '100%'
+                    }}>
+                        <div style={{
+                            marginTop: '16px',
+                            width: '100%'
+                        }}>
+                            {this.renderContent()}
+                        </div>
+                    </div>
+                </Grid>
+            </Hidden>
+            <Hidden smDown>
+                <Grid item lg={2}/>
+                <Grid item xs={11} lg={9}>
+                    <div style={{
+                        marginTop: '16px',
+                        width: '100%'
+                    }}>
+                        {this.renderContent()}
+                    </div>
+                </Grid>
+            </Hidden>
         </Grid>
     }
 }

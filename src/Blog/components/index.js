@@ -13,4 +13,8 @@ export {default as BlogSubscribersActionsMenu} from './BlogSubscriberActionsMenu
 export {default as BlogSubscriberListItem} from './BlogSubscriberListItem';
 export {default as BlogSubscribersList} from './BlogSubscribersList';
 export {default as LoadMoreSubscribersButton} from './LoadMoreSubscribersButton';
-export {default as BLockedUsersInBlogMenuItem} from './BlockedUsersInBlogMenuItem';
+export {default as BlockedUsersInBlogMenuItem} from './BlockedUsersInBlogMenuItem';
+export {default as AssignUserBlogManagerMenuItem} from './AssignUserBlogManagerMenuItem';
+export {default as BlogSubscribersUsernameInput} from './BlogSubscribersUsernameInput';
+export {default as AssingUserBlogManagerDialog} from './AssignUserBlogManagerDialog';
+export {default as BlogRoleSelect} from './BlogRoleSelect';

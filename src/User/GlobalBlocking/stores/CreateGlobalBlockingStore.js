@@ -1,5 +1,5 @@
 import {action, observable} from 'mobx';
-import {createErrorFromResponse, globalBlockingService} from "../../../Api/index";
+import {createErrorFromResponse, globalBlockingService} from "../../../Api";
 
 export default class GlobalBlockingStore {
     @observable globalBlockingDialogOpened = false;
@@ -30,7 +30,6 @@ export default class GlobalBlockingStore {
     };
 
     @action setCreateGlobalBlockingDialogOpened = opened => {
-        console.log('setting global blocking dialog opened ' + opened);
         this.globalBlockingDialogOpened = opened;
     };
 

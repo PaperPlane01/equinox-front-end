@@ -49,6 +49,20 @@ const doLogin = (username, password) => {
     })
 };
 
+const doLoginWithGoogle = googleToken => {
+    console.log(googleToken);
+    return Api({
+        method: 'POST',
+        baseURL: `${Routes.API_BASE_URL}`,
+        url: `/${Routes.OAUTH}/${Routes.GOOGLE}`,
+        data: {
+            clientId: process.env.REACT_APP_CLIENT_ID,
+            clientSecret: process.env.REACT_APP_CLIENT_SECRET,
+            googleToken
+        }
+    })
+};
+
 const doLogOut = (accessToken, refreshToken) => {
     return Api({
         method: 'DELETE',
@@ -74,5 +88,6 @@ export default {
     getFullProfileOfCurrentUser,
     checkUsernameAvailability,
     doLogin,
-    doLogOut
+    doLogOut,
+    doLoginWithGoogle
 };

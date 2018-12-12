@@ -34,7 +34,7 @@ export default class AuthStore {
 
         reaction(
             () => this.accessToken,
-            (accessToken) => {
+            accessToken => {
                 if (accessToken) {
                     this.loginDialogOpen = false;
                     if (!this.currentUser) {

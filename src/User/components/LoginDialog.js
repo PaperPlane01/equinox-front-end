@@ -9,7 +9,9 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Divider from '@material-ui/core/Divider';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
+import LoginWithGoogleButton from './LoginWithGoogleButton';
 import {withLocale} from "../../localization";
 
 @withLocale
@@ -53,6 +55,11 @@ class LoginDialog extends React.Component {
                     >
                         {l('logIn')}
                     </Button>
+                    <Divider style={{
+                        marginTop: '5px',
+                        marginBottom: '5px'
+                    }}/>
+                    <LoginWithGoogleButton/>
                 </DialogContent>
                 <DialogActions>
                     {pending && <CircularProgress color="primary" size={25}/>}

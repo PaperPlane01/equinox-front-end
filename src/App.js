@@ -8,6 +8,7 @@ import enLocale from 'date-fns/locale/en-US';
 import {inject, observer} from 'mobx-react';
 import {Helmet} from 'react-helmet';
 import themes from './themes';
+import {WEB_APP_BASE_URL} from "./Api/Routes";
 
 const styles = {
     root: {
@@ -27,6 +28,15 @@ const muiPickersLocaleMap = {
     en: enLocale
 };
 
+const __dirtyFixUrl = () => {
+    if (window && window.location.href.includes(`${WEB_APP_BASE_URL}/auth/google/`)) {
+        let location = window.location.href;
+        const length = `${WEB_APP_BASE_URL}/auth/google/`.length - 1;
+        location = location.substring(0, length) + '?' + location.substring(length + 1);
+        window.location.href = location;
+    }
+};
+
 @inject('settingsStore')
 @inject('authStore')
 @inject('localeStore')
@@ -39,6 +49,8 @@ class App extends Component {
         if (loggedIn && !currentUser) {
             authStore.fetchCurrentUser();
         }
+
+        __dirtyFixUrl();
     }
 
     render() {

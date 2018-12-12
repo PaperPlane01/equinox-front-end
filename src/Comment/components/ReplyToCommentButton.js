@@ -11,8 +11,13 @@ class ReplyToCommentButton extends React.Component {
     handleClick = () => {
         const {rootCommentId, referredCommentId, createCommentStore} = this.props;
 
-        createCommentStore.setRootCommentId(rootCommentId);
-        createCommentStore.setReferredCommentId(referredCommentId);
+        if (createCommentStore.rootCommentId && createCommentStore.referredCommentId) {
+            createCommentStore.setRootCommentId(undefined);
+            createCommentStore.setReferredCommentId(undefined);
+        } else {
+            createCommentStore.setRootCommentId(rootCommentId);
+            createCommentStore.setReferredCommentId(referredCommentId);
+        }
     };
 
     render() {

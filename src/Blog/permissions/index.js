@@ -4,8 +4,9 @@ export const canCreateBlogPost = (currentUser, blogId) => {
     return currentUser
         && (!currentUser.blockedGlobally
         && (currentUser.ownedBlogs.includes(blogId)
-        || currentUser.managedBlogs.filter(managedBlog => managedBlog.blogRole === 'EDITOR')
-            .map(managedBlog => managedBlog.id).includes(blogId)
+        || currentUser.managedBlogs
+                    .filter(managedBlog => managedBlog.blogRole === 'EDITOR')
+                    .map(managedBlog => managedBlog.blogId).includes(blogId)
             )
         );
 };
@@ -31,12 +32,23 @@ export const canEditBlog = (currentUser, blog) => {
 
 export const canBlockUserInBlog = (currentUser, blogId) => {
     return currentUser && (currentUser.ownedBlogs.includes(blogId)
-        || currentUser.managedBlogs.filter(managedBlog => managedBlog.id === blogId).length !== 0)
+        || currentUser.managedBlogs.map(managedBlog => managedBlog.blogId).includes(blogId))
 };
 
 export const canSeeBlockedUsers = (currentUser, blogId) => {
     return currentUser && (currentUser.ownedBlogs.includes(blogId)
-        || currentUser.managedBlogs.filter(managedBlog => managedBlog.blogId === blogId
-            && managedBlog.blogRole === 'MODERATOR').length !== 0
+        || currentUser.managedBlogs.filter(managedBlog => managedBlog.blogId === blogId).length !== 0
     );
+};
+
+export const canAssignBlogManagersInBlog = (currentUser, blogId) => {
+    return currentUser && currentUser.ownedBlogs.includes(blogId);
+};
+
+export const canDeleteBlogManagersInBlog = (currentUser, blogId) => {
+    return currentUser && currentUser.ownedBlogs.includes(blogId);
+};
+
+export const canUpdateBlogManagersInBlog = (currentUser, blogId) => {
+    return currentUser && currentUser.ownedBlogs.includes(blogId);
 };

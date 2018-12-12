@@ -18,9 +18,30 @@ const findByBlog = (blogId, paginationParams) => {
     return Api.get(`/${Routes.BLOGS}/${blogId}/${Routes.MANAGERS}?${queryString.stringify(paginationParams)}`);
 };
 
+const findByBlogAndUsername = (blogId, username, paginationParams) => {
+    let requestParams = {
+        username
+    };
+
+    if (paginationParams) {
+        requestParams = {
+            ...requestParams,
+            ...paginationParams
+        };
+    }
+
+    return Api.get(`/${Routes.BLOGS}/${blogId}/${Routes.MARK_READ}?${queryString.stringify(requestParams)}`);
+};
+
+const findByBlogAndId = (blogId, id) => {
+    return Api.get(`/${Routes.BLOGS}/${blogId}/${Routes.MANAGERS}/${id}`);
+};
+
 export default {
     save,
     delete: _delete,
     update,
-    findByBlog
+    findByBlog,
+    findByBlogAndUsername,
+    findByBlogAndId
 };

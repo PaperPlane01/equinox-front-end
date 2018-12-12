@@ -5,9 +5,12 @@ import Menu from '@material-ui/core/Menu';
 import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import {BlockUserInBlogMenuItem, BlogBlockingDialog} from '../BlogBlocking'
-import {canBlockUserInBlog} from "../permissions";
+import AssignUserBlogManagerMenuItem from './AssignUserBlogManagerMenuItem';
+import AssignUserBlogManagerDialog from './AssignUserBlogManagerDialog';
+import {canBlockUserInBlog, canAssignBlogManagersInBlog} from "../permissions";
 import {BlockUserGloballyMenuItem, CreateGlobalBlockingDialog, canBlockUser} from '../../User';
 
+@inject('createBlogManagerStore')
 @inject('createBlogBlockingStore')
 @inject('createGlobalBlockingStore')
 @inject('authStore')
@@ -41,17 +44,24 @@ class BlogSubscriberActionsMenu extends React.Component {
     };
 
     render() {
-        const {subscription, authStore, createBlogBlockingStore, createGlobalBlockingStore} = this.props;
+        const {subscription, authStore, createBlogBlockingStore, createGlobalBlockingStore,
+            createBlogManagerStore} = this.props;
 
         const items = [];
 
-        canBlockUserInBlog(authStore.currentUser, subscription.blogId) && items
+        const _canBlockUserInBlog = canBlockUserInBlog(authStore.currentUser, subscription.blogId) && items
             .push(<BlockUserInBlogMenuItem onClick={this.closeMenu}
                                            blockedUserId={subscription.user.id}
             />);
 
-        canBlockUser(authStore.currentUser) && items
+        const _canBlockUserGlobally = canBlockUser(authStore.currentUser) && items
             .push(<BlockUserGloballyMenuItem onClick={this.handleBlockUserGloballyMenuItemClick}/>);
+
+        const _canAssignBlogManagers = canAssignBlogManagersInBlog(authStore.currentUser, subscription.blogId)
+            && items.push(<AssignUserBlogManagerMenuItem blogId={subscription.blogId}
+                                                         userId={subscription.user.id}
+                                                         onClick={this.closeMenu}
+            />);
 
         if (items.length !== 0) {
             const menuId = `subscriptionMenuId-${subscription.id}`;
@@ -76,13 +86,20 @@ class BlogSubscriberActionsMenu extends React.Component {
                 >
                     {items}
                 </Menu>
-                {canBlockUserInBlog(authStore.currentUser, subscription.blogId)
-                && createBlogBlockingStore.blockedUserId === subscription.user.id
-                && <BlogBlockingDialog blogId={subscription.blogId}/>}
-                {canBlockUser(authStore.currentUser)
-                && createGlobalBlockingStore.blockedUser
-                && createGlobalBlockingStore.blockedUser.id === subscription.user.id
-                && <CreateGlobalBlockingDialog/>
+                {
+                    _canBlockUserInBlog && createBlogBlockingStore.blockedUserId === subscription.user.id
+                    && <BlogBlockingDialog blogId={subscription.blogId}/>}
+                {
+                    _canBlockUserGlobally
+                    && createGlobalBlockingStore.blockedUser
+                    && createGlobalBlockingStore.blockedUser.id === subscription.user.id
+                    && <CreateGlobalBlockingDialog/>
+                }
+                {
+                    _canAssignBlogManagers
+                    && createBlogManagerStore.blogId === subscription.blogId
+                    && createBlogManagerStore.userId === subscription.user.id
+                    && <AssignUserBlogManagerDialog/>
                 }
             </div>
         } else {
@@ -95,6 +112,7 @@ BlogSubscriberActionsMenu.propTypes = {
     authStore: PropTypes.object,
     createBlogBlockingStore: PropTypes.object,
     createGlobalBlockingStore: PropTypes.object,
+    createBlogManagerStore: PropTypes.object,
     subscription: PropTypes.object
 };
 

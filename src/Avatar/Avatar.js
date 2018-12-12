@@ -6,10 +6,15 @@ import {isBlank} from "../utils";
 class Avatar extends React.Component {
     render() {
         const {avatarUri, avatarLetter, avatarColor, width, height} = this.props;
-        const imgProps = {
-            width: `${width}px`,
-            height: `${height}px`
-        };
+        const imgProps = (width && height)
+            ? {
+                width: `${width}px`,
+                height: `${height}px`
+            }
+            : {
+                width: '100%',
+                height: '100%'
+            };
 
         return isBlank(avatarUri)
             ? <MaterialUiAvatar imgProps={imgProps}

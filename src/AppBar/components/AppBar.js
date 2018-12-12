@@ -40,7 +40,7 @@ class AppBar extends React.Component {
                                       color: 'inherit'
                                   }}
         >
-            Equinox
+            Aphelion
         </Link>);
 
         return <div style={{marginBottom: '80px'}}>

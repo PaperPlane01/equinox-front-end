@@ -8,7 +8,10 @@ import DeleteCommentMenuItem from './DeleteCommentMenuItem';
 import {canDeleteComment, canRestoreComment} from "../permissions";
 import RestoreCommentMenuItem from "./RestoreCommentMenuItem";
 import {canBlockUserInBlog, BlogBlockingDialog, BlockUserInBlogMenuItem} from "../../Blog";
+import {canBlockUser, CreateGlobalBlockingDialog, BlockUserGloballyMenuItem} from '../../User';
 
+@inject('blockCommentAuthorGloballyStore')
+@inject('createGlobalBlockingStore')
 @inject('blockCommentAuthorInBlogStore')
 @inject('createBlogBlockingStore')
 @inject('authStore')
@@ -30,25 +33,42 @@ class CommentActionsMenu extends React.Component {
         this.setState({anchorElement: null});
     };
 
+    handleBlockUserInBlogMenuItemClick = () => {
+        const {blockCommentAuthorInBlogStore, comment} = this.props;
+
+        this.closeMenu();
+        blockCommentAuthorInBlogStore.setCommentId(comment.id)
+    };
+
+    handleBlockUserGloballyMenuItemClick = () => {
+        const {comment, createGlobalBlockingStore, blockCommentAuthorGloballyStore} = this.props;
+        this.closeMenu();
+        blockCommentAuthorGloballyStore.setCommentId(comment.id);
+        createGlobalBlockingStore.setBlockedUser(comment.author);
+    };
+
     render() {
-        const {authStore, createBlogBlockingStore, comment, blockCommentAuthorInBlogStore} = this.props;
+        const {authStore, createBlogBlockingStore, comment, blockCommentAuthorInBlogStore,
+            createGlobalBlockingStore, blockCommentAuthorGloballyStore} = this.props;
         const items = [];
 
-        canDeleteComment(authStore.currentUser, comment) && items.push(<DeleteCommentMenuItem commentId={comment.id}
-                                                                                             onClick={this.closeMenu}
+        canDeleteComment(authStore.currentUser, comment) && items
+            .push(<DeleteCommentMenuItem commentId={comment.id}
+                                         onClick={this.closeMenu}
         />);
 
-        canRestoreComment(authStore.currentUser, comment) && items.push(<RestoreCommentMenuItem commentId={comment.id}
-                                                                                               onClick={this.closeMenu}
+        canRestoreComment(authStore.currentUser, comment) && items
+            .push(<RestoreCommentMenuItem commentId={comment.id}
+                                          onClick={this.closeMenu}
         />);
 
         canBlockUserInBlog(authStore.currentUser, comment.blogId) && items
-            .push(<BlockUserInBlogMenuItem onClick={() => {
-                this.closeMenu();
-                blockCommentAuthorInBlogStore.setCommentId(comment.id)
-            }}
+            .push(<BlockUserInBlogMenuItem onClick={this.handleBlockUserInBlogMenuItemClick}
                                            blockedUserId={comment.author.id}
         />);
+
+        canBlockUser(authStore.currentUser) && items
+            .push(<BlockUserGloballyMenuItem onClick={this.handleBlockUserGloballyMenuItemClick}/>);
 
         if (items.length !== 0) {
             const menuId = `commentActionsMenu-${comment.id}`;
@@ -76,7 +96,8 @@ class CommentActionsMenu extends React.Component {
                 {createBlogBlockingStore.blockedUserId === comment.author.id
                 && blockCommentAuthorInBlogStore.commentId === comment.id
                 && <BlogBlockingDialog blogId={comment.blogId}/>
-                };
+                }
+                {blockCommentAuthorGloballyStore.commentId === comment.id && <CreateGlobalBlockingDialog/>}
             </div>
         } else {
             return null;
@@ -88,7 +109,9 @@ CommentActionsMenu.propTypes = {
     comment: PropTypes.object,
     authStore: PropTypes.object,
     createBlogBlockingStore: PropTypes.object,
-    blockCommentAuthorInBlogStore: PropTypes.object
+    blockCommentAuthorInBlogStore: PropTypes.object,
+    createGlobalBlockingStore: PropTypes.object,
+    blockCommentAuthorGloballyStore: PropTypes.object
 };
 
 export default CommentActionsMenu;

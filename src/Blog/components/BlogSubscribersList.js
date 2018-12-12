@@ -9,6 +9,7 @@ import List from '@material-ui/core/List';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import BlogSubscribersListItem from './BlogSubscriberListItem';
 import LoadMoreSubscribersButton from './LoadMoreSubscribersButton';
+import BlogSubscribersUsernameInput from './BlogSubscribersUsernameInput';
 import {withLocale} from "../../localization";
 import views from '../../router-config';
 
@@ -29,11 +30,13 @@ class BlogSubscribersList extends React.Component {
                 <CardHeader title={l('subscribersOfBlog_withBlogName', {blogName: blog.name})}/>
             </Link>}
             <CardContent>
+                <BlogSubscribersUsernameInput/>
                 <div>
                     <List>
                         {subscriptions.map(subscription => (<BlogSubscribersListItem subscription={subscription}/>))}
                     </List>
-                    {fetchingSubscriptions && <CircularProgress color="primary"
+                    {fetchingSubscriptions
+                    && !blogSubscribersListStore.username && <CircularProgress color="primary"
                                                                 size={50}
                                                                 style={{
                                                                     marginLeft: 'calc(50% - 50px)',

@@ -12,7 +12,7 @@ class BlockedUserUsernameInput extends React.Component {
     updateUsername = _.debounce(username => {
         const {blogBlockingsStore} = this.props;
         blogBlockingsStore.setBlockedUserUsername(username);
-    });
+    }, 400);
 
     render() {
         const {l, blogBlockingsStore} = this.props;

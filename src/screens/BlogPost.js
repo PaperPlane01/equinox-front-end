@@ -8,6 +8,7 @@ import {CommentsSection} from "../Comment";
 import {BlogPostListItem} from "../BlogPost";
 import AppBar from '../AppBar';
 import {withLocale} from "../localization";
+import Hidden from "@material-ui/core/Hidden/Hidden";
 
 @withLocale
 @inject('blogPostStore')
@@ -21,7 +22,11 @@ class BlogPost extends React.Component {
             return <CircularProgress color="primary"
                                      size={100}
                                      style={{
-                                         marginLeft: 'calc(50% - 50px)',
+                                         position: 'absolute',
+                                         top: '50%',
+                                         left: '50%',
+                                         marginTop: '-50px',
+                                         marginLeft: '-50px',
                                      }}
             />
         }
@@ -53,15 +58,33 @@ class BlogPost extends React.Component {
             <Grid item xs={12}>
                 <AppBar/>
             </Grid>
-            <Grid item xs={1} lg={2}/>
-            <Grid item xs={10} lg={8}>
-                <div style={{
-                    marginTop: '16px',
-                    width: '100%'
-                }}>
-                    {this.renderContent()}
-                </div>
-            </Grid>
+            <Hidden mdUp>
+                <Grid item xs={12}>
+                    <div style={{
+                        marginLeft: '2.08333333334%',
+                        marginRight: '2.08333333334%',
+                        width: '100%'
+                    }}>
+                        <div style={{
+                            marginTop: '16px',
+                            width: '100%'
+                        }}>
+                            {this.renderContent()}
+                        </div>
+                    </div>
+                </Grid>
+            </Hidden>
+            <Hidden smDown>
+                <Grid item lg={2}/>
+                <Grid item xs={11} lg={8}>
+                    <div style={{
+                        marginTop: '16px',
+                        width: '100%'
+                    }}>
+                        {this.renderContent()}
+                    </div>
+                </Grid>
+            </Hidden>
         </Grid>
     }
 }

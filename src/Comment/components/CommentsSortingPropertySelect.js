@@ -26,7 +26,10 @@ class CommentsSortingPropertySelect extends React.Component {
                     }}
             >
                 <MenuItem value="id">
-                    {l('creationDate')}
+                    {l('sortingProperty_creationDate')}
+                </MenuItem>
+                <MenuItem value="numberOfLikes">
+                    {l('sortingProperty_numberOfLikes')}
                 </MenuItem>
             </Select>
         </div>
