@@ -1,6 +1,6 @@
 import {observable, action, reaction, computed} from 'mobx';
-import {blogBlockingService, blogService, createErrorFromResponse} from "../../../Api";
-import {isBlank} from "../../../utils";
+import {blogBlockingService, blogService, createErrorFromResponse} from "../../Api";
+import {isBlank} from "../../utils";
 import {canSeeUsersBlockedInBlog} from "../permissions";
 
 export default class BlogBlockingsStore {

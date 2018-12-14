@@ -1,6 +1,6 @@
 import addHours from 'date-fns/addHours';
 import {action, observable, reaction} from 'mobx';
-import {blogBlockingService, createErrorFromResponse} from "../../../Api";
+import {blogBlockingService, createErrorFromResponse} from "../../Api";
 import {validateEndDate, validateReason} from "../validation";
 
 export default class CreateBlogBlockingStore {

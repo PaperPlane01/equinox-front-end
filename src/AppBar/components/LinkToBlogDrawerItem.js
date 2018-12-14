@@ -10,7 +10,7 @@ import views from '../../router-config';
 @inject('store')
 @inject('appBarStore')
 @observer
-class SubscriptionDrawerItem extends React.Component {
+class LinkToBlogDrawerItem extends React.Component {
     render() {
         const {blogId, blogAvatarUri, blogName, blogLetterAvatarColor, store, appBarStore} = this.props;
 
@@ -36,7 +36,7 @@ class SubscriptionDrawerItem extends React.Component {
     }
 }
 
-SubscriptionDrawerItem.propTypes = {
+LinkToBlogDrawerItem.propTypes = {
     blogId: PropTypes.number,
     blogName: PropTypes.string,
     blogAvatarUri: PropTypes.string,
@@ -45,4 +45,4 @@ SubscriptionDrawerItem.propTypes = {
     appBarStore: PropTypes.object
 };
 
-export default SubscriptionDrawerItem;
+export default LinkToBlogDrawerItem;

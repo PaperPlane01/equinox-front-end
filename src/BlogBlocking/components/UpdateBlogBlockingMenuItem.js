@@ -5,7 +5,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import EditIcon from '@material-ui/icons/Edit';
-import {withLocale} from "../../../localization";
+import {withLocale} from "../../localization";
 
 @withLocale
 @inject('updateBlogBlockingStore')

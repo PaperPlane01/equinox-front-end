@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {inject, observer} from 'mobx-react';
 import TextField from '@material-ui/core/TextField';
 import _ from 'lodash';
-import {withLocale} from "../../../localization";
+import {withLocale} from "../../localization";
 
 @withLocale
 @inject('blogBlockingsStore')

@@ -5,8 +5,8 @@ import {Link} from 'mobx-router';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import BlogBlockingActionsMenu from './BlogBlockingActionsMenu';
-import Avatar from '../../../Avatar';
-import views from '../../../router-config';
+import Avatar from '../../Avatar';
+import views from '../../router-config';
 
 @inject('store')
 @observer

@@ -164,5 +164,7 @@ export default {
     EDITOR: "Editor",
     MODERATOR: "Moderator",
     accessToPageDenied: "You don't have permission to visit this page",
-    loginWithGoogle: "Log In with Google"
+    loginWithGoogle: "Log In with Google",
+    myBlogs: "My blogs",
+    youDontHaveAnyBlogs: "You don't have any blogs"
 }

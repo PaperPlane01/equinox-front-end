@@ -1,5 +1,5 @@
 export const WEB_APP_BASE_URL = 'http://localhost:3000';
-const API_BASE_URL = 'http://192.168.1.107:8080';
+const API_BASE_URL = 'http://localhost:8080';
 
 export default {
     API_BASE_URL: API_BASE_URL,
@@ -38,5 +38,6 @@ export default {
     AUTHOR: 'author',
     FEED: 'feed',
     BLOCKINGS: 'blockings',
-    GOOGLE: 'google'
+    GOOGLE: 'google',
+    OWNED_BLOGD: 'owned-blogs'
 };

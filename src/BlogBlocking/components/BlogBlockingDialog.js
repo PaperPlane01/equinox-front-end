@@ -11,7 +11,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import {DateTimePicker} from 'material-ui-pickers';
-import {withLocale} from "../../../localization";
+import {withLocale} from "../../localization";
 
 @withLocale
 @inject('createBlogBlockingStore')

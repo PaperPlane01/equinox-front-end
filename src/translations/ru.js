@@ -164,5 +164,7 @@ export default {
     EDITOR: "Редактор",
     MODERATOR: "Модератор",
     accessToPageDenied: "У вас нет прав доступа к данной странице",
-    loginWithGoogle: "Войти с помощью Google"
+    loginWithGoogle: "Войти с помощью Google",
+    myBlogs: "Мои блоги",
+    youDontHaveAnyBlogs: "У вас нет блогов"
 }

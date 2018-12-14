@@ -1,4 +1,4 @@
-import {isBlank} from "../../../utils";
+import {isBlank} from "../../utils";
 
 export const validateReason = reason => {
     if (isBlank(reason)) {

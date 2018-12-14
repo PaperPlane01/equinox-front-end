@@ -6,7 +6,7 @@ import {observer, inject} from 'mobx-react';
 import AppBar from '../AppBar';
 import {withLocale} from "../localization";
 import Typography from "@material-ui/core/Typography/Typography";
-import {BlockedUsersList, LoadMoreBlogBlockingsButton, canSeeUsersBlockedInBlog} from "../Blog/BlogBlocking";
+import {BlockedUsersList, LoadMoreBlogBlockingsButton, canSeeUsersBlockedInBlog} from "../BlogBlocking";
 
 @withLocale
 @inject('authStore')

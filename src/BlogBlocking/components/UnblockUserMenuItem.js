@@ -5,7 +5,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
-import {withLocale} from "../../../localization";
+import {withLocale} from "../../localization";
 
 @withLocale
 @inject('blogBlockingsStore')

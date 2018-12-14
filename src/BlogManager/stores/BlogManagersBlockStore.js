@@ -1,6 +1,6 @@
 import {action, reaction, observable, computed} from 'mobx';
-import {blogManagerService, createErrorFromResponse} from "../../Api";
-import {canSeeBlogManagers} from "../permissions";
+import {blogManagerService, createErrorFromResponse} from "../../Api/index";
+import {canSeeBlogManagers} from "../../Blog/permissions/index";
 
 export default class BlogManagersBlockStore {
     @observable blogManagers = [];

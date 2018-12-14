@@ -21,10 +21,15 @@ const findMinifiedById = id => {
     return Api.get(`/${Routes.BLOGS}/${id}/${Routes.MINIFIED}`);
 };
 
+const findOwnedByCurrentUser = () => {
+    return Api.get(`/${Routes.CURRENT_USER}/${Routes.OWNED_BLOGD}`);
+};
+
 export default {
     save,
     update,
     delete: _delete,
     findById,
-    findMinifiedById
+    findMinifiedById,
+    findOwnedByCurrentUser
 };

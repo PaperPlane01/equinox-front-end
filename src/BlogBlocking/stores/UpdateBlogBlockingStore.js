@@ -1,6 +1,6 @@
 import {observable, action, reaction} from 'mobx';
 import {validateEndDate, validateReason} from "../validation";
-import {blogBlockingService, createErrorFromResponse} from "../../../Api";
+import {blogBlockingService, createErrorFromResponse} from "../../Api";
 
 export default class UpdateBlogBlockingStore {
     @observable blogBlockingFormValues = {

@@ -4,15 +4,17 @@ import {SettingsStore} from '../Settings';
 import {BlogPostListStore, CreateBlogPostStore, BlogPostLikeStore, DeleteBlogPostDialogStore,
     BlogPostStore, BlockBlogPostAuthorStore, FeedStore} from "../BlogPost";
 import {CreateBlogStore, BlogStore, BlogSubscribersBlockStore, SubscribeToBlogStore,
-    UnsubscribeFromBlogStore, BlogManagersBlockStore, EditBlogDialogStore, CreateBlogBlockingStore,
-    BlogSubscribersListStore, BlogBlockingsStore, UpdateBlogBlockingStore, CreateBlogManagerStore,
-    UpdateBlogManagerStore, BlogManagersStore} from "../Blog";
-import {AppBarStore, CurrentUserSubscriptionsStore} from "../AppBar";
+    UnsubscribeFromBlogStore, EditBlogDialogStore, BlogSubscribersListStore} from "../Blog";
+import {BlogManagersBlockStore, CreateBlogManagerStore, UpdateBlogManagerStore, BlogManagersStore} from '../BlogManager'
+import {CreateBlogBlockingStore, BlogBlockingsStore, UpdateBlogBlockingStore} from '../BlogBlocking';
+import {AppBarStore, CurrentUserSubscriptionsStore, CurrentUserBlogsStore} from "../AppBar";
 import {CommentListStore, CreateCommentStore, CommentLikeStore, DeleteCommentStore,
     RestoreCommentStore, BlockCommentAuthorInBlogStore, BlockCommentAuthorGloballyStore} from "../Comment";
 import {NotificationsHolderStore} from "../Notification";
 
 const authStore = new AuthStore();
+const signUpStore = new SignUpStore();
+const settingsStore = new SettingsStore();
 const editProfileStore = new EditProfileStore(authStore);
 const userProfileStore = new UserProfileStore(authStore);
 const blogStore = new BlogStore(authStore);
@@ -33,8 +35,9 @@ const commentLikeStore = new CommentLikeStore(commentListStore);
 const deleteCommentStore = new DeleteCommentStore(commentListStore);
 const restoreCommentStore = new RestoreCommentStore(commentListStore);
 const editBlogDialogStore = new EditBlogDialogStore(blogStore);
-const notificationHolderStore = new NotificationsHolderStore(authStore);
+const notificationsHolderStore = new NotificationsHolderStore(authStore);
 const createBlogBlockingStore = new CreateBlogBlockingStore(blogStore, blogPostStore);
+const blockCommentAuthorInBlogStore = new BlockCommentAuthorInBlogStore();
 const blogSubscribersListStore = new BlogSubscribersListStore();
 const createGlobalBlockingStore = new CreateGlobalBlockingStore();
 const blockBlogPostAuthorStore = new BlockBlogPostAuthorStore(createGlobalBlockingStore);
@@ -46,44 +49,47 @@ const updateBlogManagerStore = new UpdateBlogManagerStore();
 const blogManagersStore = new BlogManagersStore(updateBlogManagerStore);
 const blockCommentAuthorGloballyStore = new BlockCommentAuthorGloballyStore();
 const googleAuthStore = new GoogleAuthStore(authStore);
+const createBlogStore = new CreateBlogStore();
+const currentUserBlogsStore = new CurrentUserBlogsStore(authStore, createBlogStore, appBarStore);
 
 export default {
-    authStore: authStore,
-    blogPostListStore: blogPostListStore,
-    blogPostLikeStore: blogPostLikeStore,
-    signUpStore: new SignUpStore(),
-    settingsStore: new SettingsStore(),
-    createBlogStore: new CreateBlogStore(),
-    editProfileStore: editProfileStore,
-    userProfileStore: userProfileStore,
-    blogStore: blogStore,
-    blogSubscribersBlockStore: blogSubscribersBlockStore,
-    subscribeToBlogStore: subscribeToBlogStore,
-    unsubscribeFromBlogStore: unsubscribeFromBlogStore,
-    createBlogPostStore: createBlogPostStore,
-    appBarStore: appBarStore,
-    currentUserSubscriptionsStore: currentUserSubscriptionsStore,
-    deleteBlogPostDialogStore: deleteBlogPostDialogStore,
-    blogManagersBlockStore: blogManagersBlockStore,
-    blogPostStore: blogPostStore,
-    commentListStore: commentListStore,
-    createCommentStore: createCommentStore,
-    commentLikeStore: commentLikeStore,
-    deleteCommentStore: deleteCommentStore,
-    restoreCommentStore: restoreCommentStore,
-    editBlogDialogStore: editBlogDialogStore,
-    notificationsHolderStore: notificationHolderStore,
-    createBlogBlockingStore: createBlogBlockingStore,
-    blockCommentAuthorInBlogStore: new BlockCommentAuthorInBlogStore(),
-    blogSubscribersListStore: blogSubscribersListStore,
-    createGlobalBlockingStore: createGlobalBlockingStore,
-    blockBlogPostAuthorStore: blockBlogPostAuthorStore,
-    feedStore: feedStore,
-    blogBlockingsStore: blogBlockingsStore,
-    updateBlogBlockingStore: updateBlogBlockingStore,
-    createBlogManagerStore: createBlogManagerStore,
-    updateBlogManagerStore: updateBlogManagerStore,
-    blogManagersStore: blogManagersStore,
-    blockCommentAuthorGloballyStore: blockCommentAuthorGloballyStore,
-    googleAuthStore: googleAuthStore
+    authStore,
+    blogPostListStore,
+    blogPostLikeStore,
+    signUpStore,
+    settingsStore,
+    createBlogStore,
+    editProfileStore,
+    userProfileStore,
+    blogStore,
+    blogSubscribersBlockStore,
+    subscribeToBlogStore,
+    unsubscribeFromBlogStore,
+    createBlogPostStore,
+    appBarStore,
+    currentUserSubscriptionsStore,
+    deleteBlogPostDialogStore,
+    blogManagersBlockStore,
+    blogPostStore,
+    commentListStore,
+    createCommentStore,
+    commentLikeStore,
+    deleteCommentStore,
+    restoreCommentStore,
+    editBlogDialogStore,
+    notificationsHolderStore,
+    createBlogBlockingStore,
+    blockCommentAuthorInBlogStore,
+    blogSubscribersListStore,
+    createGlobalBlockingStore,
+    blockBlogPostAuthorStore,
+    feedStore,
+    blogBlockingsStore,
+    updateBlogBlockingStore,
+    createBlogManagerStore,
+    updateBlogManagerStore,
+    blogManagersStore,
+    blockCommentAuthorGloballyStore,
+    googleAuthStore,
+    currentUserBlogsStore
 };

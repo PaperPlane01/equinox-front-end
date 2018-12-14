@@ -10,9 +10,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
-import Avatar from '../../Avatar';
-import {withLocale} from "../../localization";
-import views from '../../router-config';
+import Avatar from '../../Avatar/index';
+import {withLocale} from "../../localization/index";
+import views from '../../router-config/index';
 
 @withLocale
 @inject('store')

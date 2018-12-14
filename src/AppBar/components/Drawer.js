@@ -1,29 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {inject, observer} from 'mobx-react';
-import {Link} from 'mobx-router';
 import SwipableDrawer from '@material-ui/core/SwipeableDrawer';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import HomeIcon from '@material-ui/icons/Home';
-import SubscriptionsIcon from '@material-ui/icons/Subscriptions';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
-import Collapse from '@material-ui/core/Collapse';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import RssFeedIcon from '@material-ui/icons/RssFeed';
-import SubscriptionDrawerItem from './SubscriptionDrawerItem';
-import {withLocale} from "../../localization";
-import views from '../../router-config';
+import CurrentUserSubscriptionsDrawerItem from './CurrentUserSubscriptionsDrawerItem';
+import FeedDrawerItem from './FeedDrawerItem';
+import CurrentUserBlogsDrawerItem from './CurrentUserBlogsDrawerItem';
+import LinkToHomeDrawerItem from './LinkToHomeDrawerItem';
 
-@withLocale
 @inject('appBarStore')
-@inject('currentUserSubscriptionsStore')
 @inject('authStore')
-@inject('store')
 @observer
 class Drawer extends React.Component {
     constructor(props) {
@@ -31,50 +18,13 @@ class Drawer extends React.Component {
     };
 
     render() {
-        const {authStore, currentUserSubscriptionsStore, appBarStore, store, l} = this.props;
-        const {loggedIn, currentUser} = authStore;
-        const {subscriptions, pending} = currentUserSubscriptionsStore;
-        const {drawerOpened, subscriptionsOpened} = appBarStore;
+        const {authStore, appBarStore} = this.props;
+        const {loggedIn} = authStore;
+        const {drawerOpened} = appBarStore;
 
-        const subscriptionsMenuItem = loggedIn && (<div>
-            <ListItem button
-                      onClick={() => appBarStore.setSubscriptionsOpen(!subscriptionsOpened)}
-            >
-                <ListItemIcon>
-                    <SubscriptionsIcon/>
-                </ListItemIcon>
-                <ListItemText>
-                    {l('subscriptions')}
-                </ListItemText>
-                {subscriptionsOpened ? <ExpandLessIcon/> : <ExpandMoreIcon/>}
-            </ListItem>
-            <Collapse in={subscriptionsOpened}
-                      timeout="auto"
-                      unmountOnExit
-            >
-                <List component="div"
-                      disablePadding
-                >
-                    {(subscriptions.length === 0 && pending) && <CircularProgress size={20}
-                                                 color="primary"
-                                                 style={{
-                                                     marginLeft: 'calc(50% - 10px)'
-                                                 }}
-                    />}
-                    {(subscriptions.length === 0 && !pending)
-                        ? <ListItem>
-                            <ListItemText>
-                                {l('noSubscriptions')}
-                            </ListItemText>
-                        </ListItem>
-                        : subscriptions.map(subscription => (<SubscriptionDrawerItem blogName={subscription.blog.name}
-                                                                                     blogId={subscription.blog.id}
-                                                                                     blogLetterAvatarColor={subscription.blog.letterAvatarColor}
-                                                                                     blogAvatarUri={subscription.blog.avatarUri}
-                        />))}
-                </List>
-            </Collapse>
-        </div>);
+        const subscriptionsItem = loggedIn && (<CurrentUserSubscriptionsDrawerItem/>);
+        const feedItem = loggedIn && (<FeedDrawerItem/>);
+        const blogsItem = loggedIn && (<CurrentUserBlogsDrawerItem/>);
 
         return <SwipableDrawer open={drawerOpened}
                                onOpen={() => appBarStore.setDrawerOpened(true)}
@@ -82,40 +32,11 @@ class Drawer extends React.Component {
                                anchor="left"
         >
             <List>
-                <Link view={views.home}
-                      store={store}
-                      style={{
-                          textDecoration: 'none'
-                      }}
-                >
-                    <ListItem onClick={() => appBarStore.setDrawerOpened(false)}>
-                        <ListItemIcon>
-                            <HomeIcon/>
-                        </ListItemIcon>
-                        <ListItem>
-                            <ListItemText>
-                                {l('home')}
-                            </ListItemText>
-                        </ListItem>
-                    </ListItem>
-                </Link>
+                <LinkToHomeDrawerItem/>
                 <Divider/>
-                {authStore.loggedIn && <Link view={views.feed}
-                                             store={store}
-                                             style={{
-                                                 textDecoration: 'none'
-                                             }}
-                >
-                    <ListItem onClick={() => appBarStore.setDrawerOpened(false)}>
-                        <ListItemIcon>
-                            <RssFeedIcon/>
-                        </ListItemIcon>
-                        <ListItemText>
-                            {l('feed')}
-                        </ListItemText>
-                    </ListItem>
-                </Link>}
-                {subscriptionsMenuItem}
+                {feedItem}
+                {subscriptionsItem}
+                {blogsItem}
             </List>
         </SwipableDrawer>
     }
@@ -123,10 +44,7 @@ class Drawer extends React.Component {
 
 Drawer.propTypes = {
     authStore: PropTypes.object,
-    currentUserSubscriptionsStore: PropTypes.object,
     appBarStore: PropTypes.object,
-    store: PropTypes.object,
-    l: PropTypes.func,
     title: PropTypes.string
 };
 

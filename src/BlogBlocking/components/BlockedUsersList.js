@@ -8,7 +8,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import BlockedUsersListItem from './BlockedUsersListItem';
 import BlockedUserUsernameInput from './BlockedUserUsernameInput';
-import {withLocale} from "../../../localization";
+import {withLocale} from "../../localization";
 
 @withLocale
 @inject('blogBlockingsStore')
