@@ -7,7 +7,8 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import DeleteCommentMenuItem from './DeleteCommentMenuItem';
 import {canDeleteComment, canRestoreComment} from "../permissions";
 import RestoreCommentMenuItem from "./RestoreCommentMenuItem";
-import {canBlockUserInBlog, BlogBlockingDialog, BlockUserInBlogMenuItem} from "../../Blog";
+import {canBlockUserInBlog} from "../../Blog";
+import {BlogBlockingDialog, BlockUserInBlogMenuItem} from '../../BlogBlocking';
 import {canBlockUser, CreateGlobalBlockingDialog, BlockUserGloballyMenuItem} from '../../User';
 
 @inject('blockCommentAuthorGloballyStore')
