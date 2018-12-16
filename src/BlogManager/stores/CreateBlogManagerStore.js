@@ -26,6 +26,15 @@ export default class CreateBlogManagerStore {
             () => {
                 this.userId && this.fetchUser();
             }
+        );
+
+        reaction(
+            () => this.createBlogManagerDialogOpen,
+            open => {
+                if (!open) {
+                    this.persistedBlogManager = undefined;
+                }
+            }
         )
     }
 

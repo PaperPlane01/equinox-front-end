@@ -85,6 +85,7 @@ export default {
     areYouSureThatYouWantToDeleteBlogPost: "Вы уверены, что хотите удалить пост?",
     deleteBlogPost: "Удалить пост",
     blogManagers: "Администрация блога",
+    blogManagers_withBlogName: "Администрация блога {blogName}",
     editor: "Редактор",
     moderator: "Модератор",
     owner: "Владелец",
@@ -166,5 +167,11 @@ export default {
     accessToPageDenied: "У вас нет прав доступа к данной странице",
     loginWithGoogle: "Войти с помощью Google",
     myBlogs: "Мои блоги",
-    youDontHaveAnyBlogs: "У вас нет блогов"
+    youDontHaveAnyBlogs: "У вас нет блогов",
+    errorWhenAttemptedToFetchBlogManagers: "Во время попытки загрузить администрацию блога прозошла ошибка. Сервер овтетил со статусом {errorStatus}. Пожалуйста, попробуйте позже",
+    blogManagerNotFound: "Администратор блога не найден",
+    errorWhenAttemptedToFetchBlogManager: "Во время попытки загрузить администратора блога прозошла ошибка. Сервер овтетил со статусом {errorStatus}. Пожалуйста, попробуйте позже",
+    deleteBlogManager: "Удалить администратора блога",
+    confirmBlogManagerDeletion: "Вы уверены, что хотите удалить этого администратора блога?",
+    errorWhenAttemptedToDeleteBlogManager: "Во время попытки удалить администратора блога произошла ошибка. Сервер ответил со статусом {errorStatus} status. Пожалуйста, попробуйте позже"
 }

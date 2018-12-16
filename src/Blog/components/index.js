@@ -10,7 +10,7 @@ export {default as BlogManagersVisibilityLevelSelect} from './BlogManagersVisibi
 export {default as EditBlogDialog} from './EditBlogDialog';
 export {default as BlogActionsMenu} from './BlogActionsMenu';
 export {default as BlogSubscribersActionsMenu} from './BlogSubscriberActionsMenu';
-export {default as BlogSubscriberListItem} from './BlogSubscriberListItem';
+export {default as BlogSubscribersListItem} from './BlogSubscribersListItem';
 export {default as BlogSubscribersList} from './BlogSubscribersList';
 export {default as LoadMoreSubscribersButton} from './LoadMoreSubscribersButton';
 export {default as BlockedUsersInBlogMenuItem} from './BlockedUsersInBlogMenuItem';

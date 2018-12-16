@@ -79,10 +79,16 @@ class BlogManagersBlock extends React.Component {
     };
 
     render() {
-        const {blogManagersBlockStore, store, l} = this.props;
+        const {store, blogManagersBlockStore, l} = this.props;
 
         return <Card>
-            <CardHeader title={l('blogManagers')}/>
+            <Link style={{textDecoration: 'none'}}
+                  store={store}
+                  view={views.blogManagers}
+                  params={{blogId: blogManagersBlockStore.blogId}}
+            >
+                <CardHeader title={l('blogManagers')}/>
+            </Link>
             <CardContent>
                 {this.renderCardContent()}
             </CardContent>

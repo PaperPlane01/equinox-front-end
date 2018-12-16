@@ -3,7 +3,7 @@ import {validateBlogManagerRole} from "../validation";
 import {blogManagerService, createErrorFromResponse} from "../../Api";
 
 export default class UpdateBlogManagerStore {
-    @observable blogManagerId = undefined;
+    @observable managerId = undefined;
     @observable blogManager = undefined;
     @observable updateBlogManagerFormValues = {
         blogRole: undefined
@@ -23,7 +23,7 @@ export default class UpdateBlogManagerStore {
         reaction(
             () => this.blogId,
             () => {
-                this.blogManagerId = undefined;
+                this.managerId = undefined;
                 this.persistedBlogManager = undefined;
                 this.submissionError = undefined;
                 this.updateBlogManagerFormValues = {blogRole: undefined};
@@ -32,9 +32,9 @@ export default class UpdateBlogManagerStore {
         );
 
         reaction(
-            () => this.blogManagerId,
+            () => this.managerId,
             () => {
-                if (this.blogManagerId) {
+                if (this.managerId) {
                     this.persistedBlogManager = undefined;
                     this.fetchBlogManager();
                 }
@@ -56,7 +56,7 @@ export default class UpdateBlogManagerStore {
     };
 
     @action setBlogManagerId = id => {
-        this.blogManagerId = id;
+        this.managerId = id;
     };
 
     @action setUpdateBlogManagerDialogOpen = open => {
@@ -71,7 +71,7 @@ export default class UpdateBlogManagerStore {
         this.blogManagerError = undefined;
         this.fetchingBlogManager = true;
 
-        return blogManagerService.findByBlogAndId(this.blogId, this.blogManagerId)
+        return blogManagerService.findByBlogAndId(this.blogId, this.managerId)
             .then(response => {
                 this.blogManager = response.data;
                 this.updateBlogManagerFormValues = {
@@ -91,7 +91,7 @@ export default class UpdateBlogManagerStore {
 
             return blogManagerService.update(
                 this.blogId,
-                this.blogManagerId,
+                this.managerId,
                 this.updateBlogManagerFormValues.blogRole
             ).then(response => {
                 this.persistedBlogManager = response.data;

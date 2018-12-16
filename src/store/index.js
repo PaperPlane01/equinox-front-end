@@ -5,11 +5,13 @@ import {BlogPostListStore, CreateBlogPostStore, BlogPostLikeStore, DeleteBlogPos
     BlogPostStore, BlockBlogPostAuthorStore, FeedStore} from "../BlogPost";
 import {CreateBlogStore, BlogStore, BlogSubscribersBlockStore, SubscribeToBlogStore,
     UnsubscribeFromBlogStore, EditBlogDialogStore, BlogSubscribersListStore} from "../Blog";
-import {BlogManagersBlockStore, CreateBlogManagerStore, UpdateBlogManagerStore, BlogManagersStore} from '../BlogManager'
+import {BlogManagersBlockStore, CreateBlogManagerStore, UpdateBlogManagerStore,
+    BlogManagersStore, DeleteBlogManagerStore} from '../BlogManager'
 import {CreateBlogBlockingStore, BlogBlockingsStore, UpdateBlogBlockingStore} from '../BlogBlocking';
 import {AppBarStore, CurrentUserSubscriptionsStore, CurrentUserBlogsStore} from "../AppBar";
 import {CommentListStore, CreateCommentStore, CommentLikeStore, DeleteCommentStore,
-    RestoreCommentStore, BlockCommentAuthorInBlogStore, BlockCommentAuthorGloballyStore} from "../Comment";
+    RestoreCommentStore, BlockCommentAuthorInBlogStore,
+    BlockCommentAuthorGloballyStore} from "../Comment";
 import {NotificationsHolderStore} from "../Notification";
 
 const authStore = new AuthStore();
@@ -51,6 +53,7 @@ const blockCommentAuthorGloballyStore = new BlockCommentAuthorGloballyStore();
 const googleAuthStore = new GoogleAuthStore(authStore);
 const createBlogStore = new CreateBlogStore();
 const currentUserBlogsStore = new CurrentUserBlogsStore(authStore, createBlogStore, appBarStore);
+const deleteBlogManagerStore = new DeleteBlogManagerStore(blogManagersStore);
 
 export default {
     authStore,
@@ -91,5 +94,6 @@ export default {
     blogManagersStore,
     blockCommentAuthorGloballyStore,
     googleAuthStore,
-    currentUserBlogsStore
+    currentUserBlogsStore,
+    deleteBlogManagerStore
 };

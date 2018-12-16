@@ -8,3 +8,4 @@ export {default as BlogSubscribers} from './BlogSubscribers';
 export {default as Feed} from './Feed';
 export {default as BlogBlockings} from './BlogBlockings';
 export {default as GoogleAuth} from './GoogleAuth';
+export {default as BlogManagers} from './BlogManagers';

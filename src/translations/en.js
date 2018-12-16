@@ -85,6 +85,7 @@ export default {
     areYouSureThatYouWantToDeleteBlogPost: "Are you sure that you want to delete blog post?",
     deleteBlogPost: "Delete blog post",
     blogManagers: "Blog managers",
+    blogManagers_withBlogName: "Managers of blog {blogName}",
     editor: "Editor",
     moderator: "Moderator",
     owner: "Owner",
@@ -166,5 +167,11 @@ export default {
     accessToPageDenied: "You don't have permission to visit this page",
     loginWithGoogle: "Log In with Google",
     myBlogs: "My blogs",
-    youDontHaveAnyBlogs: "You don't have any blogs"
+    youDontHaveAnyBlogs: "You don't have any blogs",
+    errorWhenAttemptedToFetchBlogManagers: "Error occurred when attempted to fetch blog managers. Server responded with {errorStatus} status. Please try again later",
+    blogManagerNotFound: "Blog manager not found",
+    errorWhenAttemptedToFetchBlogManager: "Error occurred when attempted to fetch blog manager. Server responded with {errorStatus} status. Please try again later",
+    deleteBlogManager: "Delete blog manager",
+    confirmBlogManagerDeletion: "Are you sure you want to delete this blog manager?",
+    errorWhenAttemptedToDeleteBlogManager: "Error occurred when attempted to delete blog manager. Server responded with {errorStatus} status. Please try again later"
 }

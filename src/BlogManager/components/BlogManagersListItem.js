@@ -1,43 +1,47 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {inject} from 'mobx-react';
+import {inject, observer} from 'mobx-react';
 import {Link} from 'mobx-router';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import BlogSubscriberActionsMenu from './BlogSubscriberActionsMenu';
+import BlogManagerActionsMenu from './BlogManagerActionsMenu';
 import Avatar from '../../Avatar';
+import {withLocale} from "../../localization";
 import views from '../../router-config';
 
+@withLocale
 @inject('store')
-class BlogSubscriberListItem extends React.Component {
+@observer
+class BlogManagersListItem extends React.Component {
     render() {
-        const {store, subscription} = this.props;
-        const {user} = subscription;
+        const {store, blogManager, l} = this.props;
+        const {user} = blogManager;
 
         return <ListItem>
-            <Avatar width={60}
+            <Avatar avatarUri={user.avatarUri}
                     height={60}
+                    width={60}
                     avatarLetter={user.displayedName[0]}
                     avatarColor={user.letterAvatarColor}
-                    avatarUri={user.avatarUri}
             />
             <ListItemText>
                 <Link store={store}
                       view={views.userProfile}
-                      params={{id: user.id}}
+                      params={{id : user.id}}
                       style={{textDecoration: 'none'}}
                 >
                     {user.displayedName}
-                </Link>
+                </Link> — {l(blogManager.blogRole)}
             </ListItemText>
-            <BlogSubscriberActionsMenu subscription={subscription}/>
+            <BlogManagerActionsMenu blogManager={blogManager}/>
         </ListItem>
     }
 }
 
-BlogSubscriberListItem.propTypes = {
+BlogManagersListItem.propTypes = {
+    blogManager: PropTypes.object,
     store: PropTypes.object,
-    subscription: PropTypes.object
+    l: PropTypes.func
 };
 
-export default BlogSubscriberListItem;
+export default BlogManagersListItem;

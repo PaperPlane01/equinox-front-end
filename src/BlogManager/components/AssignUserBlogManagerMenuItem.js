@@ -4,7 +4,7 @@ import {inject, observer} from 'mobx-react';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle'
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import {withLocale} from "../../localization/index";
 
 @withLocale
@@ -28,7 +28,7 @@ class AssignUserBlogManagerMenuItem extends React.Component {
 
         return <MenuItem onClick={this.handleClick}>
             <ListItemIcon>
-                <SupervisedUserCircleIcon/>
+                <PersonAddIcon/>
             </ListItemIcon>
             <ListItemText>
                 {l('assignUserABlogManager')}

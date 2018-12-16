@@ -1,8 +1,7 @@
 import React from 'react';
-import {toJS} from 'mobx';
 import {Route} from 'mobx-router';
 import {Home, CreateBlog, EditProfile, User, Blog, BlogPost, BlogSubscribers, Feed,
-    BlogBlockings, GoogleAuth} from '../screens';
+    BlogBlockings, GoogleAuth, BlogManagers} from '../screens';
 import appStore from '../store';
 import _getViewByPath from './getViewByPath';
 export const getViewByPath = _getViewByPath;
@@ -103,6 +102,21 @@ export default {
         },
         onExit: () => {
             appStore.blogBlockingsStore.reset();
+        }
+    }),
+    blogManagers: new Route({
+        path: '/blog/:blogId/managers',
+        component: <BlogManagers/>,
+        onEnter: (route, params) => {
+            appStore.blogManagersStore.setBlogId(params.blogId);
+            appStore.updateBlogManagerStore.setBlogId(params.blogId);
+        },
+        onParamsChange: (route, params) => {
+            appStore.blogManagersStore.setBlogId(params.blogId);
+            appStore.updateBlogManagerStore.setBlogId(params.blogId);
+        },
+        onExit: () => {
+            appStore.blogManagersStore.reset();
         }
     })
 };

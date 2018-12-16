@@ -1,6 +1,6 @@
 import {observable, action, reaction} from 'mobx';
 import _ from 'lodash';
-import {blogManagerService, createErrorFromResponse} from "../../Api/index";
+import {blogManagerService, blogService, createErrorFromResponse} from "../../Api/index";
 import {isBlank} from "../../utils/index";
 
 export default class BlogManagersStore {
@@ -16,6 +16,8 @@ export default class BlogManagersStore {
     @observable updateBlogManagerStore = undefined;
     @observable pending = false;
     @observable error = undefined;
+    @observable blog = undefined;
+    @observable fetchingBlog = false;
 
     constructor(updateBlogManagerStore) {
         this.updateBlogManagerStore = updateBlogManagerStore;
@@ -26,6 +28,7 @@ export default class BlogManagersStore {
                 if (this.blogId) {
                     this.currentPage = 0;
                     this.managers = [];
+                    this.fetchBlog();
                     this.fetchBlogManagers();
                 }
             }
@@ -42,9 +45,13 @@ export default class BlogManagersStore {
         );
 
         reaction(
-            () => this.updateBlogManagerStore.updatedBlogManager,
-            () => {
-                this.managers = _.unionBy(this.managers, [this.updateBlogManagerStore.updatedBlogManager], 'id');
+            () => this.updateBlogManagerStore.persistedBlogManager,
+            updatedBlogManager => {
+                this.managers.forEach(manager => {
+                    if (manager.blogManagerId === updatedBlogManager.blogManagerId) {
+                        manager.blogRole = updatedBlogManager.blogRole;
+                    }
+                })
             }
         )
     }
@@ -61,6 +68,20 @@ export default class BlogManagersStore {
         return blogManagerService.delete(this.blogId, id)
             .then(() => {
                 this.managers = this.managers.filter(manager => manager.id !== id);
+            })
+    };
+
+    @action fetchBlog = () => {
+        this.fetchingBlog = true;
+        this.error = undefined;
+
+        return blogService.findMinifiedById(this.blogId)
+            .then(response => {
+                this.blog = response.data;
+            }).catch(error => {
+                this.error = createErrorFromResponse(error.response);
+            }).then(() => {
+                this.fetchingBlog = false;
             })
     };
 
@@ -103,5 +124,16 @@ export default class BlogManagersStore {
                 this.pending = false;
             })
         }
+    };
+
+    @action removeBlogManager = managerId => {
+        this.managers = this.managers.filter(manager => manager.blogManagerId !== managerId);
+    };
+
+    @action reset = () => {
+        this.blogId = undefined;
+        this.currentPage = 0;
+        this.managers = [];
+        this.error = undefined;
     }
 }

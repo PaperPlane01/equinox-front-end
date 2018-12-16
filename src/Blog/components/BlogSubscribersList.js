@@ -7,7 +7,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import List from '@material-ui/core/List';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import BlogSubscribersListItem from './BlogSubscriberListItem';
+import BlogSubscribersListItem from './BlogSubscribersListItem';
 import LoadMoreSubscribersButton from './LoadMoreSubscribersButton';
 import BlogSubscribersUsernameInput from './BlogSubscribersUsernameInput';
 import {withLocale} from "../../localization";

@@ -68,7 +68,7 @@ class AssignUserBlogManagerDialog extends React.Component {
                 {submissionError && <Typography variant="body1" style={{color: 'red'}}>
                     {l('errorWhenAttemptedToAssignUserABlogManager')}
                 </Typography>}
-                {persistedBlogManager && <Typography variant="body1" style={{color: 'red'}}>
+                {persistedBlogManager && <Typography variant="body1" style={{color: 'green'}}>
                     {l('userAssignedABlogManagerSuccessfully')}
                 </Typography>}
                 <Button variant="contained"
