@@ -50,6 +50,11 @@ class NotificationsHolder extends React.Component {
 
         const menuListItems = [];
 
+        const noNotificationsLabel = unreadNotifications.length === 0 && readNotifications.length === 0
+            && (<Typography variant="body1">
+                {l('noNotifications')}
+            </Typography>)
+
         const unreadNotificationsItem = unreadNotifications.length !== 0 ? (<div>
             <Typography style={{
                 margin: '15px'
@@ -83,6 +88,7 @@ class NotificationsHolder extends React.Component {
             ))}
         </div>);
 
+        menuListItems.push(noNotificationsLabel);
         menuListItems.push(unreadNotificationsItem);
         unreadNotificationsItem && menuListItems.push(<Divider/>);
         menuListItems.push(readNotificationsItem);

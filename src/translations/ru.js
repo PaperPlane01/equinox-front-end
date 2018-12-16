@@ -173,5 +173,6 @@ export default {
     errorWhenAttemptedToFetchBlogManager: "Во время попытки загрузить администратора блога прозошла ошибка. Сервер овтетил со статусом {errorStatus}. Пожалуйста, попробуйте позже",
     deleteBlogManager: "Удалить администратора блога",
     confirmBlogManagerDeletion: "Вы уверены, что хотите удалить этого администратора блога?",
-    errorWhenAttemptedToDeleteBlogManager: "Во время попытки удалить администратора блога произошла ошибка. Сервер ответил со статусом {errorStatus} status. Пожалуйста, попробуйте позже"
+    errorWhenAttemptedToDeleteBlogManager: "Во время попытки удалить администратора блога произошла ошибка. Сервер ответил со статусом {errorStatus} status. Пожалуйста, попробуйте позже",
+    noNotifications: "Уведомлений нет"
 }

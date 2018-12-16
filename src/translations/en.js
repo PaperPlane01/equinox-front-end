@@ -173,5 +173,6 @@ export default {
     errorWhenAttemptedToFetchBlogManager: "Error occurred when attempted to fetch blog manager. Server responded with {errorStatus} status. Please try again later",
     deleteBlogManager: "Delete blog manager",
     confirmBlogManagerDeletion: "Are you sure you want to delete this blog manager?",
-    errorWhenAttemptedToDeleteBlogManager: "Error occurred when attempted to delete blog manager. Server responded with {errorStatus} status. Please try again later"
+    errorWhenAttemptedToDeleteBlogManager: "Error occurred when attempted to delete blog manager. Server responded with {errorStatus} status. Please try again later",
+    noNotifications: "No notifications"
 }

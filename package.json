@@ -1,6 +1,6 @@
 {
   "name": "aphelion-front-end",
-  "version": "0.8.3",
+  "version": "0.8.4",
   "private": true,
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.1.0",
