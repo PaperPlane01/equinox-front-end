@@ -135,5 +135,6 @@ export default class BlogManagersStore {
         this.currentPage = 0;
         this.managers = [];
         this.error = undefined;
+        this.username = '';
     }
 }
