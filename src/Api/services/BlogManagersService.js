@@ -30,7 +30,7 @@ const findByBlogAndUsername = (blogId, username, paginationParams) => {
         };
     }
 
-    return Api.get(`/${Routes.BLOGS}/${blogId}/${Routes.MARK_READ}?${queryString.stringify(requestParams)}`);
+    return Api.get(`/${Routes.BLOGS}/${blogId}/${Routes.MANAGERS}?${queryString.stringify(requestParams)}`);
 };
 
 const findByBlogAndId = (blogId, id) => {
