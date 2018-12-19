@@ -174,5 +174,7 @@ export default {
     deleteBlogManager: "Delete blog manager",
     confirmBlogManagerDeletion: "Are you sure you want to delete this blog manager?",
     errorWhenAttemptedToDeleteBlogManager: "Error occurred when attempted to delete blog manager. Server responded with {errorStatus} status. Please try again later",
-    noNotifications: "No notifications"
+    noNotifications: "No notifications",
+    emptyContent: "Blog post can't be empty",
+    contentIsTooLong: "Blog post is too long"
 }

@@ -13,18 +13,9 @@ export const canDeleteBlogBlocking = (currentUser, blogBlocking) => {
 };
 
 export const canSeeUsersBlockedInBlog = (currentUser, blogId) => {
-    if (currentUser) {
-        console.log("current user: ");
-        console.log(toJS(currentUser));
-        console.log("blog id: ");
-        console.log(blogId);
-        console.log(currentUser.ownedBlogs.includes(blogId));
-        console.log(currentUser.ownedBlogs.map(id => "" + id).includes("" + blogId));
-        console.log(currentUser.ownedBlogs.filter(id => id == blogId));
-    }
-
     return currentUser && (
-        currentUser.ownedBlogs.map(id => "" + id).includes("" + blogId)
-        || currentUser.managedBlogs.map(managedBlog => managedBlog.blogId).includes(blogId)
-    )
+        currentUser.ownedBlogs.includes(blogId)
+        || currentUser.managedBlogs
+            .filter(managedBlog => managedBlog.blogId == blogId).length !== 0
+    );
 };

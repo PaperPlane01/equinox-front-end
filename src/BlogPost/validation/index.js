@@ -1,4 +1,5 @@
-import {isBlank} from "../../utils/index";
+import {convertFromRaw} from 'draft-js';
+import {isBlank} from "../../utils";
 
 export const validateBlogPostTitle = title => {
     if (isBlank(title)) {
@@ -26,6 +27,18 @@ export const validateBlogPostTags = tags => {
             return "oneOfTheTagsIsTooLong";
         }
     });
+
+    return undefined;
+};
+
+export const validateBlogPostContent = content => {
+    if (!content || isBlank(content.getPlainText())) {
+        return "emptyContent";
+    }
+
+    if (content.getPlainText().length > 10000) {
+        return "contentIsTooLong";
+    }
 
     return undefined;
 };

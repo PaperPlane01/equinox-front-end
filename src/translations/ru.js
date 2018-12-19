@@ -174,5 +174,7 @@ export default {
     deleteBlogManager: "Удалить администратора блога",
     confirmBlogManagerDeletion: "Вы уверены, что хотите удалить этого администратора блога?",
     errorWhenAttemptedToDeleteBlogManager: "Во время попытки удалить администратора блога произошла ошибка. Сервер ответил со статусом {errorStatus} status. Пожалуйста, попробуйте позже",
-    noNotifications: "Уведомлений нет"
+    noNotifications: "Уведомлений нет",
+    emptyContent: "Пост не может быть пустым",
+    contentIsTooLong: "Пост слишком длинный"
 }

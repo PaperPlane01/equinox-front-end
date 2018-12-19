@@ -1,7 +1,7 @@
 import {action, observable} from 'mobx';
 import {convertToRaw, EditorState} from 'draft-js';
 import {blogPostService, createErrorFromResponse} from "../../Api";
-import {validateBlogPostTags, validateBlogPostTitle} from "../validation";
+import {validateBlogPostContent, validateBlogPostTags, validateBlogPostTitle} from "../validation";
 
 export default class CreateBlogPostStore {
     @observable createBlogPostFormValues = {
@@ -36,6 +36,12 @@ export default class CreateBlogPostStore {
         this.createBlogPostFormErrors.tags = validateBlogPostTags(this.createBlogPostFormValues.tags);
     };
 
+    @action validateContent = () => {
+        this.createBlogPostFormErrors.content = validateBlogPostContent(
+            this.createBlogPostFormValues.content.getCurrentContent()
+        );
+    };
+
     @action setCreateBlogPostFormHidden = hidden => {
         this.createBlogPostFormHidden = hidden;
     };
@@ -62,6 +68,7 @@ export default class CreateBlogPostStore {
     isFormValid = () => {
         this.validateTitle();
         this.validateTags();
+        this.validateContent();
 
         return !this.createBlogPostFormErrors.title && !this.createBlogPostFormErrors.tags
             && !this.createBlogPostFormErrors.content;

@@ -1,4 +1,4 @@
-import {observable, action, reaction, computed} from 'mobx';
+import {action, computed, observable, reaction} from 'mobx';
 import {blogBlockingService, blogService, createErrorFromResponse} from "../../Api";
 import {isBlank} from "../../utils";
 import {canSeeUsersBlockedInBlog} from "../permissions";
@@ -81,7 +81,7 @@ export default class BlogBlockingsStore {
     };
 
     @action fetchBlogBlockings = () => {
-        if (!canSeeUsersBlockedInBlog(this.authStore.currentUser, this.blogId)) {
+        if (!canSeeUsersBlockedInBlog(this.currentUser, this.blogId)) {
             return;
         }
 
