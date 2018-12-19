@@ -12,13 +12,13 @@ import {withLocale} from "../../localization";
 @observer
 class UpdateBlogBlockingMenuItem extends React.Component {
     handleClick = () => {
-        const {onClick, updateBlogBlockingStore, blockingId} = this.props;
+        const {onClick, updateBlogBlockingStore, blogBlockingId} = this.props;
 
         if (onClick) {
             onClick();
         }
 
-        updateBlogBlockingStore.setBlogBlockingId(blockingId);
+        updateBlogBlockingStore.setBlogBlockingId(blogBlockingId);
         updateBlogBlockingStore.setUpdateBlogBlockingDialogOpen(true);
     };
 
@@ -39,7 +39,7 @@ class UpdateBlogBlockingMenuItem extends React.Component {
 UpdateBlogBlockingMenuItem.propTypes = {
     l: PropTypes.func,
     updateBlogBlockingStore: PropTypes.object,
-    blockingId: PropTypes.number,
+    blogBlockingId: PropTypes.number,
     onClick: PropTypes.func
 };
 

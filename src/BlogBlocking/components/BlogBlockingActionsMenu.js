@@ -9,6 +9,7 @@ import UpdateBlogBlockingDialog from './UpdateBlogBlockingDialog';
 import UnblockUserMenuItem from './UnblockUserMenuItem';
 import {canUpdateBlogBlocking, canDeleteBlogBlocking} from "../permissions";
 
+@inject('updateBlogBlockingStore')
 @inject('authStore')
 @observer
 class BlogBlockingActionsMenu extends React.Component {
@@ -29,7 +30,7 @@ class BlogBlockingActionsMenu extends React.Component {
     };
 
     render() {
-        const {authStore, blogBlocking} = this.props;
+        const {authStore, blogBlocking, updateBlogBlockingStore} = this.props;
 
         const _canUpdateBlogBlocking = canUpdateBlogBlocking(authStore.currentUser, blogBlocking);
         const _canDeleteBlogBlocking = canDeleteBlogBlocking(authStore.currentUser, blogBlocking);
@@ -37,7 +38,7 @@ class BlogBlockingActionsMenu extends React.Component {
         const items = [];
 
         _canUpdateBlogBlocking && items.push(<UpdateBlogBlockingMenuItem onClick={this.closeMenu}
-                                                                         blockingId={blogBlocking.id}
+                                                                         blogBlockingId={blogBlocking.id}
         />);
         _canDeleteBlogBlocking && items.push(<UnblockUserMenuItem onClick={this.closeMenu}
                                                                   blogBlockingId={blogBlocking.id}
@@ -67,7 +68,9 @@ class BlogBlockingActionsMenu extends React.Component {
                 >
                     {items}
                 </Menu>
-                {_canUpdateBlogBlocking && <UpdateBlogBlockingDialog/>}
+                {_canUpdateBlogBlocking
+                && updateBlogBlockingStore.blogBlockingId === blogBlocking.id
+                && <UpdateBlogBlockingDialog/>}
             </div>
         } else {
             return null;
@@ -77,6 +80,7 @@ class BlogBlockingActionsMenu extends React.Component {
 
 BlogBlockingActionsMenu.propTypes = {
     authStore: PropTypes.object,
+    updateBlogBlockingStore: PropTypes.object,
     blogBlocking: PropTypes.object
 };
 

@@ -65,55 +65,51 @@ class UpdateBlogBlockingDialog extends React.Component {
     };
 
     render() {
-        const {blockingId, fullScreen, updateBlogBlockingStore, l} = this.props;
-        const {blogBlockingId, submittingForm, submissionError, updatedBlogBlocking,
+        const {fullScreen, updateBlogBlockingStore, l} = this.props;
+        const {submittingForm, submissionError, updatedBlogBlocking,
             updateBlogBlockingDialogOpen, blockedUserUsername} = updateBlogBlockingStore;
 
-        if (updateBlogBlockingDialogOpen && blockingId === blogBlockingId) {
-            return <Dialog open={updateBlogBlockingDialogOpen && blockingId === blogBlockingId}
-                           fullScreen={fullScreen}
-                           onClose={() => updateBlogBlockingStore.setUpdateBlogBlockingDialogOpen(false)}
-            >
-                <DialogTitle>
-                    {l('updateBlogBlocking_withUsernameSpecified', {username: blockedUserUsername})}
-                </DialogTitle>
-                <DialogContent>
-                    {this.renderContent()}
-                </DialogContent>
-                <DialogActions>
-                    {submittingForm && <CircularProgress size={15} color="primary"/>}
-                    {submissionError && <Typography variant="body1"
-                                                    style={{color: 'red'}}
-                    >
-                        {l('errorWhenAttemptedToUpdateBlogBlocking', {errorStatus: submissionError.status})}
-                    </Typography>}
-                    {updatedBlogBlocking && <Typography variant="body1"
-                                                        style={{color: 'green'}}
-                    >
-                        {l('blogBlockingUpdated')}
-                    </Typography>}
-                    <Button variant="contained"
-                            color="primary"
-                            onClick={updateBlogBlockingStore.updateBlogBlocking}
-                    >
-                        {l('update')}
-                    </Button>
-                    <Button variant="outlined"
-                            color="secondary"
-                            onClick={() => updateBlogBlockingStore.setUpdateBlogBlockingDialogOpen(false)}
-                    >
-                        {updatedBlogBlocking ? l('close') : l('cancel')}
-                    </Button>
-                </DialogActions>
-            </Dialog>
-        } else {
-            return null;
-        }
+        return <Dialog open={updateBlogBlockingDialogOpen}
+                       fullScreen={fullScreen}
+                       onClose={() => updateBlogBlockingStore.setUpdateBlogBlockingDialogOpen(false)}
+        >
+            <DialogTitle>
+                {l('updateBlogBlocking_withUsernameSpecified', {username: blockedUserUsername})}
+            </DialogTitle>
+            <DialogContent>
+                {this.renderContent()}
+            </DialogContent>
+            <DialogActions>
+                {submittingForm && <CircularProgress size={15} color="primary"/>}
+                {submissionError && <Typography variant="body1"
+                                                style={{color: 'red'}}
+                >
+                    {l('errorWhenAttemptedToUpdateBlogBlocking', {errorStatus: submissionError.status})}
+                </Typography>}
+                {updatedBlogBlocking && <Typography variant="body1"
+                                                    style={{color: 'green'}}
+                >
+                    {l('blogBlockingUpdated')}
+                </Typography>}
+                <Button variant="contained"
+                        color="primary"
+                        onClick={updateBlogBlockingStore.updateBlogBlocking}
+                >
+                    {l('update')}
+                </Button>
+                <Button variant="outlined"
+                        color="secondary"
+                        onClick={() => updateBlogBlockingStore.setUpdateBlogBlockingDialogOpen(false)}
+                >
+                    {updatedBlogBlocking ? l('close') : l('cancel')}
+                </Button>
+            </DialogActions>
+        </Dialog>
+
     }
 }
 
 UpdateBlogBlockingDialog.propTypes = {
-    blockingId: PropTypes.number,
     fullScreen: PropTypes.bool,
     updateBlogBlockingStore: PropTypes.object,
     l: PropTypes.func
