@@ -11,3 +11,5 @@ export {default as BlogPostListItem} from './BlogPostListItem';
 export {default as FeedList} from './FeedList';
 export {default as MostPopularBlogPostsList} from './MostPopularBlogPostsList';
 export {default as MostPopularBlogPostsPeriodSelect} from './MostPopularBlogPostsPeriodSelect';
+export {default as UpdateBlogPostForm} from './UpdateBlogPostForm';
+export {default as EditBlogPostMenuItem} from './EditBlogPostMenuItem';

@@ -10,3 +10,4 @@ export {default as BlogBlockings} from './BlogBlockings';
 export {default as GoogleAuth} from './GoogleAuth';
 export {default as BlogManagers} from './BlogManagers';
 export {default as NotFound} from './NotFound';
+export {default as EditBlogPost} from './EditBlogPost';

@@ -182,5 +182,8 @@ export default {
     forMonth: "For month",
     forYear: "For year",
     mostPopularBlogPosts: "Most popular blog posts",
-    noBlogPostsForThisPeriod: "No blog posts for this period"
+    noBlogPostsForThisPeriod: "No blog posts for this period",
+    updateBlogPost: "Update blog post",
+    errorWhenAttemptedToUpdateBlogPost: "Error occurred when attempted to update blog post. Server responded with {errorStatus} status. Please try again later",
+    blogPostUpdatedSuccessfully: "Blog post has been updated successfully"
 }

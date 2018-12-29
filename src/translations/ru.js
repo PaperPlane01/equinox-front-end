@@ -173,7 +173,7 @@ export default {
     errorWhenAttemptedToFetchBlogManager: "Во время попытки загрузить администратора блога прозошла ошибка. Сервер овтетил со статусом {errorStatus}. Пожалуйста, попробуйте позже",
     deleteBlogManager: "Удалить администратора блога",
     confirmBlogManagerDeletion: "Вы уверены, что хотите удалить этого администратора блога?",
-    errorWhenAttemptedToDeleteBlogManager: "Во время попытки удалить администратора блога произошла ошибка. Сервер ответил со статусом {errorStatus} status. Пожалуйста, попробуйте позже",
+    errorWhenAttemptedToDeleteBlogManager: "Во время попытки удалить администратора блога произошла ошибка. Сервер ответил со статусом {errorStatus}. Пожалуйста, попробуйте позже",
     noNotifications: "Уведомлений нет",
     emptyContent: "Пост не может быть пустым",
     contentIsTooLong: "Пост слишком длинный",
@@ -182,5 +182,8 @@ export default {
     forMonth: "За месяц",
     forYear: "За год",
     mostPopularBlogPosts: "Самые популярные посты",
-    noBlogPostsForThisPeriod: "За этот период не было постов"
+    noBlogPostsForThisPeriod: "За этот период не было постов",
+    updateBlogPost: "Обновить пост",
+    errorWhenAttemptedToUpdateBlogPost: "Во время попытки обновления поста произошла ошибка. Сервер ответил со статусом {errorStatus}. Пожалуйста, попробуйте позже",
+    blogPostUpdatedSuccessfully: "Пост был успешно обновлён"
 }

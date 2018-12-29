@@ -1,4 +1,3 @@
-import {convertFromRaw} from 'draft-js';
 import {isBlank} from "../../utils";
 
 export const validateBlogPostTitle = title => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Route} from 'mobx-router';
 import {Home, CreateBlog, EditProfile, User, Blog, BlogPost, BlogSubscribers, Feed,
-    BlogBlockings, GoogleAuth, BlogManagers, NotFound} from '../screens';
+    BlogBlockings, GoogleAuth, BlogManagers, NotFound, EditBlogPost} from '../screens';
 import appStore from '../store';
 import _getViewByPath from './getViewByPath';
 export const getViewByPath = _getViewByPath;
@@ -128,5 +128,18 @@ export default {
     notFound: new Route({
         path: '/404',
         component: <NotFound/>
+    }),
+    editBlogPost: new Route({
+        path: '/blog-post/:id/edit',
+        component: <EditBlogPost/>,
+        onEnter: (route, params) => {
+            appStore.updateBlogPostStore.setBlogPostId(params.id);
+        },
+        onParamsChange: (route, params) => {
+            appStore.updateBlogPostStore.setBlogPostId(params.id);
+        },
+        onExit: () => {
+            appStore.updateBlogPostStore.reset();
+        }
     })
 };

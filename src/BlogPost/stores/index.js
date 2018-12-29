@@ -6,3 +6,4 @@ export {default as BlogPostStore} from './BlogPostStore';
 export {default as BlockBlogPostAuthorStore} from './BlockBlogPostAuthorStore';
 export {default as FeedStore} from './FeedStore';
 export {default as MostPopularBlogPostsStore} from './MostPopularBlogPostsStore';
+export {default as UpdateBlogPostStore} from './UpdateBlogPostStore';

@@ -6,6 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import DeleteBlogPostMenuItem from './DeleteBlogPostMenuItem';
 import DeleteBlogPostDialog from './DeleteBlogPostDialog';
+import EditBlogPostMenuItem from './EditBlogPostMenuItem';
 import {BlockUserGloballyMenuItem, CreateGlobalBlockingDialog, canBlockUser} from "../../User";
 import * as blogPostPermissions from "../permissions";
 
@@ -45,6 +46,7 @@ class BlogPostActionsMenu extends React.Component {
 
         const canDeleteBlogPost = blogPostPermissions.canDeleteBlogPost(authStore.currentUser, blogPost);
         const canBlockAuthor = canBlockUser(authStore.currentUser);
+        const canEditBlogPost = blogPostPermissions.canEditBlogPost(authStore.currentUser, blogPost);
 
         if (canDeleteBlogPost) {
             items.push(<DeleteBlogPostMenuItem onClick={this.closeMenu}
@@ -54,6 +56,10 @@ class BlogPostActionsMenu extends React.Component {
 
         if (canBlockAuthor) {
             items.push(<BlockUserGloballyMenuItem onClick={this.handleBlockBlogPostAuthorMenuItemClick}/>)
+        }
+
+        if (canEditBlogPost) {
+            items.push(<EditBlogPostMenuItem onClick={this.closeMenu} blogPostId={blogPost.id}/>)
         }
 
         if (items.length !== 0) {
