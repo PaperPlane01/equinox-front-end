@@ -22,7 +22,7 @@ const findMinifiedById = id => {
 };
 
 const findOwnedByCurrentUser = () => {
-    return Api.get(`/${Routes.CURRENT_USER}/${Routes.OWNED_BLOGD}`);
+    return Api.get(`/${Routes.CURRENT_USER}/${Routes.OWNED_BLOGS}`);
 };
 
 export default {
