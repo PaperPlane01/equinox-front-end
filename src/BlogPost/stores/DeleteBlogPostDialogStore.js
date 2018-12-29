@@ -7,6 +7,7 @@ export default class DeleteBlogPostDialogStore {
     @observable deleteBlogPostDialogOpened = undefined;
     @observable blogPostListStore = undefined;
     @observable blogPostId = undefined;
+    @observable deletedBlogPostId = undefined;
 
     constructor(blogPostListStore) {
         this.blogPostListStore = blogPostListStore;
@@ -27,6 +28,7 @@ export default class DeleteBlogPostDialogStore {
             .then(() => {
                 this.blogPostListStore.deleteBlogPost(this.blogPostId);
                 this.deleteBlogPostDialogOpened = false;
+                this.deletedBlogPostId = this.blogPostId;
             }).catch(error => {
                 this.error = createErrorFromResponse(error.response);
             })

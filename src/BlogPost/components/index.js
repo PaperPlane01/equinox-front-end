@@ -9,3 +9,5 @@ export {default as NumberOfComments} from './NumberOfComments';
 export {default as BlogPostHeader} from './BlogPostHeader';
 export {default as BlogPostListItem} from './BlogPostListItem';
 export {default as FeedList} from './FeedList';
+export {default as MostPopularBlogPostsList} from './MostPopularBlogPostsList';
+export {default as MostPopularBlogPostsPeriodSelect} from './MostPopularBlogPostsPeriodSelect';

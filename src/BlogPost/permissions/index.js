@@ -9,9 +9,9 @@ export const canCreateBlogPost = (currentUser, blogId) => {
 };
 
 export const canDeleteBlogPost = (currentUser, blogPost) => {
-    return currentUser && (currentUser.authorities.map(authority => authority.name).includes('ROLE_ADMIN')
-        || currentUser.ownedBlogs.includes(blogPost.blogId)
-        || (currentUser.managedBlogs
-            .filter(managedBlog => managedBlog.blogId === blogPost.blogId && managedBlog.blogRole === 'EDITOR')
-        && blogPost.publisher.id === currentUser.id));
+    return currentUser && blogPost.canBeDeleted;
+};
+
+export const canEditBlogPost = (currentUser, blogPost) => {
+    return currentUser && blogPost.canBeEdited;
 };

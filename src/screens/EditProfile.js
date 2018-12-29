@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import {withLocale} from "../localization";
+import StandardLayout from '../StandardLayout';
 import AppBar from '../AppBar';
 import {EditProfileForm} from '../User';
 
@@ -21,8 +22,7 @@ class EditProfile extends React.Component {
                 <Grid item xs={12}>
                     <AppBar title={l('editProfile')}/>
                 </Grid>
-                <Grid item xs={1} lg={2}/>
-                <Grid item xs={10} lg={8}>
+                <StandardLayout>
                     {authStore.loggedIn
                         ? <Card raised style={{
                             marginTop: '18px'
@@ -34,7 +34,7 @@ class EditProfile extends React.Component {
                         : <Typography variant="headline">
                             {l('loginRequired')}
                         </Typography>}
-                </Grid>
+                </StandardLayout>
             </Grid>
         </Grid>
     }

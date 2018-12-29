@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import {observer, inject} from 'mobx-react';
+import Typography from "@material-ui/core/Typography";
+import {BlockedUsersList, LoadMoreBlogBlockingsButton,
+    canSeeUsersBlockedInBlog} from "../BlogBlocking";
 import AppBar from '../AppBar';
 import {withLocale} from "../localization";
-import Typography from "@material-ui/core/Typography/Typography";
-import {BlockedUsersList, LoadMoreBlogBlockingsButton, canSeeUsersBlockedInBlog} from "../BlogBlocking";
+import StandardLayout from '../StandardLayout';
 
 @withLocale
 @inject('authStore')
@@ -73,15 +75,9 @@ class BlogBlockings extends React.Component {
                         : l('blogBlockings')
                 }/>
             </Grid>
-            <Grid item xs={1} lg={2}/>
-            <Grid item xs={10} lg={8}>
-                <div style={{
-                    marginTop: '16px',
-                    width: '100%'
-                }}>
-                    {this.renderContent()}
-                </div>
-            </Grid>
+            <StandardLayout>
+                {this.renderContent()}
+            </StandardLayout>
         </Grid>
     }
 }

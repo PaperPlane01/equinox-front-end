@@ -9,3 +9,4 @@ export {default as Feed} from './Feed';
 export {default as BlogBlockings} from './BlogBlockings';
 export {default as GoogleAuth} from './GoogleAuth';
 export {default as BlogManagers} from './BlogManagers';
+export {default as NotFound} from './NotFound';

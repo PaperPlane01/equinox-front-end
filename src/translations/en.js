@@ -176,5 +176,11 @@ export default {
     errorWhenAttemptedToDeleteBlogManager: "Error occurred when attempted to delete blog manager. Server responded with {errorStatus} status. Please try again later",
     noNotifications: "No notifications",
     emptyContent: "Blog post can't be empty",
-    contentIsTooLong: "Blog post is too long"
+    contentIsTooLong: "Blog post is too long",
+    pageNotFound: "Page not found",
+    forWeek: "For week",
+    forMonth: "For month",
+    forYear: "For year",
+    mostPopularBlogPosts: "Most popular blog posts",
+    noBlogPostsForThisPeriod: "No blog posts for this period"
 }

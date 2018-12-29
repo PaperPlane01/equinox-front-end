@@ -63,7 +63,6 @@ class BlogPost extends React.Component {
                     <div style={{
                         marginLeft: '2.08333333334%',
                         marginRight: '2.08333333334%',
-                        width: '100%'
                     }}>
                         <div style={{
                             marginTop: '16px',

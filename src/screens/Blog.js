@@ -11,6 +11,7 @@ import {BlogDescription, BlogSubscribersBlock, SubscribeToBlogButton, Unsubscrib
 import {BlogPostList, CreateBlogPostForm, LoadMoreBlogPostsButton} from "../BlogPost";
 import AppBar from '../AppBar';
 import {withLocale} from "../localization";
+import StandardLayout from '../StandardLayout';
 import {canCreateBlogPost, canSeeBlogManagers} from "../Blog/permissions";
 
 @withLocale
@@ -69,7 +70,7 @@ class Blog extends React.Component {
                             <BlogPostList/>
                         </Grid>
                         <Grid item xs={12} lg={9} alignContent="center">
-                            <LoadMoreBlogPostsButton source="blogPostStore"/>
+                            <LoadMoreBlogPostsButton source="blogPostListStore"/>
                         </Grid>
                     </Grid>
                 </Hidden>
@@ -87,7 +88,7 @@ class Blog extends React.Component {
                                     <BlogPostList/>
                                 </Grid>
                                 <Grid item xs={12} alignContent="center">
-                                    <LoadMoreBlogPostsButton/>
+                                    <LoadMoreBlogPostsButton source="blogPostListStore"/>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -119,33 +120,9 @@ class Blog extends React.Component {
             <Grid item xs={12}>
                 <AppBar title={blogStore.blog && blogStore.blog.name}/>
             </Grid>
-            <Hidden mdUp>
-                <Grid item xs={12}>
-                    <div style={{
-                        marginLeft: '2.08333333334%',
-                        marginRight: '2.08333333334%',
-                        width: '100%'
-                    }}>
-                        <div style={{
-                            marginTop: '16px',
-                            width: '100%'
-                        }}>
-                            {this.renderContent()}
-                        </div>
-                    </div>
-                </Grid>
-            </Hidden>
-            <Hidden smDown>
-                <Grid item lg={2}/>
-                <Grid item xs={11} lg={9}>
-                    <div style={{
-                        marginTop: '16px',
-                        width: '100%'
-                    }}>
-                        {this.renderContent()}
-                    </div>
-                </Grid>
-            </Hidden>
+           <StandardLayout>
+               {this.renderContent()}
+           </StandardLayout>
         </Grid>
     }
 }

@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from "@material-ui/core/MenuItem";
 import {withLocale} from "../../localization";
-import MenuItem from "@material-ui/core/MenuItem/MenuItem";
 
 @withLocale
 class BlogManagersVisibilityLevelSelect extends React.Component {
@@ -17,7 +17,7 @@ class BlogManagersVisibilityLevelSelect extends React.Component {
                     fullWidth
                     inputProps={{
                         name: 'blogManagersVisibilityLevelSelect',
-                        margin: "dense"
+                        margin: 'dense'
                     }}
             >
                 <MenuItem value="PUBLIC">

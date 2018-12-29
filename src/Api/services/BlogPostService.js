@@ -30,6 +30,18 @@ const getFeed = paginationParameters => {
     return Api.get(`/${Routes.BLOG_POSTS}/${Routes.FEED}${paginationParameters && `?${queryString.stringify(paginationParameters)}`}`);
 };
 
+const getMostPopularForMonth = paginationParameters => {
+    return Api.get(`/${Routes.BLOG_POSTS}/${Routes.MOST_POPULAR}/${Routes.FOR_MONTH}${paginationParameters && `?${queryString.stringify(paginationParameters)}`}`);
+};
+
+const getMostPopularForWeek = paginationParameters => {
+    return Api.get(`/${Routes.BLOG_POSTS}/${Routes.MOST_POPULAR}/${Routes.FOR_WEEK}${paginationParameters && `?${queryString.stringify(paginationParameters)}`}`);
+};
+
+const getMostPopularForYear = paginationParameters => {
+    return Api.get(`/${Routes.BLOG_POSTS}/${Routes.MOST_POPULAR}/${Routes.FOR_YEAR}${paginationParameters &&`?${queryString.stringify(paginationParameters)}`}`)
+};
+
 export default {
     save,
     update,
@@ -37,5 +49,8 @@ export default {
     findById,
     findByBlog,
     getAuthorOfBlogPost,
-    getFeed
+    getFeed,
+    getMostPopularForWeek,
+    getMostPopularForMonth,
+    getMostPopularForYear
 };

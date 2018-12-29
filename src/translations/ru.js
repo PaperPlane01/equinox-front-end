@@ -176,5 +176,11 @@ export default {
     errorWhenAttemptedToDeleteBlogManager: "Во время попытки удалить администратора блога произошла ошибка. Сервер ответил со статусом {errorStatus} status. Пожалуйста, попробуйте позже",
     noNotifications: "Уведомлений нет",
     emptyContent: "Пост не может быть пустым",
-    contentIsTooLong: "Пост слишком длинный"
+    contentIsTooLong: "Пост слишком длинный",
+    pageNotFound: "Страница не найдена",
+    forWeek: "За неделю",
+    forMonth: "За месяц",
+    forYear: "За год",
+    mostPopularBlogPosts: "Самые популярные посты",
+    noBlogPostsForThisPeriod: "За этот период не было постов"
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Route} from 'mobx-router';
 import {Home, CreateBlog, EditProfile, User, Blog, BlogPost, BlogSubscribers, Feed,
-    BlogBlockings, GoogleAuth, BlogManagers} from '../screens';
+    BlogBlockings, GoogleAuth, BlogManagers, NotFound} from '../screens';
 import appStore from '../store';
 import _getViewByPath from './getViewByPath';
 export const getViewByPath = _getViewByPath;
@@ -9,7 +9,13 @@ export const getViewByPath = _getViewByPath;
 export default {
     home: new Route({
         path: '/',
-        component: <Home/>
+        component: <Home/>,
+        onEnter: () => {
+            appStore.mostPopularBlogPostsStore.fetchMostPopularBlogPosts();
+        },
+        onExit: () => {
+            appStore.mostPopularBlogPostsStore.reset();
+        }
     }),
     createBlog: new Route({
         path: '/create-blog',
@@ -118,5 +124,9 @@ export default {
         onExit: () => {
             appStore.blogManagersStore.reset();
         }
+    }),
+    notFound: new Route({
+        path: '/404',
+        component: <NotFound/>
     })
 };

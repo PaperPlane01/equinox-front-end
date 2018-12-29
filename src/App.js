@@ -58,7 +58,7 @@ class App extends Component {
         const pickersLocale = muiPickersLocaleMap[localeStore.currentLocale] || enLocale;
         const theme = themes[settingsStore.colorTheme] || themes.pink;
 
-        return <div style={{
+        return <div id="app" style={{
             flexGrow: 1
         }}>
             <Helmet>

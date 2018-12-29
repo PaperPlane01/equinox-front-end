@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import AppBar from '../AppBar'
+import StandardLayout from '../StandardLayout';
 import {CreateBlogForm} from "../Blog";
 import {withLocale} from "../localization";
 
@@ -21,8 +22,7 @@ class CreateBlog extends React.Component {
                 <Grid item xs={12}>
                     <AppBar title={l('createBlog')}/>
                 </Grid>
-                <Grid item xs={1} lg={2}/>
-                <Grid item xs={10} lg={8}>
+                <StandardLayout>
                     {authStore.loggedIn
                         ? <Card raised
                                 style={{
@@ -36,8 +36,7 @@ class CreateBlog extends React.Component {
                         : <Typography variant="headline">
                             {l('loginRequired')}
                         </Typography>}
-                </Grid>
-                <Grid item lg={2}/>
+                </StandardLayout>
             </Grid>
         </Grid>
     }

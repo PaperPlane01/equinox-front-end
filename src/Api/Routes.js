@@ -39,5 +39,9 @@ export default {
     FEED: 'feed',
     BLOCKINGS: 'blockings',
     GOOGLE: 'google',
-    OWNED_BLOGD: 'owned-blogs'
+    OWNED_BLOGD: 'owned-blogs',
+    MOST_POPULAR: 'most-popular',
+    FOR_WEEK: 'for-week',
+    FOR_MONTH: 'for-month',
+    FOR_YEAR: 'for-year'
 };

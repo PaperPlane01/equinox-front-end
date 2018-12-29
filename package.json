@@ -1,6 +1,6 @@
 {
   "name": "aphelion-front-end",
-  "version": "0.8.5",
+  "version": "0.9.0",
   "private": true,
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.1.0",
@@ -46,7 +46,7 @@
     "mobx-localstorage": "^1.0.0",
     "mobx-react": "^5.2.8",
     "mobx-react-intl": "^1.4.0",
-    "mobx-router": "0.0.13",
+    "mobx-router": "0.0.16",
     "normalizr": "^3.3.0",
     "object-assign": "4.1.1",
     "postcss-flexbugs-fixes": "3.2.0",

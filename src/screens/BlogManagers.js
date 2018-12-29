@@ -4,6 +4,7 @@ import {inject, observer} from 'mobx-react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '../AppBar';
+import StandardLayout from '../StandardLayout';
 import {BlogManagersList} from '../BlogManager';
 import {withLocale} from "../localization";
 
@@ -39,15 +40,9 @@ class BlogManagers extends React.Component {
             <Grid item xs={12}>
                 <AppBar title={appBarTitle}/>
             </Grid>
-            <Grid item xs={1} lg={2}/>
-            <Grid item xs={10} lg={8}>
-                <div style={{
-                    marginTop: '16px',
-                    width: '100%'
-                }}>
-                    {this.renderContent()}
-                </div>
-            </Grid>
+            <StandardLayout>
+                {this.renderContent()}
+            </StandardLayout>
         </Grid>
     }
 }

@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '../AppBar';
+import StandardLayout from '../StandardLayout';
 import {UserProfileAvatar, UserProfileCard} from "../User";
 import {withLocale} from "../localization";
 
@@ -54,15 +55,9 @@ class UserProfile extends React.Component {
             <Grid item xs={12}>
                 <AppBar/>
             </Grid>
-            <Grid item xs={1} lg={2}/>
-            <Grid item xs={10} lg={9}>
-                <div style={{
-                    marginTop: '16px',
-                    width: '100%'
-                }}>
-                    {this.renderUserProfile()}
-                </div>
-            </Grid>
+            <StandardLayout>
+                {this.renderUserProfile()}
+            </StandardLayout>
         </Grid>
     }
 }

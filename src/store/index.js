@@ -2,7 +2,7 @@ import {AuthStore, SignUpStore, EditProfileStore, UserProfileStore, CreateGlobal
     GoogleAuthStore} from '../User'
 import {SettingsStore} from '../Settings';
 import {BlogPostListStore, CreateBlogPostStore, BlogPostLikeStore, DeleteBlogPostDialogStore,
-    BlogPostStore, BlockBlogPostAuthorStore, FeedStore} from "../BlogPost";
+    BlogPostStore, BlockBlogPostAuthorStore, FeedStore, MostPopularBlogPostsStore} from "../BlogPost";
 import {CreateBlogStore, BlogStore, BlogSubscribersBlockStore, SubscribeToBlogStore,
     UnsubscribeFromBlogStore, EditBlogDialogStore, BlogSubscribersListStore} from "../Blog";
 import {BlogManagersBlockStore, CreateBlogManagerStore, UpdateBlogManagerStore,
@@ -54,6 +54,7 @@ const googleAuthStore = new GoogleAuthStore(authStore);
 const createBlogStore = new CreateBlogStore();
 const currentUserBlogsStore = new CurrentUserBlogsStore(authStore, createBlogStore, appBarStore);
 const deleteBlogManagerStore = new DeleteBlogManagerStore(blogManagersStore);
+const mostPopularBlogPostsStore = new MostPopularBlogPostsStore(authStore, blogPostLikeStore, deleteBlogPostDialogStore);
 
 export default {
     authStore,
@@ -95,5 +96,6 @@ export default {
     blockCommentAuthorGloballyStore,
     googleAuthStore,
     currentUserBlogsStore,
-    deleteBlogManagerStore
+    deleteBlogManagerStore,
+    mostPopularBlogPostsStore
 };

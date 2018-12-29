@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'mobx-react';
 import {RouterStore, startRouter} from 'mobx-router';
 import localStorage from 'mobx-localstorage';
-import routerConfig from './router-config';
+import views from './router-config';
 import {en, ru} from './translations';
 import {LocaleStore} from './localization';
 import appStore from './store';
@@ -17,7 +17,11 @@ const routerStore = {
     router: new RouterStore()
 };
 
-startRouter(routerConfig, routerStore);
+startRouter(views, routerStore, {
+    notfound: () => {
+        routerStore.router.goTo(views.notFound);
+    }
+});
 
 ReactDOM.render(<Provider store={routerStore} {...appStore}>
     <App/>
