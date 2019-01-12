@@ -7,7 +7,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import DeleteBlogPostMenuItem from './DeleteBlogPostMenuItem';
 import DeleteBlogPostDialog from './DeleteBlogPostDialog';
 import EditBlogPostMenuItem from './EditBlogPostMenuItem';
-import {BlockUserGloballyMenuItem, CreateGlobalBlockingDialog, canBlockUser} from "../../User";
+import {BlockUserGloballyMenuItem, CreateGlobalBlockingDialog, canBlockUser} from "../../GlobalBlocking";
 import * as blogPostPermissions from "../permissions";
 
 @inject('authStore')

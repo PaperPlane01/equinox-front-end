@@ -5,7 +5,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import BlockIcon from '@material-ui/icons/Block';
-import {withLocale} from "../../../localization/index";
+import {withLocale} from "../../localization/index";
 
 @withLocale
 @inject('createGlobalBlockingStore')

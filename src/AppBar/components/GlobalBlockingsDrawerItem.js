@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {inject, observer} from 'mobx-react';
+import {inject} from 'mobx-react';
 import {Link} from 'mobx-router';
-import ListItem from '@material-ui/core/ListItem';
+import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import RssFeedIcon from '@material-ui/icons/RssFeed';
+import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 import closeDrawer from './closeDrawer';
 import {withLocale} from "../../localization";
 import views from '../../router-config';
@@ -13,31 +13,30 @@ import views from '../../router-config';
 @withLocale
 @closeDrawer
 @inject('store')
-@observer
-class FeedDrawerItem extends React.Component {
+class GlobalBlockingsDrawerItem extends React.Component {
     render() {
-        const {l, closeDrawer, store} = this.props;
+        const {store, closeDrawer, l} = this.props;
 
-        return <Link view={views.feed}
+        return <Link view={views.globalBlockings}
                      store={store}
                      style={{textDecoration: 'none'}}
         >
-            <ListItem onClick={closeDrawer}>
+            <MenuItem onClick={closeDrawer}>
                 <ListItemIcon>
-                    <RssFeedIcon/>
+                    <SupervisedUserCircleIcon/>
                 </ListItemIcon>
                 <ListItemText>
-                    {l('feed')}
+                    {l('globalBlockings')}
                 </ListItemText>
-            </ListItem>
+            </MenuItem>
         </Link>
     }
 }
 
-FeedDrawerItem.propTypes = {
-    closeDrawer: PropTypes.func,
+GlobalBlockingsDrawerItem.propTypes = {
     store: PropTypes.object,
+    closeDrawer: PropTypes.func,
     l: PropTypes.func
 };
 
-export default FeedDrawerItem;
+export default GlobalBlockingsDrawerItem;

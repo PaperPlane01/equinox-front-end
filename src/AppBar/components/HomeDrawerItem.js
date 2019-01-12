@@ -6,17 +6,17 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
+import closeDrawer from './closeDrawer';
 import {withLocale} from "../../localization";
 import views from '../../router-config';
-import List from "@material-ui/core/List/List";
 
 @withLocale
+@closeDrawer
 @inject('store')
-@inject('appBarStore')
 @observer
-class LinkToHomeDrawerItem extends React.Component {
+class HomeDrawerItem extends React.Component {
     render() {
-        const {store, appBarStore, l} = this.props;
+        const {store, closeDrawer, l} = this.props;
 
         return  <Link view={views.home}
                       store={store}
@@ -24,7 +24,7 @@ class LinkToHomeDrawerItem extends React.Component {
                           textDecoration: 'none'
                       }}
         >
-            <ListItem onClick={() => appBarStore.setDrawerOpened(false)}>
+            <ListItem onClick={closeDrawer}>
                 <ListItemIcon>
                     <HomeIcon/>
                 </ListItemIcon>
@@ -38,10 +38,10 @@ class LinkToHomeDrawerItem extends React.Component {
     }
 }
 
-LinkToHomeDrawerItem.propTypes = {
-    appBarStore: PropTypes.object,
+HomeDrawerItem.propTypes = {
     store: PropTypes.object,
-    l: PropTypes.func
+    l: PropTypes.func,
+    closeDrawer: PropTypes.func
 };
 
-export default LinkToHomeDrawerItem;
+export default HomeDrawerItem;

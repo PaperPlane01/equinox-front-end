@@ -1,18 +1,17 @@
-import {AuthStore, SignUpStore, EditProfileStore, UserProfileStore, CreateGlobalBlockingStore,
-    GoogleAuthStore} from '../User'
+import {AuthStore, SignUpStore, EditProfileStore, UserProfileStore, GoogleAuthStore} from '../User';
+import {CreateGlobalBlockingStore, GlobalBlockingsStore, UpdateGlobalBlockingStore,
+    DeleteGlobalBlockingStore} from '../GlobalBlocking';
 import {SettingsStore} from '../Settings';
-import {BlogPostListStore, CreateBlogPostStore, BlogPostLikeStore, DeleteBlogPostDialogStore,
-    BlogPostStore, BlockBlogPostAuthorStore, FeedStore, MostPopularBlogPostsStore,
-    UpdateBlogPostStore} from "../BlogPost";
+import {BlogPostListStore, CreateBlogPostStore, BlogPostLikeStore, DeleteBlogPostDialogStore, BlogPostStore,
+    BlockBlogPostAuthorStore, FeedStore, MostPopularBlogPostsStore, UpdateBlogPostStore} from "../BlogPost";
 import {CreateBlogStore, BlogStore, BlogSubscribersBlockStore, SubscribeToBlogStore,
     UnsubscribeFromBlogStore, EditBlogDialogStore, BlogSubscribersListStore} from "../Blog";
 import {BlogManagersBlockStore, CreateBlogManagerStore, UpdateBlogManagerStore,
     BlogManagersStore, DeleteBlogManagerStore} from '../BlogManager'
 import {CreateBlogBlockingStore, BlogBlockingsStore, UpdateBlogBlockingStore} from '../BlogBlocking';
 import {AppBarStore, CurrentUserSubscriptionsStore, CurrentUserBlogsStore} from "../AppBar";
-import {CommentListStore, CreateCommentStore, CommentLikeStore, DeleteCommentStore,
-    RestoreCommentStore, BlockCommentAuthorInBlogStore,
-    BlockCommentAuthorGloballyStore} from "../Comment";
+import {CommentListStore, CreateCommentStore, CommentLikeStore, DeleteCommentStore, RestoreCommentStore,
+    BlockCommentAuthorInBlogStore, BlockCommentAuthorGloballyStore} from "../Comment";
 import {NotificationsHolderStore} from "../Notification";
 
 const authStore = new AuthStore();
@@ -57,6 +56,9 @@ const currentUserBlogsStore = new CurrentUserBlogsStore(authStore, createBlogSto
 const deleteBlogManagerStore = new DeleteBlogManagerStore(blogManagersStore);
 const mostPopularBlogPostsStore = new MostPopularBlogPostsStore(authStore, blogPostLikeStore, deleteBlogPostDialogStore);
 const updateBlogPostStore = new UpdateBlogPostStore();
+const deleteGlobalBlockingStore = new DeleteGlobalBlockingStore();
+const globalBlockingsStore = new GlobalBlockingsStore(authStore, deleteGlobalBlockingStore);
+const updateGlobalBlockingStore = new UpdateGlobalBlockingStore();
 
 export default {
     authStore,
@@ -100,5 +102,8 @@ export default {
     currentUserBlogsStore,
     deleteBlogManagerStore,
     mostPopularBlogPostsStore,
-    updateBlogPostStore
+    updateBlogPostStore,
+    deleteGlobalBlockingStore,
+    globalBlockingsStore,
+    updateGlobalBlockingStore
 };

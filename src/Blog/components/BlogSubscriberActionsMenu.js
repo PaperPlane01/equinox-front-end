@@ -7,7 +7,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import {BlockUserInBlogMenuItem, BlogBlockingDialog} from '../../BlogBlocking'
 import {AssignUserBlogManagerMenuItem, AssignUserBlogManagerDialog} from '../../BlogManager'
 import {canBlockUserInBlog, canAssignBlogManagersInBlog} from "../permissions";
-import {BlockUserGloballyMenuItem, CreateGlobalBlockingDialog, canBlockUser} from '../../User';
+import {BlockUserGloballyMenuItem, CreateGlobalBlockingDialog, canBlockUser} from '../../GlobalBlocking';
 
 @inject('createBlogManagerStore')
 @inject('createBlogBlockingStore')
@@ -48,19 +48,21 @@ class BlogSubscriberActionsMenu extends React.Component {
 
         const items = [];
 
-        const _canBlockUserInBlog = canBlockUserInBlog(authStore.currentUser, subscription.blogId) && items
-            .push(<BlockUserInBlogMenuItem onClick={this.closeMenu}
+        const _canBlockUserInBlog = canBlockUserInBlog(authStore.currentUser, subscription.blogId);
+
+        const _canBlockUserGlobally = canBlockUser(authStore.currentUser);
+
+        const _canAssignBlogManagers = canAssignBlogManagersInBlog(authStore.currentUser, subscription.blogId);
+
+        _canBlockUserInBlog && items.push(<BlockUserInBlogMenuItem onClick={this.closeMenu}
                                            blockedUserId={subscription.user.id}
             />);
+        _canBlockUserGlobally && items.push(<BlockUserGloballyMenuItem onClick={this.handleBlockUserGloballyMenuItemClick}/>);
+        _canAssignBlogManagers && items.push(<AssignUserBlogManagerMenuItem blogId={subscription.blogId}
+                                                  userId={subscription.user.id}
+                                                  onClick={this.closeMenu}
+        />);
 
-        const _canBlockUserGlobally = canBlockUser(authStore.currentUser) && items
-            .push(<BlockUserGloballyMenuItem onClick={this.handleBlockUserGloballyMenuItemClick}/>);
-
-        const _canAssignBlogManagers = canAssignBlogManagersInBlog(authStore.currentUser, subscription.blogId)
-            && items.push(<AssignUserBlogManagerMenuItem blogId={subscription.blogId}
-                                                         userId={subscription.user.id}
-                                                         onClick={this.closeMenu}
-            />);
 
         if (items.length !== 0) {
             const menuId = `subscriptionMenuId-${subscription.id}`;

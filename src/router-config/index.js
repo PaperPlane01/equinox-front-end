@@ -1,9 +1,10 @@
 import React from 'react';
 import {Route} from 'mobx-router';
 import {Home, CreateBlog, EditProfile, User, Blog, BlogPost, BlogSubscribers, Feed,
-    BlogBlockings, GoogleAuth, BlogManagers, NotFound, EditBlogPost} from '../screens';
+    BlogBlockings, GoogleAuth, BlogManagers, NotFound, EditBlogPost, GlobalBlockings} from '../screens';
 import appStore from '../store';
 import _getViewByPath from './getViewByPath';
+
 export const getViewByPath = _getViewByPath;
 
 export default {
@@ -140,6 +141,18 @@ export default {
         },
         onExit: () => {
             appStore.updateBlogPostStore.reset();
+        }
+    }),
+    globalBlockings: new Route({
+        path: '/global-blockings',
+        component: <GlobalBlockings/>,
+        onEnter: () => {
+            appStore.globalBlockingsStore.setShouldReloadGlobalBlockingsOnCurrentUserChange(true);
+            appStore.globalBlockingsStore.fetchGlobalBlockings();
+        },
+        onExit: () => {
+            appStore.globalBlockingsStore.reset();
+            appStore.globalBlockingsStore.setShouldReloadGlobalBlockingsOnCurrentUserChange(false);
         }
     })
 };

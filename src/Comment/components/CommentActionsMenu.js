@@ -9,7 +9,7 @@ import {canDeleteComment, canRestoreComment} from "../permissions";
 import RestoreCommentMenuItem from "./RestoreCommentMenuItem";
 import {canBlockUserInBlog} from "../../Blog";
 import {BlogBlockingDialog, BlockUserInBlogMenuItem} from '../../BlogBlocking';
-import {canBlockUser, CreateGlobalBlockingDialog, BlockUserGloballyMenuItem} from '../../User';
+import {canBlockUser, CreateGlobalBlockingDialog, BlockUserGloballyMenuItem} from '../../GlobalBlocking';
 
 @inject('blockCommentAuthorGloballyStore')
 @inject('createGlobalBlockingStore')

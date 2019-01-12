@@ -7,7 +7,7 @@ const save = globalBlocking => {
 };
 
 const update = (id, globalBlocking) => {
-    return Api.put(`/${Routes.GLOBAL_BLOCKINGS}/${id}`, JSON.stringify({globalBlocking}));
+    return Api.put(`/${Routes.GLOBAL_BLOCKINGS}/${id}`, JSON.stringify({...globalBlocking}));
 };
 
 const _delete = id => {
@@ -33,7 +33,15 @@ const findAllCreatedByUser = (userId, paginationParameters) => {
 };
 
 const findById = id => {
-    return Api.get(`/${Routes.BLOG_BLOCKINGS}/${id}`);
+    return Api.get(`/${Routes.GLOBAL_BLOCKINGS}/${id}`);
+};
+
+const findByBlockedUserUsernameContains = (username, notEndedOnly = false, paginationParameters) => {
+    return Api.get(`/${Routes.GLOBAL_BLOCKINGS}?${queryString.stringify({username, notEndedOnly, ...paginationParameters})}`);
+};
+
+const findAll = (notEndedOnly = false, paginationParameters) => {
+    return Api.get(`/${Routes.GLOBAL_BLOCKINGS}?${queryString.stringify({notEndedOnly, ...paginationParameters})}`);
 };
 
 export default {
@@ -44,5 +52,7 @@ export default {
     findNotEndedByBlockedUser,
     findAllCreatedByUser,
     findNotEndedAndCreatedByUser,
+    findByBlockedUserUsernameContains,
+    findAll,
     findById
 }

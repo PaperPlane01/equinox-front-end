@@ -1,5 +1,6 @@
-import {action, observable} from 'mobx';
-import {createErrorFromResponse, globalBlockingService} from "../../../Api";
+import {action, observable, reaction} from 'mobx';
+import {validateReason, validateEndDate} from "../validation";
+import {createErrorFromResponse, globalBlockingService} from "../../Api";
 
 export default class GlobalBlockingStore {
     @observable globalBlockingDialogOpened = false;
@@ -16,6 +17,22 @@ export default class GlobalBlockingStore {
     @observable persistedGlobalBlocking = undefined;
     @observable blockedUser = undefined;
     @observable fetchingUser = false;
+
+    constructor() {
+        reaction(
+            () => this.globalBlockingFormValues.endDate,
+            endDate => {
+                this.globalBlockingFormErrors.endDate = validateEndDate(endDate);
+            }
+        );
+
+        reaction(
+            () => this.globalBlockingFormValues.reason,
+            reason => {
+                this.globalBlockingFormErrors.reason = validateReason(reason);
+            }
+        )
+    }
 
     @action setGlobalBlockingFormValue = (value, propertyName) => {
         this.globalBlockingFormValues[propertyName] = value;
@@ -50,7 +67,13 @@ export default class GlobalBlockingStore {
         }
     };
 
-    isFormValid = () => {
-        return true;
+    @action isFormValid = () => {
+        this.globalBlockingFormErrors = {
+            reason: validateReason(this.globalBlockingFormValues.reason),
+            endDate: validateEndDate(this.globalBlockingFormValues.endDate)
+        };
+        const {reason, endDate} = this.globalBlockingFormErrors;
+
+        return !(reason && endDate);
     }
 }

@@ -6,13 +6,14 @@ import {inject, observer} from 'mobx-react';
 import {Link} from 'mobx-router';
 import Avatar from '../../Avatar';
 import views from '../../router-config';
+import closeDrawer from './closeDrawer';
 
+@closeDrawer
 @inject('store')
-@inject('appBarStore')
 @observer
 class LinkToBlogDrawerItem extends React.Component {
     render() {
-        const {blogId, blogAvatarUri, blogName, blogLetterAvatarColor, store, appBarStore} = this.props;
+        const {blogId, blogAvatarUri, blogName, blogLetterAvatarColor, store, closeDrawer} = this.props;
 
         return <Link view={views.blog}
                      store={store}
@@ -21,7 +22,7 @@ class LinkToBlogDrawerItem extends React.Component {
                          textDecoration: 'none'
                      }}
         >
-            <ListItem onClick={() => appBarStore.setDrawerOpened(false)}>
+            <ListItem onClick={closeDrawer}>
                 <Avatar avatarLetter={blogName[0]}
                         avatarColor={blogLetterAvatarColor}
                         avatarUri={blogAvatarUri}
@@ -42,7 +43,7 @@ LinkToBlogDrawerItem.propTypes = {
     blogAvatarUri: PropTypes.string,
     blogLetterAvatarColor: PropTypes.string,
     store: PropTypes.object,
-    appBarStore: PropTypes.object
+    closeDrawer: PropTypes.func
 };
 
 export default LinkToBlogDrawerItem;

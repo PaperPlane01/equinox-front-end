@@ -11,7 +11,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import {DateTimePicker} from 'material-ui-pickers';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
-import {withLocale} from "../../../localization/index";
+import {withLocale} from "../../localization";
 
 @withLocale
 @inject('createGlobalBlockingStore')

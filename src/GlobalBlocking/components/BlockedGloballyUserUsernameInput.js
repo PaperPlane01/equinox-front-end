@@ -7,16 +7,16 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import {withLocale} from "../../localization";
 
 @withLocale
-@inject('blogSubscribersListStore')
+@inject('globalBlockingsStore')
 @observer
-class BlogSubscribersUsernameInput extends React.Component {
+class BlockedGloballyUserUsernameInput extends React.Component {
     render() {
-        const {l, blogSubscribersListStore} = this.props;
-        const {username, pending} = blogSubscribersListStore;
+        const {globalBlockingsStore, l} = this.props;
+        const {username, pending} = globalBlockingsStore;
 
         return <TextField label={l('username')}
                           value={username}
-                          onChange={event => blogSubscribersListStore.setUsername(event.target.value)}
+                          onChange={event => globalBlockingsStore.setUsername(event.target.value)}
                           fullWidth
                           variant="outlined"
                           margin="dense"
@@ -25,13 +25,13 @@ class BlogSubscribersUsernameInput extends React.Component {
                                   <CircularProgress size={10} color="primary"/>
                               </InputAdornment>
                           }}
-            />
+        />
     }
 }
 
-BlogSubscribersUsernameInput.propTypes = {
-    blogSubscribersListStore: PropTypes.object,
+BlockedGloballyUserUsernameInput.propTypes = {
+    globalBlockingsStore: PropTypes.object,
     l: PropTypes.func
 };
 
-export default BlogSubscribersUsernameInput;
+export default BlockedGloballyUserUsernameInput;
