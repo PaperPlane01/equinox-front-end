@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import withStyles from '@material-ui/core/styles/withStyles';
+import HeadRoom from 'react-headroom';
 import {Link} from 'mobx-router';
 import Drawer from './Drawer';
 import views from '../../router-config';
@@ -43,8 +44,11 @@ class AppBar extends React.Component {
             Aphelion
         </Link>);
 
-        return <div style={{marginBottom: '80px'}}>
-            <MaterialUiAppBar position="fixed" classes={classes} >
+        return <HeadRoom style={{
+            position: 'fixed',
+            zIndex: 1300
+        }}>
+            <MaterialUiAppBar position="static" classes={classes} >
                 <Toolbar>
                     <IconButton className={classes.menuButton}
                                 color="inherit"
@@ -55,16 +59,17 @@ class AppBar extends React.Component {
                     </IconButton>
                     <Typography variant="headline" color="inherit" className={classes.grow}>
                         {title ? <span>
-                        {linkToHome}
-                            {` | ${title}`}
-                    </span> : linkToHome}
+                                {linkToHome}{` | ${title}`}
+                                </span>
+                            : linkToHome
+                        }
                     </Typography>
                     <NotificationsHolder/>
                     <UserMenuAppBar/>
                 </Toolbar>
             </MaterialUiAppBar>
             <Drawer/>
-        </div>
+        </HeadRoom>
     }
 }
 
@@ -73,7 +78,6 @@ AppBar.propTypes = {
     classes: PropTypes.object,
     store: PropTypes.object,
     appBarStore: PropTypes.object,
-    onMenuIconButtonClick: PropTypes.func
 };
 
 export default withStyles(styles)(AppBar);
