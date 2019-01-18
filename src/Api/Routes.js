@@ -1,5 +1,5 @@
-export const WEB_APP_BASE_URL = 'http://localhost:3000';
-const API_BASE_URL = 'http://localhost:8080';
+export const WEB_APP_BASE_URL = process.env.REACT_APP_WEB_APP_BASE_URL;
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 export default {
     API_BASE_URL: API_BASE_URL,

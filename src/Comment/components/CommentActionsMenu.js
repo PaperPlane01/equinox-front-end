@@ -8,8 +8,9 @@ import DeleteCommentMenuItem from './DeleteCommentMenuItem';
 import {canDeleteComment, canRestoreComment} from "../permissions";
 import RestoreCommentMenuItem from "./RestoreCommentMenuItem";
 import {canBlockUserInBlog} from "../../Blog";
-import {BlogBlockingDialog, BlockUserInBlogMenuItem} from '../../BlogBlocking';
+import {BlogBlockingDialog, BlockUserInBlogMenuItem} from '../../BlogBlocking/components';
 import {canBlockUser, CreateGlobalBlockingDialog, BlockUserGloballyMenuItem} from '../../GlobalBlocking';
+import {ReportCommentDialog, ReportCommentMenuItem} from "../../CommentReport/components";
 
 @inject('blockCommentAuthorGloballyStore')
 @inject('createGlobalBlockingStore')
@@ -50,8 +51,12 @@ class CommentActionsMenu extends React.Component {
 
     render() {
         const {authStore, createBlogBlockingStore, comment, blockCommentAuthorInBlogStore,
-            createGlobalBlockingStore, blockCommentAuthorGloballyStore} = this.props;
+            blockCommentAuthorGloballyStore} = this.props;
         const items = [];
+
+        items.push(<ReportCommentMenuItem commentId={comment.id}
+                                          onClick={this.closeMenu}
+        />);
 
         canDeleteComment(authStore.currentUser, comment) && items
             .push(<DeleteCommentMenuItem commentId={comment.id}
@@ -71,38 +76,35 @@ class CommentActionsMenu extends React.Component {
         canBlockUser(authStore.currentUser) && items
             .push(<BlockUserGloballyMenuItem onClick={this.handleBlockUserGloballyMenuItemClick}/>);
 
-        if (items.length !== 0) {
-            const menuId = `commentActionsMenu-${comment.id}`;
-            const {anchorElement} = this.state;
+        const menuId = `commentActionsMenu-${comment.id}`;
+        const {anchorElement} = this.state;
 
-            return <div>
-                <IconButton onClick={this.openMenu}>
-                    <MoreVertIcon/>
-                </IconButton>
-                <Menu id={menuId}
-                      anchorEl={anchorElement}
-                      open={Boolean(anchorElement)}
-                      onClose={this.closeMenu}
-                      anchorOrigin={{
-                          vertical: 'top',
-                          horizontal: 'right',
-                      }}
-                      transformOrigin={{
-                          vertical: 'top',
-                          horizontal: 'right',
-                      }}
-                >
-                    {items}
-                </Menu>
-                {createBlogBlockingStore.blockedUserId === comment.author.id
-                && blockCommentAuthorInBlogStore.commentId === comment.id
-                && <BlogBlockingDialog blogId={comment.blogId}/>
-                }
-                {blockCommentAuthorGloballyStore.commentId === comment.id && <CreateGlobalBlockingDialog/>}
-            </div>
-        } else {
-            return null;
-        }
+        return <div>
+            <IconButton onClick={this.openMenu}>
+                <MoreVertIcon/>
+            </IconButton>
+            <Menu id={menuId}
+                  anchorEl={anchorElement}
+                  open={Boolean(anchorElement)}
+                  onClose={this.closeMenu}
+                  anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                  }}
+                  transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                  }}
+            >
+                {items}
+            </Menu>
+            {createBlogBlockingStore.blockedUserId === comment.author.id
+            && blockCommentAuthorInBlogStore.commentId === comment.id
+            && <BlogBlockingDialog blogId={comment.blogId}/>
+            }
+            {blockCommentAuthorGloballyStore.commentId === comment.id && <CreateGlobalBlockingDialog/>}
+            {<ReportCommentDialog commentId={comment.id}/>}
+        </div>
     }
 }
 

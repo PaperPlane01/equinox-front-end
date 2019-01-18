@@ -9,3 +9,4 @@ export {default as subscriptionService} from './SubscriptionService';
 export {default as notificationService} from './NotificationService';
 export {default as blogBlockingService} from './BlogBlockingService';
 export {default as globalBlockingService} from './GlobalBlockingService';
+export {default as commentReportService} from './CommentReportService';

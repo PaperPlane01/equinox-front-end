@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'mobx-react';
 import {RouterStore, startRouter} from 'mobx-router';
 import localStorage from 'mobx-localstorage';
+import {SnackbarProvider} from 'notistack';
 import views from './router-config';
 import {en, ru} from './translations';
 import {LocaleStore} from './localization';
@@ -27,6 +28,8 @@ startRouter(views, routerStore, {
 });
 
 ReactDOM.render(<Provider store={routerStore} {...appStore}>
-    <App/>
+    <SnackbarProvider maxSnack={3}>
+        <App/>
+    </SnackbarProvider>
 </Provider>, document.getElementById('root'));
 registerServiceWorker();

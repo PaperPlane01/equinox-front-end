@@ -13,6 +13,7 @@ import {AppBarStore, CurrentUserSubscriptionsStore, CurrentUserBlogsStore} from 
 import {CommentListStore, CreateCommentStore, CommentLikeStore, DeleteCommentStore, RestoreCommentStore,
     BlockCommentAuthorInBlogStore, BlockCommentAuthorGloballyStore} from "../Comment";
 import {NotificationsHolderStore} from "../Notification";
+import {CreateCommentReportStore} from "../CommentReport";
 
 const authStore = new AuthStore();
 const signUpStore = new SignUpStore();
@@ -59,6 +60,7 @@ const updateBlogPostStore = new UpdateBlogPostStore();
 const deleteGlobalBlockingStore = new DeleteGlobalBlockingStore();
 const globalBlockingsStore = new GlobalBlockingsStore(authStore, deleteGlobalBlockingStore);
 const updateGlobalBlockingStore = new UpdateGlobalBlockingStore();
+const createCommentReportStore = new CreateCommentReportStore();
 
 export default {
     authStore,
@@ -105,5 +107,6 @@ export default {
     updateBlogPostStore,
     deleteGlobalBlockingStore,
     globalBlockingsStore,
-    updateGlobalBlockingStore
+    updateGlobalBlockingStore,
+    createCommentReportStore
 };
