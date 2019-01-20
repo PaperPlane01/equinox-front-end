@@ -1,6 +1,6 @@
 {
   "name": "aphelion-front-end",
-  "version": "0.10.3",
+  "version": "0.10.4",
   "private": true,
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.1.0",
@@ -51,6 +51,7 @@
     "normalizr": "^3.3.0",
     "notistack": "^0.4.1",
     "npm": "^6.5.0",
+    "numeral": "^2.0.6",
     "object-assign": "4.1.1",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.8",

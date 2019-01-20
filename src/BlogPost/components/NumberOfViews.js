@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Typography from '@material-ui/core/Typography';
+import {prettifyNumber} from "../../utils";
 
 class NumberOfViews extends React.Component {
     render() {
@@ -11,7 +12,7 @@ class NumberOfViews extends React.Component {
         return <IconButton color="primary">
             <VisibilityIcon/>
             <Typography variant="body1" color="primary">
-                {numberOfViews}
+                {prettifyNumber(numberOfViews)}
             </Typography>
         </IconButton>
     }

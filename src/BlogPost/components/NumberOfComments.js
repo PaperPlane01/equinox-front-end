@@ -5,6 +5,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 import Typography from '@material-ui/core/Typography';
 import {Link} from 'mobx-router';
+import {prettifyNumber} from "../../utils";
 import views from '../../router-config';
 
 @inject('store')
@@ -22,7 +23,7 @@ class NumberOfComments extends React.Component {
             <IconButton color="primary">
                 <ChatBubbleIcon/>
                 <Typography variant="body1" color="primary">
-                    {numberOfComments}
+                    {prettifyNumber(numberOfComments)}
                 </Typography>
             </IconButton>
         </Link>

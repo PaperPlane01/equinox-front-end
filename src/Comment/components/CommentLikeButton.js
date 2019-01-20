@@ -5,6 +5,7 @@ import IconButton from '@material-ui/core/IconButton';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteOutlined from '@material-ui/icons/FavoriteBorder';
 import Typography from '@material-ui/core/Typography';
+import {prettifyNumber} from "../../utils";
 
 @inject('commentLikeStore')
 @observer
@@ -30,7 +31,7 @@ class CommentLikeButton extends React.Component {
                            color="primary"
         >
             {clicked ? <FavoriteIcon/> : <FavoriteOutlined/>}
-            <Typography variant="body1" color="primary">{numberOfLikes}</Typography>
+            <Typography variant="body1" color="primary">{prettifyNumber(numberOfLikes)}</Typography>
         </IconButton>
     }
 }

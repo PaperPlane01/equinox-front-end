@@ -1,3 +1,5 @@
+import numeral from 'numeral';
+
 const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 export const isBlank = string => {
@@ -53,4 +55,12 @@ export const getUTCDate = date => {
         date.getSeconds(),
         date.getMilliseconds()
     )
+};
+
+export const prettifyNumber = number => {
+    if (number < 1000) {
+        return number;
+    } else {
+        return numeral(number).format('0.0a');
+    }
 };

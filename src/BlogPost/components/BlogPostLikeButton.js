@@ -5,6 +5,7 @@ import IconButton from '@material-ui/core/IconButton';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteOutlinedIcon from '@material-ui/icons/FavoriteBorder';
 import Typography from '@material-ui/core/Typography';
+import {prettifyNumber} from "../../utils";
 
 @inject('blogPostLikeStore')
 @observer
@@ -31,7 +32,7 @@ class BlogPostLikeButton extends React.Component {
         >
             {clicked ? <FavoriteIcon/> : <FavoriteOutlinedIcon/>}
             <Typography variant="body1" color="primary">
-                {numberOfLikes}
+                {prettifyNumber(numberOfLikes)}
             </Typography>
         </IconButton>
     }
