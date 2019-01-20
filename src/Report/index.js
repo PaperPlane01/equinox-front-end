@@ -1,3 +1,5 @@
+import {isBlank} from "../utils";
+
 export const ReportReason = {
     ABUSIVE_CONTENT: 'ABUSIVE_CONTENT',
     SHOCK_CONTENT: 'SHOCK_CONTENT',
@@ -8,11 +10,15 @@ export const ReportReason = {
 };
 
 export const validateReportReason = reason => {
-    console.log(reason);
+    if (isBlank(reason)) {
+        console.log('blank');
+        return 'requiredField';
+    }
+
     if (Object.keys(ReportReason).filter(key => ReportReason[key] === reason).length === 0) {
         return 'invalidReportReason';
     }
-    console.log('valid');
+
     return undefined;
 };
 
@@ -23,6 +29,10 @@ export const ReportStatus = {
 };
 
 export const validateReportStatus = status => {
+    if (isBlank(status)) {
+        return 'requiredField';
+    }
+
     Object.keys(ReportReason).forEach(key => {
         if (ReportStatus[key] === status) {
             return undefined;
@@ -33,8 +43,8 @@ export const validateReportStatus = status => {
 };
 
 export const validateReportDescription = description => {
-    if (!description || description.length === 0) {
-        return undefined;
+    if (isBlank(description)) {
+        return 'requiredField';
     }
 
     if (description.length > 100) {

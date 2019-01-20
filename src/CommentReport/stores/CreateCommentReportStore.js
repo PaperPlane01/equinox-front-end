@@ -22,6 +22,7 @@ export default class CreateCommentReportStore {
         reaction(
             () => this.createCommentReportFormValues.reason,
             reason => {
+                console.log('validating reason');
                 this.createCommentReportFormErrors.reason = validateReportReason(reason);
             }
         );
@@ -46,14 +47,6 @@ export default class CreateCommentReportStore {
         reaction(
             () => this.commentId,
             () => {
-                this.createCommentReportFormValues = {
-                    reason: undefined,
-                    description: ''
-                };
-                this.createCommentReportFormErrors = {
-                    reason: undefined,
-                    description: undefined
-                };
                 this.submissionError = undefined;
                 this.persistedCommentReport = undefined;
             }
@@ -76,11 +69,10 @@ export default class CreateCommentReportStore {
         this.createCommentReportFormValues[propertyName] = value;
     };
 
-    @action createCommentReport = () => {
-        this.pending = true;
-        this.submissionError = undefined;
-
+    @action saveCommentReport = () => {
         if (this.isFormValid()) {
+            this.pending = true;
+            this.submissionError = undefined;
             return commentReportService.save({
                 commentId: this.commentId,
                 ...this.createCommentReportFormValues
@@ -100,6 +92,6 @@ export default class CreateCommentReportStore {
 
         const {reason, description} = this.createCommentReportFormErrors;
 
-        return !(reason && description);
+        return !(reason || description);
     }
 }

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import {ReportReason} from "./index";
 import {withLocale} from "../localization";
 
@@ -10,7 +11,7 @@ import {withLocale} from "../localization";
 class ReportReasonSelect extends React.Component {
 
     render() {
-        const {value, onChange, l} = this.props;
+        const {value, onChange, l, error} = this.props;
 
         return <div>
             <InputLabel htmlFor="reportReasonSelect">
@@ -20,7 +21,7 @@ class ReportReasonSelect extends React.Component {
                     onChange={event => onChange && onChange(event.target.value)}
                     fullWidth
                     InputProps={{
-                        name: 'reportReasonSelect',
+                        id: 'reportReasonSelect',
                         margin: 'dense'
                     }}
             >
@@ -43,6 +44,7 @@ class ReportReasonSelect extends React.Component {
                     {l('websiteRulesViolation')}
                 </MenuItem>
             </Select>
+            {error && <FormHelperText style={{color: 'red'}}>{l(error)}</FormHelperText>}
         </div>
     }
 }
@@ -50,6 +52,7 @@ class ReportReasonSelect extends React.Component {
 ReportReasonSelect.propTypes = {
     onChange: PropTypes.func,
     value: PropTypes.string,
+    error: PropTypes.string,
     l: PropTypes.func
 };
 

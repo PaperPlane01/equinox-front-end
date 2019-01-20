@@ -8,10 +8,12 @@ import {ReportReasonSelect} from "../../Report";
 class CommentReportReasonSelect extends React.Component {
     render() {
         const {createCommentReportStore} = this.props;
+        const {createCommentReportFormErrors} = createCommentReportStore;
         const {reason} = createCommentReportStore.createCommentReportFormValues;
 
         return <ReportReasonSelect value={reason}
                                    onChange={reason => createCommentReportStore.setCreateCommentReportFormValue(reason, 'reason')}
+                                   error={createCommentReportFormErrors.reason}
         />
     }
 }

@@ -67,7 +67,7 @@ class ReportCommentDialog extends React.Component {
                     </Typography>}
                     <Button variant="contained"
                             color="primary"
-                            onClick={createCommentReportStore.createCommentReport}
+                            onClick={createCommentReportStore.saveCommentReport}
                     >
                         {l('report')}
                     </Button>
