@@ -8,6 +8,7 @@ import DeleteBlogPostMenuItem from './DeleteBlogPostMenuItem';
 import DeleteBlogPostDialog from './DeleteBlogPostDialog';
 import EditBlogPostMenuItem from './EditBlogPostMenuItem';
 import {BlockUserGloballyMenuItem, CreateGlobalBlockingDialog, canBlockUser} from "../../GlobalBlocking";
+import {ReportBlogPostDialog, ReportBlogPostMenuItem} from "../../BlogPostReport/components";
 import * as blogPostPermissions from "../permissions";
 
 @inject('authStore')
@@ -48,6 +49,10 @@ class BlogPostActionsMenu extends React.Component {
         const canBlockAuthor = canBlockUser(authStore.currentUser);
         const canEditBlogPost = blogPostPermissions.canEditBlogPost(authStore.currentUser, blogPost);
 
+        items.push(<ReportBlogPostMenuItem onClick={this.closeMenu}
+                                           blogPostId={blogPost.id}
+        />);
+
         if (canDeleteBlogPost) {
             items.push(<DeleteBlogPostMenuItem onClick={this.closeMenu}
                                                blogPostId={blogPost.id}
@@ -62,35 +67,32 @@ class BlogPostActionsMenu extends React.Component {
             items.push(<EditBlogPostMenuItem onClick={this.closeMenu} blogPostId={blogPost.id}/>)
         }
 
-        if (items.length !== 0) {
-            const menuId = `blogPostActionsMenu-${blogPost.id}`;
-            const {anchorElement} = this.state;
+        const menuId = `blogPostActionsMenu-${blogPost.id}`;
+        const {anchorElement} = this.state;
 
-            return <div>
-                <IconButton onClick={this.openMenu}>
-                    <MoreVertIcon/>
-                </IconButton>
-                <Menu id={menuId}
-                      anchorEl={anchorElement}
-                      open={Boolean(anchorElement)}
-                      onClose={this.closeMenu}
-                      anchorOrigin={{
-                          vertical: 'top',
-                          horizontal: 'right',
-                      }}
-                      transformOrigin={{
-                          vertical: 'top',
-                          horizontal: 'right',
-                      }}
-                >
-                    {items}
-                </Menu>
-                {canDeleteBlogPost && <DeleteBlogPostDialog blogPostId={blogPost.id}/>}
-                {(canBlockAuthor && blockBlogPostAuthorStore.blogPostId === blogPost.id) && <CreateGlobalBlockingDialog/>}
-            </div>
-        } else {
-            return null;
-        }
+        return <div>
+            <IconButton onClick={this.openMenu}>
+                <MoreVertIcon/>
+            </IconButton>
+            <Menu id={menuId}
+                  anchorEl={anchorElement}
+                  open={Boolean(anchorElement)}
+                  onClose={this.closeMenu}
+                  anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                  }}
+                  transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                  }}
+            >
+                {items}
+            </Menu>
+            <ReportBlogPostDialog blogPostId={blogPost.id}/>
+            {canDeleteBlogPost && <DeleteBlogPostDialog blogPostId={blogPost.id}/>}
+            {(canBlockAuthor && blockBlogPostAuthorStore.blogPostId === blogPost.id) && <CreateGlobalBlockingDialog/>}
+        </div>
     }
 }
 

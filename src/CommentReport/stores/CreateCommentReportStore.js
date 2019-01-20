@@ -37,9 +37,18 @@ export default class CreateCommentReportStore {
         reaction(
             () => this.persistedCommentReport,
             () => {
-                this.createCommentReportDialogOpen = false;
                 if (this.persistedCommentReport) {
+                    this.createCommentReportDialogOpen = false;
                     this.shouldShowSnackBar = true;
+                }
+            }
+        );
+
+        reaction(
+            () => this.createCommentReportDialogOpen,
+            open => {
+                if (!open) {
+                    this.persistedCommentReport = undefined;
                 }
             }
         );

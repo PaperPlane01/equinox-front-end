@@ -228,5 +228,8 @@ export default {
     invalidReportStatus: "Неверный статус жалобы",
     invalidReportReason: "Неверная причина жалобы",
     reportStatus: "Статус жалобы",
-    commentReportedSuccessfully: "Жалоба на комментарий успешно отправлена"
+    commentReportedSuccessfully: "Жалоба на комментарий успешно отправлена",
+    reportBlogPost: "Пожаловаться на пост",
+    blogPostReportedSuccessfully: "Жалоба на пост успешно отправлена",
+    errorWhenAttemptedToReportBlogPost: "Во время попытки пожаловаться на пост произошла ошибка. Сервер ответил со статусом {errorStatus}. Пожалуйста, попробуйте позже"
 }
