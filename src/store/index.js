@@ -3,7 +3,8 @@ import {CreateGlobalBlockingStore, GlobalBlockingsStore, UpdateGlobalBlockingSto
     DeleteGlobalBlockingStore} from '../GlobalBlocking';
 import {SettingsStore} from '../Settings';
 import {BlogPostListStore, CreateBlogPostStore, BlogPostLikeStore, DeleteBlogPostDialogStore, BlogPostStore,
-    BlockBlogPostAuthorStore, FeedStore, MostPopularBlogPostsStore, UpdateBlogPostStore} from "../BlogPost";
+    BlockBlogPostAuthorStore, FeedStore, MostPopularBlogPostsStore, UpdateBlogPostStore,
+    PinBlogPostStore, UnpinBlogPostStore} from "../BlogPost";
 import {CreateBlogStore, BlogStore, BlogSubscribersBlockStore, SubscribeToBlogStore,
     UnsubscribeFromBlogStore, EditBlogDialogStore, BlogSubscribersListStore} from "../Blog";
 import {BlogManagersBlockStore, CreateBlogManagerStore, UpdateBlogManagerStore,
@@ -29,7 +30,9 @@ const subscribeToBlogStore = new SubscribeToBlogStore(blogStore, currentUserSubs
 const unsubscribeFromBlogStore = new UnsubscribeFromBlogStore(blogStore, currentUserSubscriptionsStore);
 const createBlogPostStore = new CreateBlogPostStore();
 const blogPostLikeStore = new BlogPostLikeStore();
-const blogPostListStore = new BlogPostListStore(blogStore, authStore, createBlogPostStore, blogPostLikeStore);
+const pinBlogPostStore = new PinBlogPostStore();
+const unpinBlogPostStore = new UnpinBlogPostStore();
+const blogPostListStore = new BlogPostListStore(blogStore, authStore, createBlogPostStore, blogPostLikeStore, pinBlogPostStore, unpinBlogPostStore);
 const deleteBlogPostDialogStore = new DeleteBlogPostDialogStore(blogPostListStore);
 const blogManagersBlockStore = new BlogManagersBlockStore(authStore, blogStore);
 const blogPostStore = new BlogPostStore(authStore, blogPostLikeStore);
@@ -111,5 +114,7 @@ export default {
     globalBlockingsStore,
     updateGlobalBlockingStore,
     createCommentReportStore,
-    createBlogPostReportStore
+    createBlogPostReportStore,
+    pinBlogPostStore,
+    unpinBlogPostStore
 };

@@ -7,10 +7,16 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import DeleteBlogPostMenuItem from './DeleteBlogPostMenuItem';
 import DeleteBlogPostDialog from './DeleteBlogPostDialog';
 import EditBlogPostMenuItem from './EditBlogPostMenuItem';
+import PinBlogPostMenuItem from './PinBlogPostMenuItem';
+import UnpinBlogPostMenuItem from './UnpinBlogPostMenuItem';
+import withBlogPostPinnedSnackBar from './withBlogPostPinnedSnackBar';
+import withBlogPostUnpinnedSnackBar from './withBlogPostUnpinnedSnackBar';
 import {BlockUserGloballyMenuItem, CreateGlobalBlockingDialog, canBlockUser} from "../../GlobalBlocking";
 import {ReportBlogPostDialog, ReportBlogPostMenuItem} from "../../BlogPostReport/components";
 import * as blogPostPermissions from "../permissions";
 
+@withBlogPostUnpinnedSnackBar
+@withBlogPostPinnedSnackBar
 @inject('authStore')
 @inject('blockBlogPostAuthorStore')
 @observer
@@ -48,23 +54,37 @@ class BlogPostActionsMenu extends React.Component {
         const canDeleteBlogPost = blogPostPermissions.canDeleteBlogPost(authStore.currentUser, blogPost);
         const canBlockAuthor = canBlockUser(authStore.currentUser);
         const canEditBlogPost = blogPostPermissions.canEditBlogPost(authStore.currentUser, blogPost);
+        const canPinBlogPost = !blogPost.pinned && blogPostPermissions.canPinBlogPost(authStore.currentUser, blogPost.blogId);
+        const canUnpinBlogPost = blogPost.pinned && blogPostPermissions.canUnpinBlogPost(authStore.currentUser, blogPost.blogId);
 
         items.push(<ReportBlogPostMenuItem onClick={this.closeMenu}
                                            blogPostId={blogPost.id}
         />);
 
+        if (canPinBlogPost) {
+            items.push(<PinBlogPostMenuItem onClick={this.closeMenu}
+                                            blogPostId={blogPost.id}
+            />);
+        }
+
+        if (canUnpinBlogPost) {
+            items.push(<UnpinBlogPostMenuItem onClick={this.closeMenu}
+                                              blogPostId={blogPost.id}
+            />);
+        }
+
         if (canDeleteBlogPost) {
             items.push(<DeleteBlogPostMenuItem onClick={this.closeMenu}
                                                blogPostId={blogPost.id}
-            />)
+            />);
         }
 
         if (canBlockAuthor) {
-            items.push(<BlockUserGloballyMenuItem onClick={this.handleBlockBlogPostAuthorMenuItemClick}/>)
+            items.push(<BlockUserGloballyMenuItem onClick={this.handleBlockBlogPostAuthorMenuItemClick}/>);
         }
 
         if (canEditBlogPost) {
-            items.push(<EditBlogPostMenuItem onClick={this.closeMenu} blogPostId={blogPost.id}/>)
+            items.push(<EditBlogPostMenuItem onClick={this.closeMenu} blogPostId={blogPost.id}/>);
         }
 
         const menuId = `blogPostActionsMenu-${blogPost.id}`;

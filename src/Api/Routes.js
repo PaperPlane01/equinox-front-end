@@ -43,5 +43,8 @@ export default {
     MOST_POPULAR: 'most-popular',
     FOR_WEEK: 'for-week',
     FOR_MONTH: 'for-month',
-    FOR_YEAR: 'for-year'
+    FOR_YEAR: 'for-year',
+    PIN: 'pin',
+    UNPIN: 'unpin',
+    PINNED: 'pinned'
 };

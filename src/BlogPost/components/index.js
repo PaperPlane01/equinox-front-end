@@ -13,3 +13,4 @@ export {default as MostPopularBlogPostsList} from './MostPopularBlogPostsList';
 export {default as MostPopularBlogPostsPeriodSelect} from './MostPopularBlogPostsPeriodSelect';
 export {default as UpdateBlogPostForm} from './UpdateBlogPostForm';
 export {default as EditBlogPostMenuItem} from './EditBlogPostMenuItem';
+export {default as PinBlogPostMenuItem} from './PinBlogPostMenuItem';

@@ -1,11 +1,31 @@
 import {normalize} from 'normalizr';
-import {action, computed, observable, reaction} from 'mobx';
+import {action, computed, observable, reaction, toJS} from 'mobx';
 import {blogPostListSchema} from "./schemas";
 import {blogPostService, createErrorFromResponse} from "../../Api";
+
+const mergeNormalizedBlogPosts = (source, destination) => {
+    return {
+        ...destination,
+        result: destination.result.concat(source.result),
+        entities: {
+            ...destination.entities,
+            blogPosts: {
+                ...destination.entities.blogPosts,
+                ...source.entities.blogPosts
+            }
+        }
+    }
+};
 
 export default class BlogPostListStore {
     @observable pending = false;
     @observable error = undefined;
+    @observable pinnedBlogPosts = {
+        result: [],
+        entities: {
+            blogPosts: {}
+        }
+    };
     @observable blogPosts = {
         result: [],
         entities: {
@@ -22,6 +42,8 @@ export default class BlogPostListStore {
     @observable authStore = undefined;
     @observable createBlogPostStore = undefined;
     @observable blogPostLikeStore = undefined;
+    @observable pinBlogPostStore = undefined;
+    @observable unpinBlogPostStore = undefined;
 
     @computed get blogId() {
         return this.blogStore.blogId;
@@ -31,11 +53,13 @@ export default class BlogPostListStore {
         return this.createBlogPostStore.persistedBlogPost;
     }
 
-    constructor(blogStore, authStore, createBlogPostStore, blogPostLikeStore) {
+    constructor(blogStore, authStore, createBlogPostStore, blogPostLikeStore, pinBlogPostStore, unpinBlogPostStore) {
         this.blogStore = blogStore;
         this.authStore = authStore;
         this.createBlogPostStore = createBlogPostStore;
         this.blogPostLikeStore = blogPostLikeStore;
+        this.pinBlogPostStore = pinBlogPostStore;
+        this.unpinBlogPostStore = unpinBlogPostStore;
 
         reaction(
             () => this.paginationParams,
@@ -63,7 +87,14 @@ export default class BlogPostListStore {
                         blogPosts: {}
                     }
                 };
+                this.pinnedBlogPosts = {
+                    result: [],
+                    entities: {
+                        blogPosts: {}
+                    }
+                };
                 if (this.blogId) {
+                    this.fetchPinnedBlogPosts();
                     this.fetchBlogPosts();
                 }
             }
@@ -124,6 +155,31 @@ export default class BlogPostListStore {
                         = this.blogPostLikeStore.persistedBlogPostLikeId;
                 }
             }
+        );
+
+        reaction(
+            () => this.pinBlogPostStore.pinnedBlogPost,
+            pinnedBlogPost => {
+                if (pinnedBlogPost) {
+                    this.pinnedBlogPosts.entities.blogPosts[pinnedBlogPost.id] = pinnedBlogPost;
+                    this.pinnedBlogPosts.result.unshift(pinnedBlogPost.id);
+                    if (this.blogPosts.entities.blogPosts[pinnedBlogPost.id]) {
+                        this.blogPosts.entities.blogPosts[pinnedBlogPost.id].pinned = true;
+                    }
+                }
+            }
+        );
+
+        reaction(
+            () => this.unpinBlogPostStore.unpinnedBlogPost,
+            unpinnedBlogPost => {
+                if (unpinnedBlogPost) {
+                    this.pinnedBlogPosts.result = this.pinnedBlogPosts.result.filter(blogPostId => blogPostId !== unpinnedBlogPost.id);
+                    if (this.blogPosts.entities.blogPosts[unpinnedBlogPost.id]) {
+                        this.blogPosts.entities.blogPosts[unpinnedBlogPost.id].pinned = false;
+                    }
+                }
+            }
         )
     }
 
@@ -161,16 +217,7 @@ export default class BlogPostListStore {
         }).then(response => {
             if (response.data.length !== 0) {
                 const normalizedResponse = normalize(response.data, blogPostListSchema);
-                this.blogPosts = {
-                    ...this.blogPosts,
-                    result: this.blogPosts.result.concat(normalizedResponse.result),
-                    entities: {
-                        blogPosts: {
-                            ...this.blogPosts.entities.blogPosts,
-                            ...normalizedResponse.entities.blogPosts
-                        }
-                    }
-                };
+                this.blogPosts = mergeNormalizedBlogPosts(normalizedResponse, this.blogPosts);
                 this.currentPageNumber = this.currentPageNumber + 1;
             }
         }).catch(error => {
@@ -185,5 +232,17 @@ export default class BlogPostListStore {
             ...this.blogPosts,
             result: this.blogPosts.result.filter(blogPostId => blogPostId !== id)
         }
+    };
+
+    @action fetchPinnedBlogPosts = () => {
+        return blogPostService.findPinnedByBlod(this.blogId)
+            .then(response => {
+                if (response.data.length !== 0) {
+                    const normalizedResponse = normalize(response.data, blogPostListSchema);
+                    console.log(normalizedResponse);
+                    this.pinnedBlogPosts = mergeNormalizedBlogPosts(normalizedResponse, this.pinnedBlogPosts);
+                    console.log(toJS(this.pinnedBlogPosts));
+                }
+            })
     }
 }

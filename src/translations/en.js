@@ -234,5 +234,10 @@ export default {
     commentReportedSuccessfully: "Comment has been successfully reported",
     reportBlogPost: "Report blog post",
     blogPostReportedSuccessfully: "Blog post has been successfully reported",
-    errorWhenAttemptedToReportBlogPost: "Error occurred when attempted to report blog post. Server responded with {errorStatus} status. Please try again later"
+    errorWhenAttemptedToReportBlogPost: "Error occurred when attempted to report blog post. Server responded with {errorStatus} status. Please try again later",
+    pin: "Pin",
+    unpin: "Unpin",
+    pinned: "Pinned",
+    blogPostPinned: "Blog post has been pinned",
+    blogPostUnpinned: "Blog post has been unpinned"
 }

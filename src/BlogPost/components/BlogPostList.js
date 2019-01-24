@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {toJS} from 'mobx';
 import {observer, inject} from 'mobx-react';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -13,26 +14,30 @@ import {withLocale} from "../../localization";
 class BlogPostsList extends React.Component {
     render() {
         const {l, blogPostListStore} = this.props;
-        const {pending, blogPosts} = blogPostListStore;
+        const {pending, blogPosts, pinnedBlogPosts} = blogPostListStore;
 
         return (blogPosts.result.length === 0 && !pending)
             ? <Typography variant="subtitle">
                 {l('noBlogPosts')}
             </Typography>
             : <Grid container spacing={16}>
-                    {blogPostListStore.blogPosts.result.map(blogPostId => (
-                            <Grid item xs={12}>
-                                <BlogPostListItem
-                                    blogPost={blogPostListStore.blogPosts.entities.blogPosts[blogPostId]}/>
-                            </Grid>
-                    ))}
-                    {pending && <CircularProgress size={50}
-                                                  color="primary"
-                                                  style={{
-                                                      marginLeft: 'calc(50% - 50px)',
-                                                  }}
-                    />}
-                </Grid>
+                {pinnedBlogPosts.result.map(blogPostId => (
+                    <Grid item xs={12}>
+                        <BlogPostListItem blogPost={pinnedBlogPosts.entities.blogPosts[blogPostId]}/>
+                    </Grid>
+                ))}
+                {blogPosts.result.map(blogPostId => (
+                    !blogPosts.entities.blogPosts[blogPostId].pinned && <Grid item xs={12}>
+                        <BlogPostListItem blogPost={blogPosts.entities.blogPosts[blogPostId]}/>
+                    </Grid>
+                ))}
+                {pending && <CircularProgress size={50}
+                                              color="primary"
+                                              style={{
+                                                  marginLeft: 'calc(50% - 50px)',
+                                              }}
+                />}
+              </Grid>
     }
 }
 

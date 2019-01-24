@@ -8,6 +8,14 @@ export const canCreateBlogPost = (currentUser, blogId) => {
         );
 };
 
+export const canPinBlogPost = (currentUser, blogId) => {
+    return currentUser && currentUser.ownedBlogs.includes(blogId);
+};
+
+export const canUnpinBlogPost = (currentUser, blogId) => {
+    return canPinBlogPost(currentUser, blogId);
+};
+
 export const canDeleteBlogPost = (currentUser, blogPost) => {
     return currentUser && blogPost.canBeDeleted;
 };

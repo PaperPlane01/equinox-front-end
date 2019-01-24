@@ -42,6 +42,18 @@ const getMostPopularForYear = paginationParameters => {
     return Api.get(`/${Routes.BLOG_POSTS}/${Routes.MOST_POPULAR}/${Routes.FOR_YEAR}${paginationParameters &&`?${queryString.stringify(paginationParameters)}`}`)
 };
 
+const pin = id => {
+    return Api.post(`/${Routes.BLOG_POSTS}/${id}/${Routes.PIN}`);
+};
+
+const unpin = id => {
+    return Api.delete(`/${Routes.BLOG_POSTS}/${id}/${Routes.UNPIN}`);
+};
+
+const findPinnedByBlod = blogId => {
+    return Api.get(`/${Routes.BLOGS}/${blogId}/${Routes.BLOG_POSTS}/${Routes.PINNED}`);
+};
+
 export default {
     save,
     update,
@@ -52,5 +64,8 @@ export default {
     getFeed,
     getMostPopularForWeek,
     getMostPopularForMonth,
-    getMostPopularForYear
+    getMostPopularForYear,
+    pin,
+    unpin,
+    findPinnedByBlod
 };

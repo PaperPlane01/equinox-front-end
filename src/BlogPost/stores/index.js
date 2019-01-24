@@ -7,3 +7,5 @@ export {default as BlockBlogPostAuthorStore} from './BlockBlogPostAuthorStore';
 export {default as FeedStore} from './FeedStore';
 export {default as MostPopularBlogPostsStore} from './MostPopularBlogPostsStore';
 export {default as UpdateBlogPostStore} from './UpdateBlogPostStore';
+export {default as PinBlogPostStore} from './PinBlogPostStore';
+export {default as UnpinBlogPostStore} from './UnpinBlogPostStore';

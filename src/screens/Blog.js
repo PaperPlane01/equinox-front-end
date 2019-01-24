@@ -76,7 +76,7 @@ class Blog extends React.Component {
                 </Hidden>
                 <Hidden smDown>
                     <Grid container spacing={16}>
-                        <Grid item xs={12} lg={9}>
+                        <Grid item xs={12} lg={8}>
                             <Grid container spacing={16}>
                                 <Grid item xs={12}>
                                     <BlogDescription/>
@@ -92,7 +92,7 @@ class Blog extends React.Component {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item xs={12} lg={3} >
+                        <Grid item xs={12} lg={4} >
                             <Grid container spacing={16}>
                                 <Grid item xs={12}>
                                     <BlogSubscribersBlock/>

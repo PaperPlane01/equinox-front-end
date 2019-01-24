@@ -231,5 +231,10 @@ export default {
     commentReportedSuccessfully: "Жалоба на комментарий успешно отправлена",
     reportBlogPost: "Пожаловаться на пост",
     blogPostReportedSuccessfully: "Жалоба на пост успешно отправлена",
-    errorWhenAttemptedToReportBlogPost: "Во время попытки пожаловаться на пост произошла ошибка. Сервер ответил со статусом {errorStatus}. Пожалуйста, попробуйте позже"
+    errorWhenAttemptedToReportBlogPost: "Во время попытки пожаловаться на пост произошла ошибка. Сервер ответил со статусом {errorStatus}. Пожалуйста, попробуйте позже",
+    pin: "Закрепить",
+    unpin: "Открепить",
+    pinned: "Закреплён",
+    blogPostPinned: "Пост закреплён",
+    blogPostUnpinned: "Пост откреплён"
 }
