@@ -8,10 +8,14 @@ export default class BlogPostStore {
     @observable pending = false;
     @observable error = undefined;
     @observable blogPostLikeStore = undefined;
+    @observable pinBlogPostStore = undefined;
+    @observable unpinBlogPostStore = undefined;
 
-    constructor(authStore, blogPostLikeStore) {
+    constructor(authStore, blogPostLikeStore, pinBlogPostStore, unpinBlogPostStore) {
         this.authStore = authStore;
         this.blogPostLikeStore = blogPostLikeStore;
+        this.pinBlogPostStore = pinBlogPostStore;
+        this.unpinBlogPostStore = unpinBlogPostStore;
 
         reaction(
             () => this.blogPostId,
@@ -48,6 +52,24 @@ export default class BlogPostStore {
                     this.blogPost.likedByCurrentUser = Boolean(this.blogPostLikeStore.persistedBlogPostLikeId);
                     this.blogPost.numberOfLikes = this.blogPostLikeStore.updatedNumberOfLikes;
                     this.blogPost.likeId = this.blogPostLikeStore.persistedBlogPostLikeId;
+                }
+            }
+        );
+
+        reaction(
+            () => this.pinBlogPostStore.pinnedBlogPost,
+            blogPost => {
+                if (blogPost && this.blogPost && this.blogPost.id === blogPost.id) {
+                    this.blogPost.pinned = true;
+                }
+            }
+        );
+
+        reaction(
+            () => this.unpinBlogPostStore.unpinnedBlogPost,
+            blogPost => {
+                if (blogPost && this.blogPost && this.blogPost.id === blogPost.id) {
+                    this.blogPost.pinned = false;
                 }
             }
         )

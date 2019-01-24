@@ -38,7 +38,9 @@ class MostPopularBlogPostsList extends React.Component {
             </Grid>}
             {blogPosts.result.map(blogPostId => (
                 <Grid item xs={12}>
-                    <BlogPostListItem blogPost={blogPosts.entities.blogPosts[blogPostId]}/>
+                    <BlogPostListItem blogPost={blogPosts.entities.blogPosts[blogPostId]}
+                                      showIconIfPinned={false}
+                    />
                 </Grid>
             ))}
             <Grid item xs={12}>

@@ -22,7 +22,9 @@ class FeedList extends React.Component {
             : <Grid container spacing={16}>
                 {blogPosts.result.map(blogPostId => (
                     <Grid item xs={12}>
-                        <BlogPostListItem blogPost={blogPosts.entities.blogPosts[blogPostId]}/>
+                        <BlogPostListItem blogPost={blogPosts.entities.blogPosts[blogPostId]}
+                                          showIconIfPinned={false}
+                        />
                     </Grid>
                 ))}
                 {pending && <CircularProgress size={50}

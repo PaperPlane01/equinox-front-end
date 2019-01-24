@@ -15,10 +15,12 @@ import NumberOfComments from './NumberOfComments';
 @observer
 class BlogPostListItem extends React.Component {
     render() {
-        const {blogPost, authStore} = this.props;
+        const {blogPost, authStore, showIconIfPinned} = this.props;
 
         return <Card>
-            <BlogPostHeader blogPost={blogPost}/>
+            <BlogPostHeader blogPost={blogPost}
+                            showIconIfPinned={showIconIfPinned}
+            />
             <CardContent>
                 <BlogPostBody title={blogPost.title}
                               content={blogPost.content}
@@ -50,6 +52,7 @@ class BlogPostListItem extends React.Component {
 
 BlogPostListItem.propTypes = {
     blogPost: PropTypes.object,
+    showIconIfPinned: PropTypes.bool,
     authStore: PropTypes.object,
     store: PropTypes.object
 };

@@ -8,13 +8,11 @@ import Avatar from '../../Avatar';
 import views from '../../router-config';
 import BlogPostActionsMenu from "./BlogPostActionsMenu";
 import PinIcon from '../../icons/PinIcon';
-import {withLocale} from "../../localization";
 
-@withLocale
 @inject('store')
 class BlogPostHeader extends React.Component {
     render() {
-        const {blogPost, store, l} = this.props;
+        const {blogPost, store, showIconIfPinned} = this.props;
 
         const linkToPublisher = (<Link store={store}
                                        view={blogPost.publishedBy === 'BLOG' ? views.blog : views.userProfile}
@@ -27,7 +25,7 @@ class BlogPostHeader extends React.Component {
         </Link>);
         const subheader = (<span>
             {moment(blogPost.createdAt).format("DD-MM-YYYY HH:mm:ss") + " "}
-            {blogPost.pinned
+            {blogPost.pinned && showIconIfPinned
                 ? <PinIcon fontSize="small"/>
                 : ""}
         </span>);
@@ -47,6 +45,7 @@ class BlogPostHeader extends React.Component {
 
 BlogPostHeader.propTypes = {
     blogPost: PropTypes.object,
+    showIconIfPinned: PropTypes.bool,
     store: PropTypes.object,
     l: PropTypes.func
 };

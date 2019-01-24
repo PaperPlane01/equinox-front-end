@@ -23,7 +23,9 @@ class BlogPostsList extends React.Component {
             : <Grid container spacing={16}>
                 {pinnedBlogPosts.result.map(blogPostId => (
                     <Grid item xs={12}>
-                        <BlogPostListItem blogPost={pinnedBlogPosts.entities.blogPosts[blogPostId]}/>
+                        <BlogPostListItem blogPost={pinnedBlogPosts.entities.blogPosts[blogPostId]}
+                                          showIconIfPinned
+                        />
                     </Grid>
                 ))}
                 {blogPosts.result.map(blogPostId => (

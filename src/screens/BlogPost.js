@@ -44,7 +44,9 @@ class BlogPost extends React.Component {
         if (blogPost) {
             return <Grid container spacing={16}>
                 <Grid item xs={12}>
-                    <BlogPostListItem blogPost={blogPost}/>
+                    <BlogPostListItem blogPost={blogPost}
+                                      showIconIfPinned
+                    />
                 </Grid>
                 <Grid item xs={12}>
                     <CommentsSection/>
