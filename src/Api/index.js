@@ -1,4 +1,4 @@
-import Api from './Api';
+import Api from './api';
 export default Api;
 
 export {default as createErrorFromResponse} from './createErrorFromResponse';

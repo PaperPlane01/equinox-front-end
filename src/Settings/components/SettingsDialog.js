@@ -9,6 +9,8 @@ import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import {withLocale} from "../../localization";
 
@@ -19,7 +21,7 @@ import {withLocale} from "../../localization";
 class SettingsDialog extends React.Component {
     render() {
         const {l, localeStore, settingsStore, fullScreen} = this.props;
-        const {settingsDialogOpened, colorTheme} = settingsStore;
+        const {settingsDialogOpened, colorTheme, useWebSocketForNotifications} = settingsStore;
 
         if (settingsDialogOpened) {
             return <Dialog open={settingsDialogOpened}
@@ -60,6 +62,12 @@ class SettingsDialog extends React.Component {
                             {l('green')}
                         </MenuItem>
                     </Select>
+                    <FormControlLabel control={<Switch checked={useWebSocketForNotifications}
+                                                       onChange={event => settingsStore.setUseWebSocketForNotifications(event.target.checked)}
+                                                       color="primary"
+                    />}
+                                      label={l('useWebSocketForNotifications')}
+                    />
                 </DialogContent>
                 <DialogActions>
                     <Button variant="outlined"

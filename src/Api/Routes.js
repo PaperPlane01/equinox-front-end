@@ -4,6 +4,7 @@ const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 export default {
     API_BASE_URL: API_BASE_URL,
     API_ROOT: `${API_BASE_URL}/api`,
+    WEB_SOCKET_API_ROOT: `${API_BASE_URL}/api/web-socket`,
     BLOGS: 'blogs',
     BLOG_BLOCKINGS: 'blog-blockings',
     GLOBAL_BLOCKINGS: 'global-blockings',
@@ -46,5 +47,7 @@ export default {
     FOR_YEAR: 'for-year',
     PIN: 'pin',
     UNPIN: 'unpin',
-    PINNED: 'pinned'
+    PINNED: 'pinned',
+    USER: 'user',
+    HANDSHAKE: 'handshake'
 };

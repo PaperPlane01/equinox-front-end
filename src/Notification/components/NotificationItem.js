@@ -6,6 +6,7 @@ import NewBlogPostNotification from './NewBlogPostNotification';
 import BlogBlockingNotification from './BlogBlockingNotification';
 import NewCommentLikeNotification from './NewCommentLikeNotification';
 import GlobalBlockingNotification from './GlobalBlockingNotification';
+import NewCommentReplyNotification from './NewCommentReplyNotification';
 import NotificationType from '../NotificationType';
 import {withLocale} from "../../localization";
 import views from '../../router-config';
@@ -61,6 +62,16 @@ class NotificationItem extends React.Component {
                 return <GlobalBlockingNotification onClick={this.handleClick}
                                                    globalBlocking={notification.globalBlocking}
                 />;
+            case NotificationType.NEW_COMMENT_REPLY:
+                return <Link store={store}
+                             view={views.blogPost}
+                             params={{id: notification.reply.blogPostId}}
+                             style={{textDecoration: 'none'}}
+                >
+                    <NewCommentReplyNotification onClick={this.handleClick}
+                                                    reply={notification.reply}
+                    />
+                </Link>;
             default:
                 return null;
         }

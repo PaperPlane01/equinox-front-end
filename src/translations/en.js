@@ -239,5 +239,7 @@ export default {
     unpin: "Unpin",
     pinned: "Pinned",
     blogPostPinned: "Blog post has been pinned",
-    blogPostUnpinned: "Blog post has been unpinned"
+    blogPostUnpinned: "Blog post has been unpinned",
+    useWebSocketForNotifications: "Use web socket to receive notifications",
+    userRepliedToYourComment: "User {username} replied to your comment"
 }

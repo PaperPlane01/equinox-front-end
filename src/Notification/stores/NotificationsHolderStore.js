@@ -1,15 +1,28 @@
 import _ from 'lodash';
 import {observable, action, reaction, computed} from 'mobx';
-import {notificationService, createErrorFromResponse} from "../../Api";
+import localStorage from 'mobx-localstorage';
+import SockJS from 'sockjs-client';
+import {Stomp} from '@stomp/stompjs';
+import {notificationService, createErrorFromResponse, Routes} from "../../Api";
 
 export default class NotificationsHolderStore {
+    @observable authStore = undefined;
+    @observable settingsStore = undefined;
     @observable notifications = [];
     @observable pending = false;
     @observable error = undefined;
     @observable currentPage = 0;
     @observable notificationsHolderOpened = false;
-    @observable authStore = undefined;
     @observable scheduledTimer = undefined;
+    @observable socketClient = undefined;
+
+    @computed get currentUser() {
+        return this.authStore.currentUser;
+    }
+
+    @computed get useWebSocket() {
+        return this.settingsStore.useWebSocketForNotifications;
+    }
 
     @computed get unreadNotifications() {
         return this.notifications.filter(notification => !notification.read);
@@ -19,23 +32,82 @@ export default class NotificationsHolderStore {
         return this.notifications.filter(notification => notification.read);
     }
 
-    constructor(authStore) {
+    constructor(authStore, settingsStore) {
         this.authStore = authStore;
+        this.settingsStore = settingsStore;
 
         reaction(
-            () => authStore.currentUser,
+            () => this.currentUser,
             currentUser => {
                 if (this.scheduledTimer) {
                     clearInterval(this.scheduledTimer);
                 }
                 this.notifications = [];
                 if (currentUser) {
-                    this.fetchNewNotifications();
-                    this.scheduledTimer = setInterval(this.fetchNewNotifications, 30000);
+                    console.log(this.useWebSocket);
+                    if (this.useWebSocket) {
+                        this.fetchNotifications();
+                        this.initWebSocket();
+                        this.subscribeToNotifications();
+                    } else {
+                        this.fetchNotifications();
+                        this.scheduledTimer = setInterval(this.fetchNotifications, 30000);
+                    }
+                } else {
+                    this.closeWebSocket();
+                }
+            }
+        );
+
+        reaction(
+            () => this.useWebSocket,
+            useWebSocket => {
+                console.log('reacting to use web socket change');
+                console.log(useWebSocket);
+                if (this.currentUser) {
+                    if (useWebSocket) {
+                        this.initWebSocket();
+                        this.subscribeToNotifications();
+                    } else {
+                        this.closeWebSocket();
+                        this.fetchNotifications();
+                        this.scheduledTimer = setInterval(this.fetchNotifications, 30000);
+                    }
                 }
             }
         )
     }
+
+    @action initWebSocket = () => {
+        const accessToken = localStorage.getItem('accessToken');
+        const sockJsClient = new SockJS(`${Routes.WEB_SOCKET_API_ROOT}/${Routes.HANDSHAKE}?access_token=${accessToken}`);
+        this.socketClient = Stomp.over(sockJsClient);
+    };
+
+    @action closeWebSocket = () => {
+        this.socketClient.disconnect();
+    };
+
+    @action subscribeToNotifications = () => {
+        this.socketClient.connect({}, () => {
+            this.socketClient.subscribe('/user/notifications', response => {
+                const parsedNotifications = JSON.parse(response.body);
+                this.insertNotifications(parsedNotifications);
+            })
+        })
+    };
+
+    @action insertNotifications = receivedNotifications => {
+        this.notifications.map(notification => {
+            receivedNotifications.forEach(receivedNotification => {
+                if (notification.id === receivedNotification.id) {
+                    notification = {...receivedNotification};
+                }
+            })
+        });
+        this.notifications.unshift(...receivedNotifications);
+        this.notifications = _.uniqBy(this.notifications, "id");
+    };
 
     @action fetchNotifications = () => {
         this.pending = true;
@@ -48,31 +120,9 @@ export default class NotificationsHolderStore {
             sortingDirection: 'desc'
         }).then(response => {
             if (response.data.length !== 0) {
-                this.notifications = [
-                    ...this.notifications,
-                    ...response.data
-                ];
+                this.insertNotifications(response.data);
                 this.currentPage = this.currentPage + 1;
             }
-        }).catch(error => {
-            this.error = createErrorFromResponse(error.response);
-        }).then(() => {
-            this.pending = false;
-        })
-    };
-
-    @action fetchNewNotifications = () => {
-        this.pending = true;
-        this.error = undefined;
-
-        return notificationService.findAll({
-            page: 0,
-            pageSize: 30,
-            sortBy: 'id',
-            sortingDirection: 'desc'
-        }).then(response => {
-            this.notifications.unshift(response.data);
-            this.notifications = _.uniq(...this.notifications);
         }).catch(error => {
             this.error = createErrorFromResponse(error.response);
         }).then(() => {

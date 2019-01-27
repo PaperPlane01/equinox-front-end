@@ -1,5 +1,5 @@
 import queryString from 'query-string';
-import Api from '../Api';
+import Api from '../api';
 import Routes from '../Routes';
 
 const save = globalBlocking => {

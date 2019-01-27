@@ -236,5 +236,7 @@ export default {
     unpin: "Открепить",
     pinned: "Закреплён",
     blogPostPinned: "Пост закреплён",
-    blogPostUnpinned: "Пост откреплён"
+    blogPostUnpinned: "Пост откреплён",
+    useWebSocketForNotifications: "Использовать вебсокет для получения уведомлений",
+    userRepliedToYourComment: "Пользователь {username} ответил на ваш комментарий"
 }
