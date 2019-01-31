@@ -22,10 +22,20 @@ const restore = id => {
     return Api.patch(`/${Routes.COMMENTS}/${id}`, JSON.stringify({deleted: false}));
 };
 
+const getThread = rootCommentId => {
+    return Api.get(`/${Routes.COMMENTS}/${rootCommentId}/${Routes.THREAD}`);
+};
+
+const findById = id => {
+    return Api.get(`/${Routes.COMMENTS}/${id}`);
+};
+
 export default {
     findByBlogPost,
     save,
     update,
     delete: _delete,
-    restore
+    restore,
+    getThread,
+    findById
 };

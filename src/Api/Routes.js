@@ -12,6 +12,7 @@ export default {
     BLOG_POST_LIKES: 'blog-post-likes',
     BLOG_POST_REPORTS: 'blog-post-reports',
     COMMENTS: 'comments',
+    THREAD: 'thread',
     COMMENT_LIKES: 'comment-likes',
     COMMENT_REPORTS: 'comment-reports',
     LIKES: 'likes',

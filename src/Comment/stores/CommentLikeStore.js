@@ -5,6 +5,11 @@ export default class CommentLikeStore {
     @observable pending = false;
     @observable error = undefined;
     @observable commentListStore = undefined;
+    @observable result = {
+        commentId: undefined,
+        numberOfLikes: undefined,
+        likeId: undefined
+    };
 
     constructor(commentListStore) {
         this.commentListStore = commentListStore;
@@ -16,6 +21,11 @@ export default class CommentLikeStore {
 
         return commentLikeService.save({commentId})
             .then(response => {
+                this.result = {
+                    commentId,
+                    numberOfLikes: response.data.updatedNumberOfLikes,
+                    likeId: response.data.commentLikeId
+                };
                 this.commentListStore.setCommentLikedByCurrentUser(commentId, true, response.data.commentLikeId);
                 this.commentListStore.setNumberOfLikes(commentId, response.data.updatedNumberOfLikes);
             }).catch(error => {
@@ -31,6 +41,11 @@ export default class CommentLikeStore {
 
         return commentLikeService.delete(commentLikeId)
             .then(response => {
+                this.result = {
+                    commentId,
+                    numberOfLikes: response.data.updatedNumberOfLikes,
+                    likeId: undefined
+                };
                 this.commentListStore.setCommentLikedByCurrentUser(commentId, false);
                 this.commentListStore.setNumberOfLikes(commentId, response.data.updatedNumberOfLikes);
             }).catch(error => {

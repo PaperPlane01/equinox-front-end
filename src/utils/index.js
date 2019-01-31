@@ -1,6 +1,7 @@
 import numeral from 'numeral';
 
 const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const VALID_NUMERICAL_ID_REGEX = /^[1-9][0-9]*/;
 
 export const isBlank = string => {
     return !string || string.trim().length === 0;
@@ -8,6 +9,11 @@ export const isBlank = string => {
 
 export const isEmail = string => {
     return EMAIL_REGEX.test(string);
+};
+
+export const isValidNumericalId = candidate => {
+    const string = "" + candidate;
+    return VALID_NUMERICAL_ID_REGEX.test(string);
 };
 
 export const isImage = ({url, timeout = 5000}) => {

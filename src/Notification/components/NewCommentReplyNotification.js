@@ -51,7 +51,8 @@ class NewCommentReplyNotification extends React.Component {
 
 NewCommentReplyNotification.propTypes = {
     reply: PropTypes.object,
-    l: PropTypes.func
+    onClick: PropTypes.func,
+    l: PropTypes.func,
 };
 
 export default NewCommentReplyNotification;

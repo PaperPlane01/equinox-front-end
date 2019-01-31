@@ -4,16 +4,43 @@ import {inject, observer} from 'mobx-react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import scrollToElement from 'scroll-to-element';
 import CommentListItemWithReplies from './CommentListItemWithReplies';
 import {withLocale} from "../../localization";
 
 @withLocale
+@inject('highlightedCommentStore')
 @inject('commentListStore')
 @observer
 class CommentList extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            scrolledToHighlightedComment: false
+        }
+    }
+
+    componentDidUpdate() {
+        const {rootCommentAtTop, highlightedCommentId} = this.props.highlightedCommentStore;
+        if (rootCommentAtTop && highlightedCommentId && !this.state.scrolledToHighlightedComment) {
+            console.log('trying to scroll to comment');
+            scrollToElement(`#comment-id${highlightedCommentId}`, {
+                offset: 0,
+                ease: 'out-bounce',
+                duration: 150
+            });
+            this.setState({
+                scrolledToHighlightedComment: true
+            });
+        }
+    }
+
     render() {
-        const {commentListStore, l} = this.props;
+        const {commentListStore, highlightedCommentStore, l} = this.props;
         const {comments} = commentListStore;
+        const {rootCommentAtTop, highlightedCommentId} = highlightedCommentStore;
 
         if (comments.result.length === 0) {
             return <Typography variant="body1">
@@ -22,6 +49,21 @@ class CommentList extends React.Component {
         } else {
             return <Card>
                 <CardContent>
+                    {rootCommentAtTop && <div>
+                        <div style={{marginBottom: '30px'}}>
+                            <Typography variant="subheading">
+                                {l('highlightedComment')}:
+                            </Typography>
+                            <CommentListItemWithReplies comment={rootCommentAtTop}
+                                                        replies={rootCommentAtTop.replies}
+                                                        highlightedCommentId={highlightedCommentId}
+                            />
+                        </div>
+                        <Divider/>
+                    </div>}
+                    <Typography variant="subheading">
+                        {l('comments')}:
+                    </Typography>
                     {comments.result.map(commentId => (
                         <div>
                             <CommentListItemWithReplies comment={comments.entities.comments[commentId]}
@@ -39,6 +81,7 @@ class CommentList extends React.Component {
 
 CommentList.propTypes = {
     commentListStore: PropTypes.object,
+    highlightedCommentStore: PropTypes.object,
     l: PropTypes.func
 };
 

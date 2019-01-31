@@ -1,15 +1,10 @@
-import {normalize, schema} from 'normalizr';
-import {action, computed, observable, reaction, toJS} from 'mobx';
+import {normalize} from 'normalizr';
+import {action, computed, observable, reaction} from 'mobx';
 import _ from 'lodash';
 import localStorage from 'mobx-localstorage';
 import CommentsDisplayMode from '../CommentsDisplayMode';
 import {commentService, createErrorFromResponse} from "../../Api";
-
-const replySchema = new schema.Entity('replies');
-const commentSchema = new schema.Entity('comments', {
-    replies: new schema.Array(replySchema)
-});
-const commentListSchema = new schema.Array(commentSchema);
+import {commentListSchema} from "./schemas";
 
 const PAGES_INITIAL_STATE = {
     pageNumbers: [0],
@@ -78,13 +73,7 @@ export default class CommentListStore {
         reaction(
             () => this.blogPostId,
             () => {
-                this.scheduledTimers.forEach(timer => {
-                    clearInterval(timer);
-                });
-                this.pages = PAGES_INITIAL_STATE;
-                this.comments = COMMENTS_INITIAL_STATE;
-                this.currentPageNumber = 0;
-
+                this.reset();
                 if (this.blogPostId) {
                     this.fetchComments();
                 }
@@ -156,7 +145,7 @@ export default class CommentListStore {
                 this.reset();
                 this.fetchComments();
             }
-        )
+        );
     }
 
     @action fetchComments = () => {
@@ -189,7 +178,6 @@ export default class CommentListStore {
                     }
                 };
                 this.currentPageNumber = this.currentPageNumber + 1;
-                console.log(toJS(this.comments));
             } else if (this.currentPageNumber === 0) {
                 this.pages.pageNumbers.push(0);
                 this.pages.pageNumbers[0] = {
@@ -341,6 +329,9 @@ export default class CommentListStore {
     };
 
     @action reset = () => {
+        this.scheduledTimers.forEach(timer => {
+            clearInterval(timer);
+        });
         this.comments = COMMENTS_INITIAL_STATE;
         this.pages = PAGES_INITIAL_STATE;
         this.currentPageNumber = 0;

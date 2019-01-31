@@ -4,15 +4,19 @@ import CommentListItem from './CommentListItem';
 
 class CommentListItemWithReplies extends React.Component {
     render() {
-        const {comment, replies} = this.props;
+        const {comment, replies, highlightedCommentId} = this.props;
 
         return <React.Fragment>
-            <CommentListItem comment={comment}/>
+            <CommentListItem comment={comment}
+                             highlight={highlightedCommentId === comment.id}
+            />
             {replies.map(reply => (
                 <div style={{
                     marginLeft: '30px'
                 }}>
-                    <CommentListItem comment={reply}/>
+                    <CommentListItem comment={reply}
+                                     highlight={highlightedCommentId === reply.id}
+                    />
                 </div>
             ))}
         </React.Fragment>
@@ -21,6 +25,7 @@ class CommentListItemWithReplies extends React.Component {
 
 CommentListItemWithReplies.propTypes = {
     comment: PropTypes.object,
+    highlightedCommentId: PropTypes.number,
     replies: PropTypes.array
 };
 

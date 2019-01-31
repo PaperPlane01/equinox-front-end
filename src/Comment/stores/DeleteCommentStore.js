@@ -5,6 +5,7 @@ export default class DeleteCommentStore {
     @observable pending = false;
     @observable error = undefined;
     @observable commentListStore = undefined;
+    @observable deletedCommentId = undefined;
 
     constructor(commentListStore) {
         this.commentListStore = commentListStore;
@@ -18,6 +19,7 @@ export default class DeleteCommentStore {
 
         return commentService.delete(id)
             .then(() => {
+                this.deletedCommentId = id;
                 this.commentListStore.removeComment(id);
             }).catch(error => {
                 this.error = createErrorFromResponse(error.response);

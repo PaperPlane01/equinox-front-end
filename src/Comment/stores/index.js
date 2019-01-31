@@ -5,3 +5,4 @@ export {default as DeleteCommentStore} from './DeleteCommentStore';
 export {default as RestoreCommentStore} from './RestoreCommentStore';
 export {default as BlockCommentAuthorInBlogStore} from './BlockCommentAuthorInBlogStore';
 export {default as BlockCommentAuthorGloballyStore} from './BlockCommentAuthorGloballyStore';
+export {default as HighlightedCommentStore} from './HighlightedCommentStore';

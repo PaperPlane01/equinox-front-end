@@ -55,14 +55,19 @@ export default {
     blogPost: new Route({
         path: '/blog-post/:id',
         component: <BlogPost/>,
-        onEnter: (route, params) => {
+        onEnter: (route, params, store, queryParams) => {
             appStore.blogPostStore.setBlogPostId(params.id);
+            appStore.highlightedCommentStore.fetchRootCommentAtTop(queryParams.rootCommentAtTopId);
+            appStore.highlightedCommentStore.setHighlightedCommentId(queryParams.highlightedCommentId);
         },
-        onParamsChange: (route, params) => {
+        onParamsChange: (route, params, store, queryParams) => {
             appStore.blogPostStore.setBlogPostId(params.id);
+            appStore.highlightedCommentStore.fetchRootCommentAtTop(queryParams.rootCommentAtTopId);
+            appStore.highlightedCommentStore.setHighlightedCommentId(queryParams.highlightedCommentId);
         },
         onExit: () => {
             appStore.blogPostStore.reset();
+            appStore.highlightedCommentStore.reset();
         }
     }),
     googleAuth: new Route({

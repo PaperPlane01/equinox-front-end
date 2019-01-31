@@ -47,10 +47,15 @@ class NotificationItem extends React.Component {
                                               blogBlocking={notification.blogBlocking}
                     />
                 </Link>;
-            case NotificationType.NEW_COMMENT_LIKE:
+            case NotificationType.NEW_COMMENT_LIKE: {
+                const rootCommentAtTopId = notification.comment.rootCommentId
+                    ? notification.comment.rootCommentId
+                    : notification.comment.id;
+                const highlightedCommentId = notification.comment.id;
                 return <Link store={store}
                              view={views.blogPost}
                              params={{id: notification.comment.blogPostId}}
+                             queryParams={{rootCommentAtTopId, highlightedCommentId}}
                              style={{textDecoration: 'none'}}
                 >
                     <NewCommentLikeNotification onClick={this.handleClick}
@@ -58,20 +63,27 @@ class NotificationItem extends React.Component {
                                                 commentLike={notification.commentLike}
                     />
                 </Link>;
+            }
             case NotificationType.GLOBAL_BLOCKING:
                 return <GlobalBlockingNotification onClick={this.handleClick}
                                                    globalBlocking={notification.globalBlocking}
                 />;
-            case NotificationType.NEW_COMMENT_REPLY:
+            case NotificationType.NEW_COMMENT_REPLY: {
+                const rootCommentAtTopId = notification.referredComment.rootCommentId
+                    ? notification.referredComment.rootCommentId
+                    : notification.referredComment.id;
+                const highlightedCommentId = notification.reply.id;
                 return <Link store={store}
                              view={views.blogPost}
                              params={{id: notification.reply.blogPostId}}
+                             queryParams={{rootCommentAtTopId, highlightedCommentId}}
                              style={{textDecoration: 'none'}}
                 >
                     <NewCommentReplyNotification onClick={this.handleClick}
-                                                    reply={notification.reply}
+                                                 reply={notification.reply}
                     />
                 </Link>;
+            }
             default:
                 return null;
         }
