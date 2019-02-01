@@ -21,7 +21,7 @@ const routerStore = {
 
 startRouter(views, routerStore, {
     notfound: () => {
-        if (!window && window.location.href.includes(`${WEB_APP_BASE_URL}/auth/google/`)) {
+        if (window && !window.location.href.includes(`${WEB_APP_BASE_URL}/auth/google/`)) {
             routerStore.router.goTo(views.notFound);
         }
     }
