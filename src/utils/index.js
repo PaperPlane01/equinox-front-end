@@ -12,6 +12,7 @@ export const isEmail = string => {
 };
 
 export const isValidNumericalId = candidate => {
+    if (!candidate) return false;
     const string = "" + candidate;
     return VALID_NUMERICAL_ID_REGEX.test(string);
 };

@@ -96,9 +96,6 @@ export default {
         onEnter: () => {
             appStore.feedStore.setShouldRefresh(true)
         },
-        onParamsChange: () => {
-            appStore.feedStore.setShouldRefresh(true)
-        },
         onExit: () => {
             appStore.feedStore.setShouldRefresh(false);
         }

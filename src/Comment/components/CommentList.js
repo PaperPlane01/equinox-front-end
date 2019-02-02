@@ -22,9 +22,12 @@ class CommentList extends React.Component {
         }
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(previousProps) {
         const {rootCommentAtTop, highlightedCommentId} = this.props.highlightedCommentStore;
-        if (rootCommentAtTop && highlightedCommentId && !this.state.scrolledToHighlightedComment) {
+        if (rootCommentAtTop && highlightedCommentId
+            && (rootCommentAtTop.id === highlightedCommentId
+                || rootCommentAtTop.replies.filter(reply => reply.id === highlightedCommentId).length !== 0)
+            && !this.state.scrolledToHighlightedComment) {
             console.log('trying to scroll to comment');
             scrollToElement(`#comment-id${highlightedCommentId}`, {
                 offset: 0,
@@ -34,6 +37,14 @@ class CommentList extends React.Component {
             this.setState({
                 scrolledToHighlightedComment: true
             });
+        }
+        if (rootCommentAtTop && highlightedCommentId
+            && highlightedCommentId !== previousProps.highlightedCommentStore.highlightedCommentId
+            && this.state.scrolledToHighlightedComment
+            && (rootCommentAtTop.id === highlightedCommentId
+                || rootCommentAtTop.replies.filter(reply => reply.id === highlightedCommentId).length !== 0)
+        ) {
+            this.setState({scrolledToHighlightedComment: false})
         }
     }
 

@@ -1,4 +1,4 @@
-import {observable, action, reaction, computed} from 'mobx';
+import {observable, action, reaction, computed, toJS, trace} from 'mobx';
 import {normalize, denormalize} from 'normalizr';
 import {commentSchema, commentListSchema} from "./schemas";
 import {commentService} from "../../Api/services";
@@ -22,7 +22,7 @@ export default class RootCommentAtTopStore {
     @observable highlightedCommentId = undefined;
 
     @computed get rootCommentAtTop() {
-        return this.rootCommentAtTopId && this.normalizedRootCommentAtTop.result.length !== 0
+        return this.rootCommentAtTopId && this.normalizedRootCommentAtTop.result !== undefined
             ? denormalize(this.normalizedRootCommentAtTop.result, commentSchema, this.normalizedRootCommentAtTop.entities)
             : undefined;
     }
@@ -48,6 +48,16 @@ export default class RootCommentAtTopStore {
         this.commentLikeStore = commentLikeStore;
         this.deleteCommentStore = deleteCommentStore;
         this.restoreCommentStore = restoreCommentStore;
+        trace(this.normalizedRootCommentAtTop.entities, 'replies');
+
+        reaction(
+            () => this.highlightedCommentId,
+            () => {
+                if (this.rootCommentAtTopId) {
+                    this.fetchThread(this.rootCommentAtTopId);
+                }
+            }
+        );
 
         reaction(
             () => this.persistedComment,
@@ -99,18 +109,30 @@ export default class RootCommentAtTopStore {
         if (isValidNumericalId(id)) {
             return commentService.findById(id)
                 .then(response => {
-                    this.normalizedRootCommentAtTop = normalize(response.data, commentSchema);
-                    commentService.getThread(id)
-                        .then(response => {
-                            if (response.data.length !== 0) {
-                                const normalizedResponse = normalize(response.data, commentListSchema);
-                                this.normalizedRootCommentAtTop.entities.comments[id].replies
-                                    = [...normalizedResponse.result];
-                                this.normalizedRootCommentAtTop.entities.replies = {...normalizedResponse.entities.comments};
-                            }
-                            this.rootCommentAtTopId = parseInt("" + id);
-                            console.log(this.rootCommentAtTopId);
-                        })
+                    const normalizedResponse = normalize(response.data, commentSchema);
+                    normalizedResponse.entities.replies = {};
+                    normalizedResponse.entities.comments[id].replies = [];
+                    console.log(normalizedResponse);
+                    this.normalizedRootCommentAtTop = {...normalizedResponse};
+                    this.rootCommentAtTopId = id;
+                    this.fetchThread(id);
+                })
+        }
+    };
+
+    @action fetchThread = rootCommentId => {
+        if (this.normalizedRootCommentAtTop.entities.comments[rootCommentId]) {
+            return commentService.getThread(rootCommentId)
+                .then(response => {
+                    if (response.data.length !== 0) {
+                        const normalizedResponse = normalize(response.data, commentListSchema);
+                        this.normalizedRootCommentAtTop.entities.replies = {
+                            ...normalizedResponse.entities.comments
+                        };
+                        this.normalizedRootCommentAtTop.entities.comments[rootCommentId].replies = [
+                            ...normalizedResponse.result
+                        ];
+                    }
                 })
         }
     };
