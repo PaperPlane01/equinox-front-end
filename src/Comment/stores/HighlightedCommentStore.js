@@ -1,6 +1,6 @@
-import {observable, action, reaction, computed, toJS, trace} from 'mobx';
-import {normalize, denormalize} from 'normalizr';
-import {commentSchema, commentListSchema} from "./schemas";
+import {action, computed, observable, reaction} from 'mobx';
+import {denormalize, normalize} from 'normalizr';
+import {commentListSchema, commentSchema} from "./schemas";
 import {commentService} from "../../Api/services";
 import {isValidNumericalId} from "../../utils";
 
@@ -48,7 +48,6 @@ export default class RootCommentAtTopStore {
         this.commentLikeStore = commentLikeStore;
         this.deleteCommentStore = deleteCommentStore;
         this.restoreCommentStore = restoreCommentStore;
-        trace(this.normalizedRootCommentAtTop.entities, 'replies');
 
         reaction(
             () => this.highlightedCommentId,
