@@ -243,5 +243,7 @@ export default {
     useWebSocketForNotifications: "Use web socket to receive notifications",
     userRepliedToYourComment: "User {username} replied to your comment",
     highlightedComment: "Highlighted comment",
-    comments: "Comments"
+    comments: "Comments",
+    search: "Search",
+    noBlogPostsFound: "No blog posts have been found"
 }

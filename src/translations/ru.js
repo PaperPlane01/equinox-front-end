@@ -240,5 +240,7 @@ export default {
     useWebSocketForNotifications: "Использовать вебсокет для получения уведомлений",
     userRepliedToYourComment: "Пользователь {username} ответил на ваш комментарий",
     highlightedComment: "Отмеченный комментарий",
-    comments: "Комментарии"
+    comments: "Комментарии",
+    search: "Поиск",
+    noBlogPostsFound: "По вашему запросу не найдено ни одного поста"
 }

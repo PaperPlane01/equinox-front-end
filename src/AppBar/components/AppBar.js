@@ -6,6 +6,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import Hidden from '@material-ui/core/Hidden';
 import withStyles from '@material-ui/core/styles/withStyles';
 import HeadRoom from 'react-headroom';
 import {Link} from 'mobx-router';
@@ -13,6 +14,9 @@ import Drawer from './Drawer';
 import views from '../../router-config';
 import {UserMenuAppBar} from '../../User';
 import {NotificationsHolder} from '../../Notification';
+import {SearchBlogPostsQueryTextField} from '../../BlogPost';
+import TextField from '@material-ui/core/TextField';
+import InputBase from '@material-ui/core/InputBase';
 
 const styles = {
     root: {
@@ -64,6 +68,9 @@ class AppBar extends React.Component {
                             : linkToHome
                         }
                     </Typography>
+                    <Hidden smDown>
+                        <SearchBlogPostsQueryTextField/>
+                    </Hidden>
                     <NotificationsHolder/>
                     <UserMenuAppBar/>
                 </Toolbar>

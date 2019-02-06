@@ -50,5 +50,6 @@ export default {
     UNPIN: 'unpin',
     PINNED: 'pinned',
     USER: 'user',
-    HANDSHAKE: 'handshake'
+    HANDSHAKE: 'handshake',
+    SEARCH: 'search'
 };

@@ -28,11 +28,7 @@ class Home extends React.Component {
                       spacing={16}
                 >
                     <Grid item xs={12}>
-                        <Card raised
-                              style={{
-                                  marginTop: '16px',
-                              }}
-                        >
+                        <Card>
                             <CardContent>
                                 <Typography variant="headline">
                                     {l('welcomeToBloggingApp')}

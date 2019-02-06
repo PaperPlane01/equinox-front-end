@@ -7,6 +7,11 @@ export default class BlogPostLikeStore {
     @observable persistedBlogPostLikeId = undefined;
     @observable updatedNumberOfLikes = undefined;
     @observable affectedBlogPostId = undefined;
+    @observable result = {
+        blogPostId: undefined,
+        updatedNumberOfLikes: undefined,
+        likeId: undefined
+    };
 
     @action createBlogPostLike = blogPostId => {
         this.pending = true;
@@ -16,6 +21,11 @@ export default class BlogPostLikeStore {
                 this.updatedNumberOfLikes = response.data.updatedNumberOfLikes;
                 this.persistedBlogPostLikeId = response.data.blogPostLikeId;
                 this.affectedBlogPostId = blogPostId;
+                this.result = {
+                    blogPostId: blogPostId,
+                    likeId: response.data.blogPostLikeId,
+                    updatedNumberOfLikes: response.data.updatedNumberOfLikes
+                };
             }).catch(error => {
                 this.error = createErrorFromResponse(error.response);
             }).then(() => {
@@ -32,6 +42,11 @@ export default class BlogPostLikeStore {
                 this.updatedNumberOfLikes = response.data.updatedNumberOfLikes;
                 this.persistedBlogPostLikeId = undefined;
                 this.affectedBlogPostId = blogPostId;
+                this.result = {
+                    blogPostId: blogPostId,
+                    likeId: undefined,
+                    updatedNumberOfLikes: response.data.updatedNumberOfLikes
+                };
             }).catch(error => {
                 this.error = createErrorFromResponse(error.response);
             }).then(() => {

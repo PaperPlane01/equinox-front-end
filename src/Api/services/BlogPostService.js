@@ -50,8 +50,20 @@ const unpin = id => {
     return Api.delete(`/${Routes.BLOG_POSTS}/${id}/${Routes.UNPIN}`);
 };
 
-const findPinnedByBlod = blogId => {
+const findPinnedByBlog = blogId => {
     return Api.get(`/${Routes.BLOGS}/${blogId}/${Routes.BLOG_POSTS}/${Routes.PINNED}`);
+};
+
+const search = (query, paginationParameters) => {
+    let queryParameters = {query};
+    if (paginationParameters) {
+        queryParameters = {
+            ...queryParameters,
+            ...paginationParameters
+        }
+    }
+    const _queryString = queryString.stringify(queryParameters);
+    return Api.get(`/${Routes.BLOG_POSTS}/${Routes.SEARCH}?${_queryString}`);
 };
 
 export default {
@@ -67,5 +79,6 @@ export default {
     getMostPopularForYear,
     pin,
     unpin,
-    findPinnedByBlod
+    findPinnedByBlog,
+    search
 };

@@ -1,21 +1,8 @@
 import {normalize} from 'normalizr';
 import {action, computed, observable, reaction, toJS} from 'mobx';
 import {blogPostListSchema} from "./schemas";
+import {mergeNormalizedBlogPosts} from "./mergeNormalizedBlogPosts";
 import {blogPostService, createErrorFromResponse} from "../../Api";
-
-const mergeNormalizedBlogPosts = (source, destination) => {
-    return {
-        ...destination,
-        result: destination.result.concat(source.result),
-        entities: {
-            ...destination.entities,
-            blogPosts: {
-                ...destination.entities.blogPosts,
-                ...source.entities.blogPosts
-            }
-        }
-    }
-};
 
 export default class BlogPostListStore {
     @observable pending = false;
@@ -235,7 +222,7 @@ export default class BlogPostListStore {
     };
 
     @action fetchPinnedBlogPosts = () => {
-        return blogPostService.findPinnedByBlod(this.blogId)
+        return blogPostService.findPinnedByBlog(this.blogId)
             .then(response => {
                 if (response.data.length !== 0) {
                     const normalizedResponse = normalize(response.data, blogPostListSchema);

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Route} from 'mobx-router';
 import {Home, CreateBlog, EditProfile, User, Blog, BlogPost, BlogSubscribers, Feed,
-    BlogBlockings, GoogleAuth, BlogManagers, NotFound, EditBlogPost, GlobalBlockings} from '../screens';
+    BlogBlockings, GoogleAuth, BlogManagers, NotFound, EditBlogPost, GlobalBlockings, Search} from '../screens';
 import appStore from '../store';
 import _getViewByPath from './getViewByPath';
 
@@ -155,6 +155,16 @@ export default {
         onExit: () => {
             appStore.globalBlockingsStore.reset();
             appStore.globalBlockingsStore.setShouldReloadGlobalBlockingsOnCurrentUserChange(false);
+        }
+    }),
+    search: new Route({
+        path: '/search',
+        component: <Search/>,
+        onEnter: (router, params, store, queryParams) => {
+            appStore.searchBlogPostsStore.search(queryParams.query);
+        },
+        onParamsChange: (router, params, store, queryParams) => {
+            appStore.searchBlogPostsStore.search(queryParams.query);
         }
     })
 };

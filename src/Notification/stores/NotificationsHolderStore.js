@@ -62,8 +62,6 @@ export default class NotificationsHolderStore {
         reaction(
             () => this.useWebSocket,
             useWebSocket => {
-                console.log('reacting to use web socket change');
-                console.log(useWebSocket);
                 if (this.currentUser) {
                     if (useWebSocket) {
                         this.initWebSocket();
@@ -90,6 +88,7 @@ export default class NotificationsHolderStore {
 
     @action subscribeToNotifications = () => {
         this.socketClient.connect({}, () => {
+            //fixme: sometimes it crashes with error 'Connection has not been established yet'
             this.socketClient.subscribe('/user/notifications', response => {
                 const parsedNotifications = JSON.parse(response.body);
                 this.insertNotifications(parsedNotifications);

@@ -8,10 +8,11 @@ import {withLocale} from "../../localization";
 @inject('blogPostListStore')
 @inject('feedStore')
 @inject('mostPopularBlogPostsStore')
+@inject('searchBlogPostsStore')
 @observer
 class LoadMoreBlogPostsButton extends React.Component {
     render() {
-        const {blogPostListStore, feedStore, source, mostPopularBlogPostsStore, l} = this.props;
+        const {blogPostListStore, feedStore, source, mostPopularBlogPostsStore, searchBlogPostsStore, l} = this.props;
 
         let fetchBlogPosts = undefined;
 
@@ -25,6 +26,9 @@ class LoadMoreBlogPostsButton extends React.Component {
             case "mostPopularBlogPostsStore":
                 fetchBlogPosts = mostPopularBlogPostsStore.fetchMostPopularBlogPosts;
                 break;
+            case "searchBlogPostsStore":
+                fetchBlogPosts = searchBlogPostsStore.search;
+                break;
             default:
                 fetchBlogPosts = blogPostListStore.fetchBlogPosts;
                 break;
@@ -32,7 +36,7 @@ class LoadMoreBlogPostsButton extends React.Component {
 
         return <Button variant="outlined"
                        color="primary"
-                       onClick={fetchBlogPosts}
+                       onClick={() => fetchBlogPosts()}
         >
             {l('loadMore')}
         </Button>
@@ -44,6 +48,7 @@ LoadMoreBlogPostsButton.propTypes = {
     feedStore: PropTypes.object,
     source: PropTypes.string,
     mostPopularBlogPostsStore: PropTypes.object,
+    searchBlogPostsStore: PropTypes.object,
     l: PropTypes.func
 };
 

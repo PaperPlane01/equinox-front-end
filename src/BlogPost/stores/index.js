@@ -9,3 +9,4 @@ export {default as MostPopularBlogPostsStore} from './MostPopularBlogPostsStore'
 export {default as UpdateBlogPostStore} from './UpdateBlogPostStore';
 export {default as PinBlogPostStore} from './PinBlogPostStore';
 export {default as UnpinBlogPostStore} from './UnpinBlogPostStore';
+export {default as SearchBlogPostsStore} from './SearchBlogPostsStore';

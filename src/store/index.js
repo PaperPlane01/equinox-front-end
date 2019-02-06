@@ -4,7 +4,7 @@ import {CreateGlobalBlockingStore, GlobalBlockingsStore, UpdateGlobalBlockingSto
 import {SettingsStore} from '../Settings';
 import {BlogPostListStore, CreateBlogPostStore, BlogPostLikeStore, DeleteBlogPostDialogStore, BlogPostStore,
     BlockBlogPostAuthorStore, FeedStore, MostPopularBlogPostsStore, UpdateBlogPostStore,
-    PinBlogPostStore, UnpinBlogPostStore} from "../BlogPost";
+    PinBlogPostStore, UnpinBlogPostStore, SearchBlogPostsStore} from "../BlogPost";
 import {CreateBlogStore, BlogStore, BlogSubscribersBlockStore, SubscribeToBlogStore,
     UnsubscribeFromBlogStore, EditBlogDialogStore, BlogSubscribersListStore} from "../Blog";
 import {BlogManagersBlockStore, CreateBlogManagerStore, UpdateBlogManagerStore,
@@ -72,6 +72,7 @@ const highlightedCommentStore = new HighlightedCommentStore(
     deleteCommentStore,
     restoreCommentStore
 );
+const searchBlogPostsStore = new SearchBlogPostsStore(blogPostLikeStore, deleteBlogPostDialogStore);
 
 export default {
     authStore,
@@ -123,5 +124,6 @@ export default {
     createBlogPostReportStore,
     pinBlogPostStore,
     unpinBlogPostStore,
-    highlightedCommentStore
+    highlightedCommentStore,
+    searchBlogPostsStore
 };

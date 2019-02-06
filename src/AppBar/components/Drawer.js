@@ -9,6 +9,7 @@ import FeedDrawerItem from './FeedDrawerItem';
 import CurrentUserBlogsDrawerItem from './CurrentUserBlogsDrawerItem';
 import HomeDrawerItem from './HomeDrawerItem';
 import GlobalBlockingsDrawerItem from "./GlobalBlockingsDrawerItem";
+import SearchDrawerItem from './SearchDrawerItem';
 import {canSeeGlobalBlockings} from "../../GlobalBlocking/permissions";
 
 @inject('appBarStore')
@@ -36,6 +37,8 @@ class Drawer extends React.Component {
         >
             <List>
                 <HomeDrawerItem/>
+                <Divider/>
+                <SearchDrawerItem/>
                 <Divider/>
                 {feedItem}
                 {subscriptionsItem}

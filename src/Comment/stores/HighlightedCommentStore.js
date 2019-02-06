@@ -111,7 +111,6 @@ export default class RootCommentAtTopStore {
                     const normalizedResponse = normalize(response.data, commentSchema);
                     normalizedResponse.entities.replies = {};
                     normalizedResponse.entities.comments[id].replies = [];
-                    console.log(normalizedResponse);
                     this.normalizedRootCommentAtTop = {...normalizedResponse};
                     this.rootCommentAtTopId = id;
                     this.fetchThread(id);

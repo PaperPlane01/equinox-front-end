@@ -5,7 +5,7 @@ import Hidden from '@material-ui/core/Hidden';
 export default class StandardLayout extends React.Component {
     render() {
         const {children} = this.props;
-        return <Grid container>
+        return <Grid container style={{marginTop: 16}}>
             <Hidden mdUp>
                 <Grid item xs={12}>
                     <div style={{
