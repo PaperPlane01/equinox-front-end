@@ -1,3 +1,4 @@
+import queryString from 'query-string';
 import Api from '../api';
 import Routes from '../Routes';
 
@@ -13,8 +14,13 @@ const _delete = id => {
     return Api.delete(`/${Routes.BLOG_POST_REPORTS}/${id}`);
 };
 
+const findAll = paginationParameters => {
+    return Api.get(`/${Routes.BLOG_POST_REPORTS}${paginationParameters && `?${queryString.stringify(paginationParameters)}`}`)
+};
+
 export default {
     save,
     update,
-    delete: _delete
+    delete: _delete,
+    findAll
 };

@@ -1,7 +1,8 @@
 import React from 'react';
 import {Route} from 'mobx-router';
 import {Home, CreateBlog, EditProfile, User, Blog, BlogPost, BlogSubscribers, Feed,
-    BlogBlockings, GoogleAuth, BlogManagers, NotFound, EditBlogPost, GlobalBlockings, Search} from '../screens';
+    BlogBlockings, GoogleAuth, BlogManagers, NotFound, EditBlogPost, GlobalBlockings, Search,
+    CommentReports} from '../screens';
 import appStore from '../store';
 import _getViewByPath from './getViewByPath';
 
@@ -165,6 +166,18 @@ export default {
         },
         onParamsChange: (router, params, store, queryParams) => {
             appStore.searchBlogPostsStore.search(queryParams.query);
+        }
+    }),
+    commentReports: new Route({
+        path: '/comment-reports',
+        component: <CommentReports/>,
+        onEnter: () => {
+            appStore.commentReportListStore.setFetchReportsOnUserChange(true);
+            appStore.commentReportListStore.fetchCommentReports();
+        },
+        onExit: () => {
+            appStore.commentReportListStore.setFetchReportsOnUserChange(false);
+            appStore.commentReportListStore.reset();
         }
     })
 };

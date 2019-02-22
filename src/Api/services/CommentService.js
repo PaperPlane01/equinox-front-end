@@ -30,6 +30,10 @@ const findById = id => {
     return Api.get(`/${Routes.COMMENTS}/${id}`);
 };
 
+const deleteMultiple = ids => {
+    return Api.delete(`/${Routes.COMMENTS}/${Routes.MULTIPLE}`, {data: [...ids]});
+};
+
 export default {
     findByBlogPost,
     save,
@@ -37,5 +41,6 @@ export default {
     delete: _delete,
     restore,
     getThread,
-    findById
+    findById,
+    deleteMultiple
 };

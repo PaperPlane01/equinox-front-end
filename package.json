@@ -1,6 +1,6 @@
 {
   "name": "aphelion-front-end",
-  "version": "0.12.0",
+  "version": "0.13.0",
   "private": true,
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.1.0",
@@ -68,6 +68,7 @@
     "react-headroom": "^2.2.4",
     "react-helmet": "^5.2.0",
     "react-intl": "^2.7.0",
+    "react-sticky-footer": "0.1.0-rc3",
     "resolve": "1.6.0",
     "scroll-to-element": "^2.0.2",
     "sockjs": "^0.3.19",

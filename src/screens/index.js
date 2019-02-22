@@ -13,3 +13,4 @@ export {default as NotFound} from './NotFound';
 export {default as EditBlogPost} from './EditBlogPost';
 export {default as GlobalBlockings} from './GlobalBlockings';
 export {default as Search} from './Search';
+export {default as CommentReports} from './CommentReports';

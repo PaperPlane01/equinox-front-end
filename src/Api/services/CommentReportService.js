@@ -1,3 +1,4 @@
+import queryString from 'query-string';
 import Api from '../api';
 import Routes from '../Routes';
 
@@ -13,8 +14,18 @@ const _delete = id => {
     return Api.delete(`/${Routes.COMMENT_REPORTS}/${id}`);
 };
 
+const findAll = paginationParameters => {
+    return Api.get(`/${Routes.COMMENT_REPORTS}${paginationParameters && `?${queryString.stringify(paginationParameters)}`}`);
+};
+
+const updateMultiple = commentReports => {
+    return Api.put(`/${Routes.COMMENT_REPORTS}/${Routes.MULTIPLE}`, JSON.stringify(commentReports));
+};
+
 export default {
     save,
     update,
-    delete: _delete
+    delete: _delete,
+    findAll,
+    updateMultiple
 };

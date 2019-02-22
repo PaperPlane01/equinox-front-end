@@ -14,7 +14,8 @@ import {AppBarStore, CurrentUserSubscriptionsStore, CurrentUserBlogsStore} from 
 import {CommentListStore, CreateCommentStore, CommentLikeStore, DeleteCommentStore, RestoreCommentStore,
     BlockCommentAuthorInBlogStore, BlockCommentAuthorGloballyStore, HighlightedCommentStore} from "../Comment";
 import {NotificationsHolderStore} from "../Notification";
-import {CreateCommentReportStore} from "../CommentReport";
+import {CreateCommentReportStore, CommentReportListStore, DeleteSelectedReportedCommentsStore,
+    RejectSelectedCommentReportsStore, BlockSelectedCommentsAuthorsStore} from "../CommentReport";
 import {CreateBlogPostReportStore} from "../BlogPostReport";
 
 const authStore = new AuthStore();
@@ -73,6 +74,10 @@ const highlightedCommentStore = new HighlightedCommentStore(
     restoreCommentStore
 );
 const searchBlogPostsStore = new SearchBlogPostsStore(blogPostLikeStore, deleteBlogPostDialogStore);
+const commentReportListStore = new CommentReportListStore(authStore);
+const deleteSelectedReportedCommentsStore = new DeleteSelectedReportedCommentsStore(commentReportListStore);
+const rejectSelectedCommentReportsStore = new RejectSelectedCommentReportsStore(commentReportListStore);
+const blockSelectedCommentsAuthorsStore = new BlockSelectedCommentsAuthorsStore(commentReportListStore);
 
 export default {
     authStore,
@@ -125,5 +130,9 @@ export default {
     pinBlogPostStore,
     unpinBlogPostStore,
     highlightedCommentStore,
-    searchBlogPostsStore
+    searchBlogPostsStore,
+    commentReportListStore,
+    deleteSelectedReportedCommentsStore,
+    rejectSelectedCommentReportsStore,
+    blockSelectedCommentsAuthorsStore
 };

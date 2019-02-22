@@ -3,6 +3,7 @@ import {action, observable, reaction} from 'mobx';
 export default class AppBarStore {
     @observable drawerOpened = false;
     @observable subscriptionsOpened = false;
+    @observable reportsOpened = false;
     @observable blogsOpened = false;
     @observable authStore = undefined;
 
@@ -29,5 +30,9 @@ export default class AppBarStore {
 
     @action setSubscriptionsOpened = opened => {
         this.subscriptionsOpened = opened;
+    };
+
+    @action setReportsOpened = opened => {
+        this.reportsOpened = opened;
     }
 }

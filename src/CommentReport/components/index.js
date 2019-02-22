@@ -1,3 +1,10 @@
 export {default as CommentReportReasonSelect} from './CommentReportReasonSelect';
 export {default as ReportCommentMenuItem} from './ReportCommentMenuItem';
 export {default as ReportCommentDialog} from './ReportCommentDialog';
+export {default as CommentReportsTable} from './CommentReportsTable';
+export {default as BlockCommentAuthorsButton} from './BlockCommentыAuthorsButton';
+export {default as DeleteCommentsButton} from './DeleteCommentsButton';
+export {default as RejectCommentReportsButton} from './RejectCommentReportsButton';
+export {default as CommentReportsTableStickyFooter} from './CommentReportsTableStickyFooter';
+export {default as CommentReportsSnackBarContainer} from './CommentReportsSnackBarContainer';
+export {default as BlockSelectedCommentsAuthorsDialog} from './BlockSelectedCommentsAuthorsDialog';

@@ -51,5 +51,6 @@ export default {
     PINNED: 'pinned',
     USER: 'user',
     HANDSHAKE: 'handshake',
-    SEARCH: 'search'
+    SEARCH: 'search',
+    MULTIPLE: 'multiple'
 };

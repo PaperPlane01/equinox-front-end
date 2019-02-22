@@ -11,6 +11,8 @@ import HomeDrawerItem from './HomeDrawerItem';
 import GlobalBlockingsDrawerItem from "./GlobalBlockingsDrawerItem";
 import SearchDrawerItem from './SearchDrawerItem';
 import {canSeeGlobalBlockings} from "../../GlobalBlocking/permissions";
+import {canSeeCommentReports} from "../../CommentReport";
+import ReportsDrawerItem from './ReportsDrawerItem';
 
 @inject('appBarStore')
 @inject('authStore')
@@ -29,6 +31,7 @@ class Drawer extends React.Component {
         const feedItem = loggedIn && (<FeedDrawerItem/>);
         const blogsItem = loggedIn && (<CurrentUserBlogsDrawerItem/>);
         const globalBlockingsItem = canSeeGlobalBlockings(currentUser) && (<GlobalBlockingsDrawerItem/>);
+        const reportsDrawerItem = canSeeCommentReports(currentUser) && (<ReportsDrawerItem/>);
 
         return <SwipableDrawer open={drawerOpened}
                                onOpen={() => appBarStore.setDrawerOpened(true)}
@@ -47,6 +50,7 @@ class Drawer extends React.Component {
                     <Divider/>
                     {globalBlockingsItem}
                 </div>}
+                {reportsDrawerItem && <ReportsDrawerItem/>}
             </List>
         </SwipableDrawer>
     }

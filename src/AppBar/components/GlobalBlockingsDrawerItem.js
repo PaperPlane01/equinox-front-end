@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {inject} from 'mobx-react';
 import {Link} from 'mobx-router';
-import MenuItem from '@material-ui/core/MenuItem';
+import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
@@ -21,14 +21,14 @@ class GlobalBlockingsDrawerItem extends React.Component {
                      store={store}
                      style={{textDecoration: 'none'}}
         >
-            <MenuItem onClick={closeDrawer}>
+            <ListItem button onClick={closeDrawer}>
                 <ListItemIcon>
                     <SupervisedUserCircleIcon/>
                 </ListItemIcon>
                 <ListItemText>
                     {l('globalBlockings')}
                 </ListItemText>
-            </MenuItem>
+            </ListItem>
         </Link>
     }
 }

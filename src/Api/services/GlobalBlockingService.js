@@ -44,6 +44,10 @@ const findAll = (notEndedOnly = false, paginationParameters) => {
     return Api.get(`/${Routes.GLOBAL_BLOCKINGS}?${queryString.stringify({notEndedOnly, ...paginationParameters})}`);
 };
 
+const saveMultiple = globalBlockings => {
+    return Api.post(`/${Routes.GLOBAL_BLOCKINGS}/${Routes.MULTIPLE}`, JSON.stringify(globalBlockings));
+};
+
 export default {
     save,
     update,
@@ -54,5 +58,6 @@ export default {
     findNotEndedAndCreatedByUser,
     findByBlockedUserUsernameContains,
     findAll,
-    findById
+    findById,
+    saveMultiple
 }

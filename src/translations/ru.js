@@ -242,5 +242,22 @@ export default {
     highlightedComment: "Отмеченный комментарий",
     comments: "Комментарии",
     search: "Поиск",
-    noBlogPostsFound: "По вашему запросу не найдено ни одного поста"
+    noBlogPostsFound: "По вашему запросу не найдено ни одного поста",
+    reports: "Жалобы",
+    onComments: "На комментарии",
+    onBlogPosts: "На посты",
+    deleteComments: "Удалить комментарии",
+    rejectReports: "Отклонить жалобы",
+    blockCommentAuthors: "Заблокировать авторов комментариев",
+    comment: "Комментарий",
+    status: "Статус",
+    actions: "Действия",
+    selected: "Выбрано",
+    commentReports: "Жалобы на комментарии",
+    reportsRejected: "Жалобы были отклонены",
+    errorWhenAttemptedToRejectReports: "Во время попытки отклонить жалобы произошла ошибка. Сервер ответил со статусом {errorStatus}. Пожалуйста, попробуйте позже",
+    selectedCommentsAuthorsBlocked: "Авторы выбранных комментариев были заблокированы",
+    errorWhenAttemptedToBlockSelectedCommentsAuthors: "Во время попытки заблокировать авторов выбранных комментариев произошла ошибка. Сервер ответил со статусом {errorStatus}. Пожалуйста, попробуйте позже",
+    commentsDeleted: "Комментарии были удалены",
+    errorWhenAttemptedToDeleteComments: "Во время попытки удалить комментарии произошла ошибка. Сервер ответил со статусом {errorStatus}. Пожалуйста, попробуйте позже"
 }

@@ -245,5 +245,22 @@ export default {
     highlightedComment: "Highlighted comment",
     comments: "Comments",
     search: "Search",
-    noBlogPostsFound: "No blog posts have been found"
+    noBlogPostsFound: "No blog posts have been found",
+    reports: "Reports",
+    onComments: "Comments",
+    onBlogPosts: "Blog posts",
+    deleteComments: "Delete comments",
+    rejectReports: "Reject reports",
+    blockCommentAuthors: "Block comment authors",
+    comment: "Comment",
+    status: "Status",
+    actions: "Actions",
+    selected: "Selected",
+    commentReports: "Comment reports",
+    reportsRejected: "Reports have been rejected",
+    errorWhenAttemptedToRejectReports: "Error occurred when attempted to reject reports. Server responded with {errorStatus} status. Please try again later",
+    selectedCommentsAuthorsBlocked: "Authors of selected comments have been blocked",
+    errorWhenAttemptedToBlockSelectedCommentsAuthors: "Error occurred when attempted to block authors of selected comments. Server responded with {errorStatus} status. Please try again later",
+    commentsDeleted: "Comments have been deleted",
+    errorWhenAttemptedToDeleteComments: "Error occurred when attempted to delete comments. Server responded with {errorStatus} status. Please try again later"
 }

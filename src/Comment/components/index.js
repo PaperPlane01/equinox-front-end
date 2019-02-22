@@ -12,3 +12,4 @@ export {default as ReplyToCommentButton} from './ReplyToCommentButton';
 export {default as LoadMoreCommentsButton} from './LoadMoreCommentsButton';
 export {default as CommentsSortingDirectionSelect} from './CommentsSortingDirectionSelect';
 export {default as CommentsSortingPropertySelect} from './CommentsSortingPropertySelect';
+export {default as CommentHeader} from './CommentHeader';
