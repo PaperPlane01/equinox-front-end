@@ -135,6 +135,7 @@ export default {
     colorTheme: "Цветовая тема",
     pink: "Розовая",
     green: "Зелёная",
+    yellow: "Жёлтая",
     userLikedYourComment: "{username} поставил(а) лайк к вашему комментарию",
     youWereBlockedGlobally: "{blockedByUsername} заблокировал(а) вас глобально",
     userHasBeenBlockedSuccessfully: "Пользователь успешно заблокирован",

@@ -135,6 +135,7 @@ export default {
     colorTheme: "Color theme",
     pink: "Pink",
     green: "Green",
+    yellow: "Yellow",
     userLikedYourComment: "{username} liked your comment",
     youWereBlockedGlobally: "You were blocked globally by {blockedByUsername}",
     userHasBeenBlockedSuccessfully: "User has been blocked successfully",

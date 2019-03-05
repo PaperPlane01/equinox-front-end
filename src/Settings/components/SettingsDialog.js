@@ -61,6 +61,9 @@ class SettingsDialog extends React.Component {
                         <MenuItem value="green">
                             {l('green')}
                         </MenuItem>
+                        <MenuItem value="yellow">
+                            {l('yellow')}
+                        </MenuItem>
                     </Select>
                     <FormControlLabel control={<Switch checked={useWebSocketForNotifications}
                                                        onChange={event => settingsStore.setUseWebSocketForNotifications(event.target.checked)}
