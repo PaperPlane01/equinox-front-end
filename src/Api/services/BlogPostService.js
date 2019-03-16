@@ -66,6 +66,10 @@ const search = (query, paginationParameters) => {
     return Api.get(`/${Routes.BLOG_POSTS}/${Routes.SEARCH}?${_queryString}`);
 };
 
+const deleteMulptiple = ids => {
+    return Api.delete(`/${Routes.BLOG_POSTS}/${Routes.MULTIPLE}`, JSON.stringify(ids));
+};
+
 export default {
     save,
     update,
@@ -80,5 +84,6 @@ export default {
     pin,
     unpin,
     findPinnedByBlog,
-    search
+    search,
+    deleteMulptiple
 };

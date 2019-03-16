@@ -18,9 +18,14 @@ const findAll = paginationParameters => {
     return Api.get(`/${Routes.BLOG_POST_REPORTS}${paginationParameters && `?${queryString.stringify(paginationParameters)}`}`)
 };
 
+const updateMultiple = blogPostReports => {
+    return Api.put(`/${Routes.BLOG_POST_REPORTS}/${Routes.MULTIPLE}`, JSON.stringify(blogPostReports));
+};
+
 export default {
     save,
     update,
     delete: _delete,
-    findAll
+    findAll,
+    updateMultiple
 };

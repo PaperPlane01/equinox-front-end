@@ -16,7 +16,8 @@ import {CommentListStore, CreateCommentStore, CommentLikeStore, DeleteCommentSto
 import {NotificationsHolderStore} from "../Notification";
 import {CreateCommentReportStore, CommentReportListStore, DeleteSelectedReportedCommentsStore,
     RejectSelectedCommentReportsStore, BlockSelectedCommentsAuthorsStore} from "../CommentReport";
-import {CreateBlogPostReportStore} from "../BlogPostReport";
+import {CreateBlogPostReportStore, BlogPostReportListStore, DeleteSelectedReportedBlogPostsStore,
+    RejectSelectedBlogPostReportsStore, BlockSelectedBlogPostsAuthorsStore} from "../BlogPostReport";
 
 const authStore = new AuthStore();
 const signUpStore = new SignUpStore();
@@ -78,6 +79,10 @@ const commentReportListStore = new CommentReportListStore(authStore);
 const deleteSelectedReportedCommentsStore = new DeleteSelectedReportedCommentsStore(commentReportListStore);
 const rejectSelectedCommentReportsStore = new RejectSelectedCommentReportsStore(commentReportListStore);
 const blockSelectedCommentsAuthorsStore = new BlockSelectedCommentsAuthorsStore(commentReportListStore);
+const blogPostReportListStore = new BlogPostReportListStore(authStore);
+const deleteSelectedReportedBlogPostsStore = new DeleteSelectedReportedBlogPostsStore(blogPostReportListStore);
+const rejectSelectedBlogPostReportsStore = new RejectSelectedBlogPostReportsStore(blogPostReportListStore);
+const blockSelectedBlogPostsAuthorsStore = new BlockSelectedBlogPostsAuthorsStore(blogPostReportListStore);
 
 export default {
     authStore,
@@ -134,5 +139,9 @@ export default {
     commentReportListStore,
     deleteSelectedReportedCommentsStore,
     rejectSelectedCommentReportsStore,
-    blockSelectedCommentsAuthorsStore
+    blockSelectedCommentsAuthorsStore,
+    blogPostReportListStore,
+    deleteSelectedReportedBlogPostsStore,
+    rejectSelectedBlogPostReportsStore,
+    blockSelectedBlogPostsAuthorsStore
 };
