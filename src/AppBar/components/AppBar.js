@@ -15,8 +15,6 @@ import views from '../../router-config';
 import {UserMenuAppBar} from '../../User';
 import {NotificationsHolder} from '../../Notification';
 import {SearchBlogPostsQueryTextField} from '../../BlogPost';
-import TextField from '@material-ui/core/TextField';
-import InputBase from '@material-ui/core/InputBase';
 
 const styles = {
     root: {
