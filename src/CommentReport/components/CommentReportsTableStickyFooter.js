@@ -6,7 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import StickyFooter from 'react-sticky-footer';
 import Grid from '@material-ui/core/Grid';
-import BlockCommentAuthorsButton from './BlockCommentыAuthorsButton';
+import BlockCommentAuthorsButton from './BlockCommentsAuthorsButton';
 import DeleteCommentsButton from './DeleteCommentsButton';
 import RejectCommentReportsButton from './RejectCommentReportsButton';
 import ClearCommentReportsSelectionButton from './ClearCommentReportsSelectionButton';
