@@ -260,5 +260,10 @@ export default {
     selectedCommentsAuthorsBlocked: "Авторы выбранных комментариев были заблокированы",
     errorWhenAttemptedToBlockSelectedCommentsAuthors: "Во время попытки заблокировать авторов выбранных комментариев произошла ошибка. Сервер ответил со статусом {errorStatus}. Пожалуйста, попробуйте позже",
     commentsDeleted: "Комментарии были удалены",
-    errorWhenAttemptedToDeleteComments: "Во время попытки удалить комментарии произошла ошибка. Сервер ответил со статусом {errorStatus}. Пожалуйста, попробуйте позже"
+    errorWhenAttemptedToDeleteComments: "Во время попытки удалить комментарии произошла ошибка. Сервер ответил со статусом {errorStatus}. Пожалуйста, попробуйте позже",
+    errorWhenAttemptedToDeleteBlogPosts: "Во время попытки удалить посты произошла огибка. Сервер ответил со статусом {errorStatus}. Пожалуйста, попробуйте позже",
+    errorWhenAttemptedToBlockSelectedBlogPostsAuthors: "Во время попытки заблокировать авторов выбранных постов произошла ошибка. Сервер ответил со статусом {errorStatus}. Пожалуйста, попробуйте позже",
+    readWhole: "Читать полностью",
+    blogPostReports: "Жалобы на посты",
+    blogPost: "Пост"
 }

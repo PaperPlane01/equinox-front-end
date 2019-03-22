@@ -10,6 +10,7 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import CommentReportsDrawerItem from './CommentReportsDrawerItem';
+import BlogPostReportsDrawerItem from './BlogPostReportsDrawerItem';
 import {withLocale} from "../../localization";
 
 @withLocale
@@ -39,6 +40,7 @@ class ReportsDrawerItem extends React.Component {
                 >
                     <List component="div" style={{paddingLeft: '16px'}}>
                         <CommentReportsDrawerItem/>
+                        <BlogPostReportsDrawerItem/>
                     </List>
                 </Collapse>
             </div>

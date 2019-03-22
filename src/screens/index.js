@@ -14,3 +14,4 @@ export {default as EditBlogPost} from './EditBlogPost';
 export {default as GlobalBlockings} from './GlobalBlockings';
 export {default as Search} from './Search';
 export {default as CommentReports} from './CommentReports';
+export {default as BlogPostReports} from './BlogPostReports';

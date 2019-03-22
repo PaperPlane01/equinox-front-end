@@ -263,5 +263,10 @@ export default {
     selectedCommentsAuthorsBlocked: "Authors of selected comments have been blocked",
     errorWhenAttemptedToBlockSelectedCommentsAuthors: "Error occurred when attempted to block authors of selected comments. Server responded with {errorStatus} status. Please try again later",
     commentsDeleted: "Comments have been deleted",
-    errorWhenAttemptedToDeleteComments: "Error occurred when attempted to delete comments. Server responded with {errorStatus} status. Please try again later"
+    errorWhenAttemptedToDeleteComments: "Error occurred when attempted to delete comments. Server responded with {errorStatus} status. Please try again later",
+    errorWhenAttemptedToDeleteBlogPosts: "Error occurred when attempted to delete blog posts. Server responded with {errorStatus} status. Please try again later",
+    errorWhenAttemptedToBlockSelectedBlogPostsAuthors: "Error occurred when attempted to block authors of selected blog posts. Server responded with {errorStatus} status. Please try again later",
+    readWhole: "Read whole",
+    blogPostReports: "Blog post reports",
+    blogPost: "Blog post"
 }
