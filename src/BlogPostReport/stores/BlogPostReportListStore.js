@@ -4,7 +4,6 @@ import {blogPostReportListSchema} from "./schemas";
 import {canSeeBlogPostReports} from "../permissions";
 import {ReportStatus} from "../../Report";
 import {blogPostReportService, createErrorFromResponse} from "../../Api";
-import {toJS} from "mobx";
 
 const BLOG_POST_REPORTS_INITIAL_STATE = {
     result: [],

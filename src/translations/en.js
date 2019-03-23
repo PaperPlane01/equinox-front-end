@@ -268,5 +268,9 @@ export default {
     errorWhenAttemptedToBlockSelectedBlogPostsAuthors: "Error occurred when attempted to block authors of selected blog posts. Server responded with {errorStatus} status. Please try again later",
     readWhole: "Read whole",
     blogPostReports: "Blog post reports",
-    blogPost: "Blog post"
+    blogPost: "Blog post",
+    blogPostsDeleted: "Blog posts have been deleted",
+    selectedBlogPostsAuthorsBlocked: "Authors of selected blog posts have been blocked",
+    blockBlogPostsAuthors: "Block blog posts authors",
+    deleteBlogPosts: "Delete blog posts"
 }

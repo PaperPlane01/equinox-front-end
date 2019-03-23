@@ -265,5 +265,9 @@ export default {
     errorWhenAttemptedToBlockSelectedBlogPostsAuthors: "Во время попытки заблокировать авторов выбранных постов произошла ошибка. Сервер ответил со статусом {errorStatus}. Пожалуйста, попробуйте позже",
     readWhole: "Читать полностью",
     blogPostReports: "Жалобы на посты",
-    blogPost: "Пост"
+    blogPost: "Пост",
+    blogPostsDeleted: "Посты были удалены",
+    selectedBlogPostsAuthorsBlocked: "Авторы выбранных постов были заблокированы",
+    blockBlogPostsAuthors: "Заблокировать авторов постов",
+    deleteBlogPosts: "Удалить посты"
 }
