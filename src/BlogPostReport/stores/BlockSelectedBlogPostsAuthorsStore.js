@@ -1,6 +1,6 @@
-import {action, reaction, computed, observable} from "mobx";
+import {action, computed, observable, reaction} from "mobx";
 import {createErrorFromResponse, globalBlockingService} from "../../Api";
-import {validateReason, validateEndDate} from "../../GlobalBlocking/validation";
+import {validateEndDate, validateReason} from "../../GlobalBlocking/validation";
 
 export default class BlockSelectedBlogPostsAuthorsStore {
     @observable blogPostReportListStore = undefined;
@@ -21,8 +21,8 @@ export default class BlockSelectedBlogPostsAuthorsStore {
     @computed
     get userIds() {
         const result = [];
-        this.blogPostReportListStore.selectedBlogPostsIds.forEach(reportId => {
-            result.push(this.blogPostReportListStore.blogPostReports.entities.blogPostReports[reportId].blogPost.author.id);
+        this.blogPostReportListStore.selectedBlogPostReports.forEach(reportId => {
+            result.push(this.blogPostReportListStore.normalizedBlogPostReports.entities.blogPostReports[reportId].blogPost.author.id);
         });
         return result;
     }
@@ -70,6 +70,8 @@ export default class BlockSelectedBlogPostsAuthorsStore {
                 .then(({data}) => {
                     this.persistedGlobalBlockings = data;
                     this.blogPostReportListStore.markSelectedBlogPostReportsAsAccepted();
+                    this.globalBlockingDialogOpen = false;
+                    this.showSnackBar = true;
                 }).catch(({response}) => {
                     this.submissionError = createErrorFromResponse(response);
                 }).then(() => {
@@ -86,5 +88,10 @@ export default class BlockSelectedBlogPostsAuthorsStore {
         const {reason, endDate} = this.globalBlockingFormErrors;
 
         return !(reason && endDate);
-    }
+    };
+
+    @action
+    setShowSnackBar = showSnackBar => {
+        this.showSnackBar = showSnackBar;
+    };
 }

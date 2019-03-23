@@ -8,6 +8,7 @@ import {
     BlogPostReportsTable,
     BlogPostReportsTableStickyFooter,
     BlogPostReportsSnackBarContainer,
+    BlockSelectedBlogPostsAuthorsDialog,
     canSeeBlogPostReports
 } from "../BlogPostReport";
 import {withLocale} from "../localization";
@@ -39,6 +40,7 @@ class BlogPostReports extends React.Component {
                     </StandardLayout>
                     <BlogPostReportsTableStickyFooter/>
                     <BlogPostReportsSnackBarContainer/>
+                    <BlockSelectedBlogPostsAuthorsDialog/>
                 </Grid>
             </Grid>
         )

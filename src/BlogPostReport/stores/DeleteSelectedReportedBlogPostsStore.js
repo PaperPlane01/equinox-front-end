@@ -1,4 +1,4 @@
-import {action, computed, observable} from "mobx";
+import {action, computed, observable, toJS} from "mobx";
 import {blogPostService, createErrorFromResponse} from "../../Api";
 
 export default class DeleteSelectedReportedBlogPostsStore {
@@ -11,7 +11,7 @@ export default class DeleteSelectedReportedBlogPostsStore {
     get selectedBlogPostsIds() {
         const result = [];
         this.blogPostReportListStore.selectedBlogPostReports.forEach(reportId => {
-            result.push(this.blogPostReportListStore.blogPostReports.entities.blogPostReports[reportId].blogPost.id);
+            result.push(this.blogPostReportListStore.normalizedBlogPostReports.entities.blogPostReports[reportId].blogPost.id);
         });
         return result;
     }
@@ -24,8 +24,9 @@ export default class DeleteSelectedReportedBlogPostsStore {
     deleteBlogPosts = () => {
         this.pending = true;
         this.error = undefined;
+        console.log(toJS(this.selectedBlogPostsIds));
 
-        return blogPostService.deleteMulptiple(this.selectedBlogPostsIds)
+        return blogPostService.deleteMultiple(this.selectedBlogPostsIds)
             .then(() => {
                 this.showSnackBar = true;
                 this.blogPostReportListStore.markSelectedBlogPostReportsAsAccepted();

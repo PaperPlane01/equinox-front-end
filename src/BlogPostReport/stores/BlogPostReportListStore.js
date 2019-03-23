@@ -4,6 +4,7 @@ import {blogPostReportListSchema} from "./schemas";
 import {canSeeBlogPostReports} from "../permissions";
 import {ReportStatus} from "../../Report";
 import {blogPostReportService, createErrorFromResponse} from "../../Api";
+import {toJS} from "mobx";
 
 const BLOG_POST_REPORTS_INITIAL_STATE = {
     result: [],
@@ -28,6 +29,15 @@ export default class BlogPostReportListStore {
     @computed
     get currentUser() {
         return this.authStore.currentUser;
+    }
+
+    @computed
+    get selectedBlogPostsIds() {
+        console.log(toJS(this.selectedBlogPostReports));
+        console.log(toJS(this.normalizedBlogPostReports));
+        return this.selectedBlogPostReports.map(blogPostReportId => {
+            return this.normalizedBlogPostReports.entities.blogPostReports[blogPostReportId].blogPost.id;
+        })
     }
 
     constructor(authStore) {
@@ -129,7 +139,7 @@ export default class BlogPostReportListStore {
             .then(({data}) => {
                 const normalizedResponse = normalize(data, blogPostReportListSchema);
                 normalizedResponse.result.forEach(reportId => {
-                    normalizedResponse.entities.commentReports[reportId].selected = true;
+                    normalizedResponse.entities.blogPostReports[reportId].selected = true;
                 });
                 this.normalizedBlogPostReports.entities.blogPostReports = {
                     ...this.normalizedBlogPostReports.entities.blogPostReports,

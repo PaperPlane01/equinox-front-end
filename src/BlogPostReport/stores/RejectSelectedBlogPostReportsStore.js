@@ -62,7 +62,7 @@ export default class RejectSelectedBlogPostReportsStore {
     };
 
     @action
-    setShowShackBar = showShackBar => {
-        this.showSnackBar = showShackBar;
+    setShowSnackBar = showSnackBar => {
+        this.showSnackBar = showSnackBar;
     }
 }

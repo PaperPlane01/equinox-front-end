@@ -8,3 +8,4 @@ export {default as RejectBlogPostReportsButton} from './RejectBlogPostReportsBut
 export {default as BlogPostReportsSnackBarContainer} from './BlogPostReportsSnackBarContainer';
 export {default as ClearBlogPostReportsSelectionButton} from './ClearBlogPostReportsSelectionButton';
 export {default as BlogPostReportsTableStickyFooter} from './BlogPostReportsTableStickyFooter';
+export {default as BlockSelectedBlogPostsAuthorsDialog} from './BlockSelectedBlogPostsAuthorsDialog';
