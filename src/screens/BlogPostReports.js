@@ -30,11 +30,7 @@ class BlogPostReports extends React.Component {
                 <Grid item xs={12}>
                     <StandardLayout>
                         {canSeeBlogPostReports(currentUser)
-                            ? (
-                                <div>
-                                    <BlogPostReportsTable/>
-                                </div>
-                            )
+                            ? <BlogPostReportsTable/>
                             : <Typography variant="headline">{l('accessToPageDenied')}</Typography>
                         }
                     </StandardLayout>

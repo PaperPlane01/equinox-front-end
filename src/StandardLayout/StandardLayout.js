@@ -1,27 +1,36 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import Hidden from '@material-ui/core/Hidden';
+import withStyles from '@material-ui/core/styles/withStyles';
+import createStyles from "@material-ui/core/styles/createStyles"
 
-export default class StandardLayout extends React.Component {
+const styles = createStyles({
+    standardLayout: {
+        '@media screen and (max-width: 600px)': {
+            maxWidth: '100%',
+            paddingLeft: '2.08333333334%',
+            paddingRight: '2.08333333334%'
+        },
+        '@media screen and (max-width: 900px)': {
+            maxWidth: '100%',
+            paddingLeft: '2.08333333334%',
+            paddingRight: '2.08333333334%'
+        },
+        marginTop: 16
+    }
+});
+
+class StandardLayout extends React.Component {
     render() {
-        const {children} = this.props;
-        return <Grid container style={{marginTop: 16}}>
-            <Hidden mdUp>
-                <Grid item xs={12}>
-                    <div style={{
-                        marginLeft: '2.08333333334%',
-                        marginRight: '2.08333333334%',
-                    }}>
-                        {children}
-                    </div>
-                </Grid>
-            </Hidden>
-            <Hidden smDown>
-                <Grid item lg={2}/>
-                <Grid item xs={10} lg={8}>
+        const {children, classes} = this.props;
+        return (
+            <Grid container className={classes.standardLayout}>
+                <Grid item md={2}/>
+                <Grid item xs={12} md={8}>
                     {children}
                 </Grid>
-            </Hidden>
-        </Grid>
+            </Grid>
+        )
     }
 }
+
+export default withStyles(styles)(StandardLayout);
