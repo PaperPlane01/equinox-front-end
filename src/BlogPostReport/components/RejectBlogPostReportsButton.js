@@ -15,7 +15,7 @@ class RejectBlogPostReportsButton extends React.Component {
         return (
             <BottomNavigationAction label={l('rejectReports')}
                                     showLabel
-                                    icon={<UndoIcon/>}
+                                    icon={<UndoIcon color="primary"/>}
                                     onClick={rejectSelectedBlogPostReportsStore.rejectBlogPostReports}
             />
         )

@@ -16,7 +16,7 @@ class DeleteBlogPostsButton extends React.Component {
             <BottomNavigationAction onClick={deleteSelectedReportedBlogPostsStore.deleteBlogPosts}
                                     showLabel
                                     label={l('deleteBlogPosts')}
-                                    icon={<DeleteIcon/>}
+                                    icon={<DeleteIcon color="primary"/>}
             />
         )
     }

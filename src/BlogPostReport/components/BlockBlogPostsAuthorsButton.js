@@ -15,7 +15,7 @@ class BlockBlogPostsAuthorsButton extends React.Component {
         return (
             <BottomNavigationAction label={l('blockBlogPostsAuthors')}
                                     showLabel
-                                    icon={<BlockIcon/>}
+                                    icon={<BlockIcon color="primary"/>}
                                     onClick={() => blockSelectedBlogPostsAuthorsStore.setGlobalBlockingDialogOpen(true)}
             />
         )
