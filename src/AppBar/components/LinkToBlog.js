@@ -11,9 +11,19 @@ import closeDrawer from './closeDrawer';
 @closeDrawer
 @inject('store')
 @observer
-class LinkToBlogDrawerItem extends React.Component {
+class LinkToBlog extends React.Component {
+    handleClick = () => {
+        const {closeDrawer, onClick} = this.props;
+
+        if (onClick) {
+            onClick();
+        }
+
+        closeDrawer();
+    };
+
     render() {
-        const {blogId, blogAvatarUri, blogName, blogLetterAvatarColor, store, closeDrawer} = this.props;
+        const {blogId, blogAvatarUri, blogName, blogLetterAvatarColor, store} = this.props;
 
         return <Link view={views.blog}
                      store={store}
@@ -22,7 +32,7 @@ class LinkToBlogDrawerItem extends React.Component {
                          textDecoration: 'none'
                      }}
         >
-            <ListItem onClick={closeDrawer}>
+            <ListItem onClick={this.handleClick}>
                 <Avatar avatarLetter={blogName[0]}
                         avatarColor={blogLetterAvatarColor}
                         avatarUri={blogAvatarUri}
@@ -37,13 +47,14 @@ class LinkToBlogDrawerItem extends React.Component {
     }
 }
 
-LinkToBlogDrawerItem.propTypes = {
+LinkToBlog.propTypes = {
     blogId: PropTypes.number,
     blogName: PropTypes.string,
     blogAvatarUri: PropTypes.string,
     blogLetterAvatarColor: PropTypes.string,
     store: PropTypes.object,
-    closeDrawer: PropTypes.func
+    closeDrawer: PropTypes.func,
+    onClick: PropTypes.func
 };
 
-export default LinkToBlogDrawerItem;
+export default LinkToBlog;

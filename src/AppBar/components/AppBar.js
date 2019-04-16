@@ -11,6 +11,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import HeadRoom from 'react-headroom';
 import {Link} from 'mobx-router';
 import Drawer from './Drawer';
+import CurrentUserSubscriptionsAppBarMenu from './CurrentUserSubscriptionsAppBarMenu';
 import views from '../../router-config';
 import {UserMenuAppBar} from '../../User';
 import {NotificationsHolder} from '../../Notification';
@@ -69,6 +70,7 @@ class AppBar extends React.Component {
                     <Hidden smDown>
                         <SearchBlogPostsQueryTextField/>
                     </Hidden>
+                    <CurrentUserSubscriptionsAppBarMenu/>
                     <NotificationsHolder/>
                     <UserMenuAppBar/>
                 </Toolbar>
