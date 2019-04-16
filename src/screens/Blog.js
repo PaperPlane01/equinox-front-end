@@ -43,7 +43,7 @@ class Blog extends React.Component {
 
         if (blog) {
             return <div>
-                <Hidden mdUp>
+                <Hidden lgUp>
                     <Grid container spacing={16}>
                         <Grid item xs={12} lg={9}>
                             <BlogDescription/>
@@ -74,9 +74,9 @@ class Blog extends React.Component {
                         </Grid>
                     </Grid>
                 </Hidden>
-                <Hidden smDown>
+                <Hidden mdDown>
                     <Grid container spacing={16}>
-                        <Grid item xs={12} lg={8}>
+                        <Grid item xs={12} md={8}>
                             <Grid container spacing={16}>
                                 <Grid item xs={12}>
                                     <BlogDescription/>
@@ -92,7 +92,7 @@ class Blog extends React.Component {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item xs={12} lg={4} >
+                        <Grid item xs={12} md={4}>
                             <Grid container spacing={16}>
                                 <Grid item xs={12}>
                                     <BlogSubscribersBlock/>
