@@ -3,16 +3,16 @@ import PropTypes from "prop-types";
 import {observer, inject} from "mobx-react";
 import Popover from "@material-ui/core/Popover";
 import Hidden from "@material-ui/core/Hidden";
-import SubscriptionsIcon from '@material-ui/icons/Subscriptions';
+import ViewListIcon from "@material-ui/icons/ViewList";
 import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 import BlogList from "./BlogList";
 import {withLocale} from "../../localization";
 
 @withLocale
-@inject('currentUserSubscriptionsStore')
+@inject('currentUserBlogsStore')
 @observer
-class CurrentUserSubscriptionsAppBarMenu extends React.Component {
+class CurrentUserBlogsAppBarMenu extends React.Component {
     constructor(props) {
         super(props);
 
@@ -22,11 +22,11 @@ class CurrentUserSubscriptionsAppBarMenu extends React.Component {
     }
 
     openMenu = event => {
-        const {currentUserSubscriptionsStore} = this.props;
-        const {initiallyLoaded} = currentUserSubscriptionsStore;
+        const {currentUserBlogsStore} = this.props;
+        const {initiallyLoaded} = currentUserBlogsStore;
 
         if (!initiallyLoaded) {
-            currentUserSubscriptionsStore.fetchCurrentUserSubscriptions();
+            currentUserBlogsStore.fetchBlogsOwnedByCurrentUser();
         }
         this.setState({anchorElement: event.target});
     };
@@ -37,8 +37,8 @@ class CurrentUserSubscriptionsAppBarMenu extends React.Component {
 
     render() {
         const {anchorElement} = this.state;
-        const {currentUserSubscriptionsStore, l} = this.props;
-        const {subscriptions, pending, initiallyLoaded} = currentUserSubscriptionsStore;
+        const {currentUserBlogsStore, l} = this.props;
+        const {blogs, pending} = currentUserBlogsStore;
 
         return (
             <div>
@@ -46,15 +46,15 @@ class CurrentUserSubscriptionsAppBarMenu extends React.Component {
                     <IconButton onClick={this.openMenu}
                                 color="inherit"
                     >
-                        <SubscriptionsIcon/>
+                        <ViewListIcon/>
                     </IconButton>
                 </Hidden>
                 <Hidden smDown>
                     <Button onClick={this.openMenu}
                             color="inherit"
                     >
-                        <SubscriptionsIcon style={{marginRight: 5}}/>
-                        {l('subscriptions')}
+                        <ViewListIcon style={{marginRight: 5}}/>
+                        {l('myBlogs')}
                     </Button>
                 </Hidden>
                 <Popover open={Boolean(anchorElement)}
@@ -76,8 +76,8 @@ class CurrentUserSubscriptionsAppBarMenu extends React.Component {
                          }}
                 >
                     <BlogList pending={pending}
-                              blogs={subscriptions.map(subscription => subscription.blog)}
-                              emptyLabel={l('noSubscriptions')}
+                              blogs={blogs}
+                              emptyLabel={l('youDontHaveAnyBlogs')}
                               onItemClick={this.closeMenu}
                     />
                 </Popover>
@@ -86,9 +86,9 @@ class CurrentUserSubscriptionsAppBarMenu extends React.Component {
     }
 }
 
-CurrentUserSubscriptionsAppBarMenu.propTypes = {
-    currentUserSubscriptionsStore: PropTypes.object,
+CurrentUserBlogsAppBarMenu.propTypes = {
+    currentUserBlogsStore: PropTypes.object,
     l: PropTypes.func
 };
 
-export default CurrentUserSubscriptionsAppBarMenu;
+export default CurrentUserBlogsAppBarMenu;

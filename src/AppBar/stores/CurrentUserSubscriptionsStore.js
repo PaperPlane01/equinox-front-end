@@ -5,6 +5,7 @@ export default class CurrentUserSubscriptionsStore {
     @observable appBarStore = undefined;
     @observable authStore = undefined;
     @observable subscriptions = [];
+    @observable initiallyLoaded = false;
     @observable pending = false;
     @observable currentPage = 0;
     @observable error = undefined;
@@ -37,6 +38,7 @@ export default class CurrentUserSubscriptionsStore {
             () => {
                 this.subscriptions = [];
                 this.currentPage = 0;
+                this.initiallyLoaded = false;
             }
         )
     }
@@ -58,6 +60,9 @@ export default class CurrentUserSubscriptionsStore {
                     ...this.subscriptions,
                     ...response.data
                 ];
+                if (!this.initiallyLoaded) {
+                    this.initiallyLoaded = true;
+                }
             }
         }).catch(error => {
             this.error = createErrorFromResponse(error.response);

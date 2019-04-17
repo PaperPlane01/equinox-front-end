@@ -15,7 +15,6 @@ import {withLocale} from "../../localization";
 
 @withLocale
 @inject('notificationsHolderStore')
-@inject('authStore')
 @observer
 class NotificationsHolder extends React.Component {
     constructor(props) {
@@ -40,13 +39,9 @@ class NotificationsHolder extends React.Component {
     };
 
     render() {
-        const {notificationsHolderStore, authStore, l} = this.props;
+        const {notificationsHolderStore, l} = this.props;
         const {unreadNotifications, readNotifications, notifications, pending, error} = notificationsHolderStore;
         const {anchorElement} = this.state;
-
-        if (!authStore.currentUser) {
-            return null;
-        }
 
         const menuListItems = [];
 

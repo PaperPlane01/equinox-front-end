@@ -11,11 +11,13 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import HeadRoom from 'react-headroom';
 import {Link} from 'mobx-router';
 import Drawer from './Drawer';
-import CurrentUserSubscriptionsAppBarMenu from './CurrentUserSubscriptionsAppBarMenu';
-import views from '../../router-config';
-import {UserMenuAppBar} from '../../User';
-import {NotificationsHolder} from '../../Notification';
-import {SearchBlogPostsQueryTextField} from '../../BlogPost';
+import CurrentUserBlogsAppBarMenu from "./CurrentUserBlogsAppBarMenu";
+import CurrentUserSubscriptionsAppBarMenu from "./CurrentUserSubscriptionsAppBarMenu";
+import FeedAppBarItem from "./FeedAppBarItem";
+import {SearchBlogPostsQueryTextField} from "../../BlogPost/components";
+import {NotificationsHolder} from "../../Notification/components";
+import {UserMenuAppBar} from "../../User/components";
+import views from "../../router-config";
 
 const styles = {
     root: {
@@ -30,12 +32,14 @@ const styles = {
     },
 };
 
+@inject('authStore')
 @inject('store')
 @inject('appBarStore')
 @observer
 class AppBar extends React.Component {
     render() {
-        const {title, store, appBarStore, classes} = this.props;
+        const {title, store, appBarStore, authStore, classes} = this.props;
+        const {currentUser} = authStore;
 
         const linkToHome = (<Link store={store}
                                   view={views.home}
@@ -61,18 +65,28 @@ class AppBar extends React.Component {
                         <MenuIcon/>
                     </IconButton>
                     <Typography variant="headline" color="inherit" className={classes.grow}>
-                        {title ? <span>
-                                {linkToHome}{` | ${title}`}
-                                </span>
+                        {title ?  (
+                            <span>
+                                {linkToHome}<Hidden xsDown> | {title}</Hidden>
+                            </span>
+                            )
                             : linkToHome
                         }
                     </Typography>
-                    <Hidden smDown>
-                        <SearchBlogPostsQueryTextField/>
-                    </Hidden>
-                    <CurrentUserSubscriptionsAppBarMenu/>
-                    <NotificationsHolder/>
+                    <React.Fragment>
+                        <Hidden smDown>
+                            <SearchBlogPostsQueryTextField/>
+                        </Hidden>
+                        {currentUser && (
+                            <React.Fragment>
+                                <FeedAppBarItem/>
+                                <CurrentUserSubscriptionsAppBarMenu/>
+                                <CurrentUserBlogsAppBarMenu/>
+                                <NotificationsHolder/>
+                            </React.Fragment>
+                        )}
                     <UserMenuAppBar/>
+                    </React.Fragment>
                 </Toolbar>
             </MaterialUiAppBar>
             <Drawer/>

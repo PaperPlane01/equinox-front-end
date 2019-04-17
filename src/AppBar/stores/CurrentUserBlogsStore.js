@@ -6,6 +6,7 @@ export default class CurrentUserBlogsStore {
     @observable createBlogStore = undefined;
     @observable blogs = [];
     @observable pending = false;
+    @observable initiallyLoaded = false;
     @observable error = undefined;
     @observable appBarStore = undefined;
 
@@ -27,6 +28,7 @@ export default class CurrentUserBlogsStore {
             user => {
                 if (!user) {
                     this.blogs = [];
+                    this.initiallyLoaded = false;
                 }
             }
         );
@@ -56,6 +58,7 @@ export default class CurrentUserBlogsStore {
         return blogService.findOwnedByCurrentUser()
             .then(response => {
                 this.blogs = response.data;
+                this.initiallyLoaded = true;
             }).catch(error => {
                 this.error = createErrorFromResponse(error.response);
             }).then(() => {
