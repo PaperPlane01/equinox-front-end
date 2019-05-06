@@ -65,13 +65,15 @@ class AppBar extends React.Component {
                         <MenuIcon/>
                     </IconButton>
                     <Typography variant="headline" color="inherit" className={classes.grow}>
-                        {title ?  (
-                            <span>
-                                {linkToHome}<Hidden xsDown> | {title}</Hidden>
+                        <Hidden xsDown>
+                            {title ?  (
+                                    <span>
+                                {linkToHome} | {title}
                             </span>
-                            )
-                            : linkToHome
-                        }
+                                )
+                                : linkToHome
+                            }
+                        </Hidden>
                     </Typography>
                     <React.Fragment>
                         <Hidden smDown>

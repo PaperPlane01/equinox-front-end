@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import {Editor} from "react-draft-wysiwyg";
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import сreateBlogPostFormStyle from './CreateBlogPostForm.css';
 import {withLocale} from "../../localization";
 
 @withLocale
@@ -45,6 +46,7 @@ class CreateBlogPostForm extends React.Component {
                     localization={{
                         locale: currentLocale
                     }}
+                    editorClassName="createBlogPostForm"
             />
             {createBlogPostFormErrors.content && <Typography variant="body1"
                                                              style={{color: 'red'}}

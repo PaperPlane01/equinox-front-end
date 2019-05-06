@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {Editor} from "react-draft-wysiwyg";
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import updateBlogPostFormStyle from "./UpdateBlogPostForm.css";
 import {canEditBlogPost} from "../permissions";
 import {withLocale} from "../../localization";
 
@@ -67,6 +68,7 @@ class UpdateBlogPostForm extends React.Component {
                     localization={{
                         locale: currentLocale
                     }}
+                    editorClassName="updateBlogPostForm"
             />
             {updateBlogPostFormValues.content && <Typography variant="body1"
                                                              style={{color: 'red'}}
