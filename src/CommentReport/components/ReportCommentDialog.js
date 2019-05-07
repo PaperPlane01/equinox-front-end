@@ -50,7 +50,7 @@ class ReportCommentDialog extends React.Component {
 
             return <Dialog open={createCommentReportDialogOpen && !persistedCommentReport}
                            fullScreen={fullScreen}
-                           onClose={() => createCommentReportDialogOpen.setCreateCommentReportDialogOpen(false)}
+                           onClose={() => createCommentReportStore.setCreateCommentReportDialogOpen(false)}
             >
                 <DialogTitle>
                     {l('reportComment')}
