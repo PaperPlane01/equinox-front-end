@@ -53,7 +53,7 @@ class CreateGlobalBlockingDialog extends React.Component {
                                     cancelLabel={l('cancel')}
                                     openToYearSelection
                                     fullWidth
-                                    format="dd-MM-YYYY hh:mm:ss"
+                                    format="DD-MM-YYYY hh:mm:ss"
                                     clearable
                                     clearLabel={l('clear')}
                     />
