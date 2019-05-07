@@ -4,6 +4,7 @@ import {observer} from 'mobx-react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import moment from 'moment';
 import EditProfileButton from "./EditProfileButton";
 import {withLocale} from "../../../localization/index";
 
@@ -31,7 +32,7 @@ class UserProfileCard extends React.Component {
                     {l('bio')}: {bio || l('notSpecified')}
                 </Typography>
                 <Typography variant="subheading">
-                    {l('birthDate')}: {birthDate || l('notSpecified')}
+                    {l('birthDate')}: {moment(birthDate).format('DD-MM-YYYY') || l('notSpecified')}
                 </Typography>
             </CardContent>
         </Card>
