@@ -14,7 +14,8 @@ import {withLocale} from "../../../localization/index";
 class EditProfileForm extends React.Component {
     render() {
         const {l, editProfileStore} = this.props;
-        const {editProfileFormValues, editProfileFormErrors, pending, submissionError} = editProfileStore;
+        const {editProfileFormValues, editProfileFormErrors, pending, submissionError,
+            persistedProfile} = editProfileStore;
 
         return <div>
             <Typography variant="headline">
@@ -66,7 +67,7 @@ class EditProfileForm extends React.Component {
                         fullWidth
                         minDate={Date.parse('01 Jan 1900')}
                         maxDate={new Date()}
-                        format="dd-MM-YYYY"
+                        format="DD-MM-YYYY"
                         clearable
                         clearLabel={l('clear')}
             />
@@ -84,6 +85,13 @@ class EditProfileForm extends React.Component {
                                             }}
             >
                 {l('errorWhenAttemptedToUpdateProfile', {errorStatus: submissionError.status})}
+            </Typography>}
+            {persistedProfile && <Typography variant="body1"
+                                             style={{
+                                                 color: 'green'
+                                             }}
+            >
+                {l('profileUpdated')}
             </Typography>}
         </div>
     }

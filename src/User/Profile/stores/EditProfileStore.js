@@ -1,8 +1,7 @@
 import {action, observable, reaction} from 'mobx';
-import parseDate from 'date-fns/parse';
-import addYears from 'date-fns/addYears';
-import userValidators from '../../validation/index';
-import Api, {createErrorFromResponse, Routes} from "../../../Api/index";
+import moment from 'moment';
+import userValidators from '../../validation';
+import {userService, createErrorFromResponse, Routes} from "../../../Api";
 
 export default class EditProfileStore {
     @observable editProfileFormValues = {
@@ -51,7 +50,7 @@ export default class EditProfileStore {
                     this.editProfileFormValues.avatarUri = this.user.avatarUri;
                     this.editProfileFormValues.bio = this.user.bio;
                     this.editProfileFormValues.email = this.user.email;
-                    this.editProfileFormValues.birthDate = addYears(parseDate(this.user.birthDate, "dd-MM-YYYY", new Date()), 1);
+                    this.editProfileFormValues.birthDate = moment(this.user.birthDate);
                 }
             }
         );
@@ -85,12 +84,13 @@ export default class EditProfileStore {
     };
 
     @action fetchCurrentUserProfile = () => {
-        return Api.get(`/${Routes.CURRENT_USER}/${Routes.FULL_PROFILE}`)
-            .then(response => {
-                this.user = response.data;
-                this.fetchingError = undefined;
-            }).catch(error => {
-                this.fetchingError = createErrorFromResponse(error.response);
+        this.fetchingError = undefined;
+
+        return userService.getFullProfileOfCurrentUser()
+            .then(({data}) => {
+                this.user = data;
+            }).catch(({response}) => {
+                this.fetchingError = createErrorFromResponse(response);
             });
     };
 
@@ -102,19 +102,14 @@ export default class EditProfileStore {
         if (this.isFormValid()) {
             this.pending = true;
 
-            return Api.put(`/${Routes.CURRENT_USER}`, JSON.stringify({
-                ...this.editProfileFormValues,
-                birthDate: Date.UTC(this.editProfileFormValues.birthDate.getFullYear(),
-                    this.editProfileFormValues.birthDate.getMonth(),
-                    this.editProfileFormValues.birthDate.getDate())
-            })).then(response => {
-                    this.persistedProfile = response.data;
-                    this.submissionError = undefined;
-                }).catch(error => {
-                    this.submissionError = createErrorFromResponse(error.response);
+            return userService.updateCurrentUser(this.editProfileFormValues)
+                .then(({data}) => {
+                    this.persistedProfile = data;
+                }).catch((response) => {
+                    this.submissionError = createErrorFromResponse(response);
                 }).then(() => {
                     this.pending = false;
-                })
+                });
         } else {
             console.log('form is invalid');
         }

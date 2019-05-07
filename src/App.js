@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {MuiThemeProvider, withStyles} from '@material-ui/core/styles';
 import {MuiPickersUtilsProvider} from 'material-ui-pickers';
 import {MobxRouter} from 'mobx-router';
-import DateFnsUtils from 'material-ui-pickers/utils/date-fns-utils';
+import MomentUtils from 'material-ui-pickers/utils/moment-utils';
 import ruLocale from 'date-fns/locale/ru';
 import enLocale from 'date-fns/locale/en-US';
 import {inject, observer} from 'mobx-react';
@@ -65,7 +65,7 @@ class App extends Component {
                 <meta name="theme-color" content={theme.palette.primary.main}/>
             </Helmet>
             <MuiThemeProvider theme={theme}>
-                <MuiPickersUtilsProvider utils={DateFnsUtils} locale={pickersLocale}>
+                <MuiPickersUtilsProvider utils={MomentUtils} locale={pickersLocale}>
                     <MobxRouter/>
                 </MuiPickersUtilsProvider>
             </MuiThemeProvider>

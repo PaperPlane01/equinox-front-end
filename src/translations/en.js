@@ -272,5 +272,7 @@ export default {
     blogPostsDeleted: "Blog posts have been deleted",
     selectedBlogPostsAuthorsBlocked: "Authors of selected blog posts have been blocked",
     blockBlogPostsAuthors: "Block blog posts authors",
-    deleteBlogPosts: "Delete blog posts"
+    deleteBlogPosts: "Delete blog posts",
+    profileUpdated: "Profile has been updated successfully",
+    errorWhenAttemptedToUpdateProfile: "Error occurred when attempted to update profile. Server responded with {errorStatus} status. Please try again later"
 }

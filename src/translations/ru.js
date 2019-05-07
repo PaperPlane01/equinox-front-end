@@ -269,5 +269,7 @@ export default {
     blogPostsDeleted: "Посты были удалены",
     selectedBlogPostsAuthorsBlocked: "Авторы выбранных постов были заблокированы",
     blockBlogPostsAuthors: "Заблокировать авторов постов",
-    deleteBlogPosts: "Удалить посты"
+    deleteBlogPosts: "Удалить посты",
+    profileUpdated: "Профиль был успешно обновлён",
+    errorWhenAttemptedToUpdateProfile: "Во время попытки обновить профиль произошла ошибка. Сервер ответил со статусом {errorStatus}. Пожалуйста, попробуйте позже"
 }
