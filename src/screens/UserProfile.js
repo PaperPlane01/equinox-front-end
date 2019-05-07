@@ -6,15 +6,16 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '../AppBar';
 import StandardLayout from '../StandardLayout';
-import {UserProfileAvatar, UserProfileCard} from "../User";
+import {UserProfileAvatar, UserProfileCard, canEditProfile} from "../User";
 import {withLocale} from "../localization";
 
 @withLocale
+@inject('authStore')
 @inject('userProfileStore')
 @observer
 class UserProfile extends React.Component {
     renderUserProfile = () => {
-        const {userProfileStore, l} = this.props;
+        const {userProfileStore, authStore, l} = this.props;
         const {user, pending, error} = userProfileStore;
 
         if (pending) {
@@ -44,6 +45,7 @@ class UserProfile extends React.Component {
                                      email={user.email}
                                      bio={user.bio}
                                      birthDate={user.birthDate}
+                                     displayEditButton={canEditProfile(authStore.currentUser, user.id)}
                     />
                 </Grid>
             </Grid>
@@ -64,6 +66,7 @@ class UserProfile extends React.Component {
 
 UserProfile.propTypes = {
     userProfileStore: PropTypes.object,
+    authStore: PropTypes.object,
     l: PropTypes.func
 };
 
