@@ -47,7 +47,7 @@ class BlockSelectedBlogPostsAuthorsDialog extends React.Component {
                                     label={l('blockingEndDate')}
                                     openToYearSelection
                                     fullWidth
-                                    format="dd-MM-YYYY hh:mm:ss"
+                                    format="DD-MM-YYYY hh:mm:ss"
                                     clearable
                                     clearLabel={l('clear')}
                                     autoOk
@@ -61,8 +61,8 @@ class BlockSelectedBlogPostsAuthorsDialog extends React.Component {
                     >
                         {l('block')}
                     </Button>
-                    <Button variant="contained"
-                            color="primary"
+                    <Button variant="outlined"
+                            color="secondary"
                             onClick={() => blockSelectedBlogPostsAuthorsStore.setGlobalBlockingDialogOpen(false)}
                     >
                         {l('cancel')}

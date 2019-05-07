@@ -11,7 +11,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import {DateTimePicker} from 'material-ui-pickers';
 import {withLocale} from "../../localization";
-import {snackBarHelper} from "../../snack-bar-helper";
 
 @withLocale
 @inject('blockSelectedCommentsAuthorsStore')
@@ -48,11 +47,10 @@ class BlockSelectedCommentsAuthorsDialog extends React.Component {
                                     label={l('blockingEndDate')}
                                     openToYearSelection
                                     fullWidth
-                                    format="dd-MM-YYYY hh:mm:ss"
+                                    format="DD-MM-YYYY hh:mm:ss"
                                     clearable
                                     clearLabel={l('clear')}
                                     autoOk
-
                     />
                 </DialogContent>
                 <DialogActions>
@@ -63,8 +61,8 @@ class BlockSelectedCommentsAuthorsDialog extends React.Component {
                     >
                         {l('block')}
                     </Button>
-                    <Button variant="contained"
-                            color="primary"
+                    <Button variant="outlined"
+                            color="secondary"
                             onClick={() => blockSelectedCommentsAuthorsStore.setGlobalBlockingDialogOpen(false)}
                     >
                         {l('cancel')}
