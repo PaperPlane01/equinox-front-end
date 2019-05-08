@@ -63,9 +63,6 @@ class CommentReportsTable extends React.Component {
                             <TableCell>
                                 {l('status')}
                             </TableCell>
-                            <TableCell padding="checkbox">
-                                {l('actions')}
-                            </TableCell>
                         </TableHead>
                         <TableBody>
                             {result.map(reportId => (
@@ -99,11 +96,6 @@ class CommentReportsTable extends React.Component {
                                     </TableCell>
                                     <TableCell>
                                         {l(commentReports[reportId].status)}
-                                    </TableCell>
-                                    <TableCell padding="checkbox">
-                                        <IconButton>
-                                            <MoreVertIcon/>
-                                        </IconButton>
                                     </TableCell>
                                 </TableRow>
                             ))}
