@@ -43,11 +43,12 @@ class BlockSelectedCommentsAuthorsDialog extends React.Component {
                     <DateTimePicker value={globalBlockingForm.endDate}
                                     onChange={date => blockSelectedCommentsAuthorsStore.setGlobalBlockingFormValue(date, 'endDate')}
                                     disablePast
-                                    canclelLabel={l('cancel')}
+                                    cancelLabel={l('cancel')}
                                     label={l('blockingEndDate')}
                                     openToYearSelection
                                     fullWidth
-                                    format="DD-MM-YYYY hh:mm:ss"
+                                    format="DD-MM-YYYY HH:mm:ss"
+                                    ampm={false}
                                     clearable
                                     clearLabel={l('clear')}
                                     autoOk

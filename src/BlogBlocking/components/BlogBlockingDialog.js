@@ -46,7 +46,8 @@ class BlogBlockingDialog extends React.Component {
                                 cancelLabel={l('cancel')}
                                 openToYearSelection
                                 fullWidth
-                                format="DD-MM-YYYY hh:mm:ss"
+                                format="DD-MM-YYYY HH:mm:ss"
+                                ampm={false}
                                 clearable
                                 clearLabel={l('clear')}
                 />
