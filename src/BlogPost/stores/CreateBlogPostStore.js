@@ -1,4 +1,4 @@
-import {action, observable} from 'mobx';
+import {action, observable, reaction} from 'mobx';
 import {convertToRaw, EditorState} from 'draft-js';
 import {blogPostService, createErrorFromResponse} from "../../Api";
 import {validateBlogPostContent, validateBlogPostTags, validateBlogPostTitle} from "../validation";
@@ -18,7 +18,18 @@ export default class CreateBlogPostStore {
     @observable pending = false;
     @observable blogId = undefined;
     @observable persistedBlogPost = undefined;
-    @observable createBlogPostFormHidden = true;
+    @observable createBlogPostFormOpen = false;
+
+    constructor() {
+        reaction(
+            () => this.persistedBlogPost,
+            blogPost => {
+                if (blogPost) {
+                    this.createBlogPostFormOpen = false;
+                }
+            }
+        )
+    }
 
     @action setBlogId = blogId => {
         this.blogId = blogId;
@@ -42,8 +53,8 @@ export default class CreateBlogPostStore {
         );
     };
 
-    @action setCreateBlogPostFormHidden = hidden => {
-        this.createBlogPostFormHidden = hidden;
+    @action setCreateBlogPostFormOpen = open => {
+        this.createBlogPostFormOpen = open;
     };
 
     @action createBlogPost = () => {

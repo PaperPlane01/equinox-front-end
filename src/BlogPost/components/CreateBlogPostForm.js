@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import {Editor} from "react-draft-wysiwyg";
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import сreateBlogPostFormStyle from './CreateBlogPostForm.css';
+import createBlogPostFormStyle from './CreateBlogPostForm.css';
 import {withLocale} from "../../localization";
 
 @withLocale
@@ -16,13 +16,13 @@ class CreateBlogPostForm extends React.Component {
     render() {
         const {l, currentLocale, createBlogPostStore} = this.props;
         const {createBlogPostFormErrors, createBlogPostFormValues, submissionError,
-            pending, createBlogPostFormHidden}
+            pending, createBlogPostFormOpen}
         = createBlogPostStore;
 
-        if (createBlogPostFormHidden) {
+        if (!createBlogPostFormOpen) {
             return <Button variant="contained"
                            color="primary"
-                           onClick={() => createBlogPostStore.setCreateBlogPostFormHidden(false)}
+                           onClick={() => createBlogPostStore.setCreateBlogPostFormOpen(true)}
             >
                 {l('createBlogPost')}
             </Button>
@@ -64,7 +64,7 @@ class CreateBlogPostForm extends React.Component {
                     style={{
                         marginLeft: '15px'
                     }}
-                    onClick={() => createBlogPostStore.setCreateBlogPostFormHidden(true)}
+                    onClick={() => createBlogPostStore.setCreateBlogPostFormOpen(false)}
             >
                 {l('cancel')}
             </Button>
