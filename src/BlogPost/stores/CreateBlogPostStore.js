@@ -3,17 +3,20 @@ import {convertToRaw, EditorState} from 'draft-js';
 import {blogPostService, createErrorFromResponse} from "../../Api";
 import {validateBlogPostContent, validateBlogPostTags, validateBlogPostTitle} from "../validation";
 
+const CREATE_BLOG_POST_FORM_VALUES_INITIAL_STATE = {
+    title: "",
+    content: EditorState.createEmpty(),
+    tags: []
+};
+const CREATE_BLOG_POST_FORM_ERRORS_INITIAL_STATE = {
+    title: undefined,
+    content: undefined,
+    tags: undefined
+};
+
 export default class CreateBlogPostStore {
-    @observable createBlogPostFormValues = {
-        title: "",
-        content: EditorState.createEmpty(),
-        tags: []
-    };
-    @observable createBlogPostFormErrors = {
-        title: undefined,
-        content: undefined,
-        tags: undefined
-    };
+    @observable createBlogPostFormValues = CREATE_BLOG_POST_FORM_VALUES_INITIAL_STATE;
+    @observable createBlogPostFormErrors = CREATE_BLOG_POST_FORM_ERRORS_INITIAL_STATE;
     @observable submissionError = undefined;
     @observable pending = false;
     @observable blogId = undefined;
@@ -26,6 +29,8 @@ export default class CreateBlogPostStore {
             blogPost => {
                 if (blogPost) {
                     this.createBlogPostFormOpen = false;
+                    this.createBlogPostFormValues = CREATE_BLOG_POST_FORM_VALUES_INITIAL_STATE;
+                    this.createBlogPostFormErrors = CREATE_BLOG_POST_FORM_ERRORS_INITIAL_STATE;
                 }
             }
         )
