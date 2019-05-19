@@ -20,9 +20,10 @@ export const canSeeBlogManagers = (currentUser, blog) => {
         case BlogManagersVisibilityLevel.SUBSCRIBERS:
             return currentUser && blog && blog.currentUserSubscribed;
         case BlogManagersVisibilityLevel.MANAGERS:
-            return currentUser && currentUser.managedBlogs.map(blog => blog.blogId).includes(blog.id);
+            return currentUser && blog && (currentUser.managedBlogs.map(blog => blog.blogId).includes(blog.id)
+                || currentUser.ownedBlogs.includes(blog.id));
         case BlogManagersVisibilityLevel.OWNER:
-            return currentUser && currentUser.ownedBlogs.includes(blog.id);
+            return currentUser && blog && currentUser.ownedBlogs.includes(blog.id);
     }
 };
 
