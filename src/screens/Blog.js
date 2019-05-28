@@ -8,7 +8,7 @@ import Hidden from '@material-ui/core/Hidden';
 import withWidth from '@material-ui/core/withWidth';
 import {BlogDescription, BlogSubscribersBlock, SubscribeToBlogButton, UnsubscribeFromBlogButton,
     BlogManagersBlock} from "../Blog";
-import {BlogPostList, CreateBlogPostForm, LoadMoreBlogPostsButton} from "../BlogPost";
+import {BlogPostList, CreateBlogPostDialog, LoadMoreBlogPostsButton} from "../BlogPost";
 import AppBar from '../AppBar';
 import {withLocale} from "../localization";
 import StandardLayout from '../StandardLayout';
@@ -64,7 +64,7 @@ class Blog extends React.Component {
                             </Grid>
                         </Grid>
                         {canCreateBlogPost(currentUser, blog.id) && <Grid item xs={12} lg={3}>
-                            <CreateBlogPostForm/>
+                            <CreateBlogPostDialog/>
                         </Grid>}
                         <Grid item xs={12} lg={9} >
                             <BlogPostList/>
@@ -82,7 +82,7 @@ class Blog extends React.Component {
                                     <BlogDescription/>
                                 </Grid>
                                 {canCreateBlogPost(currentUser, blog.id) && <Grid item xs={12}>
-                                    <CreateBlogPostForm/>
+                                    <CreateBlogPostDialog/>
                                 </Grid>}
                                 <Grid item xs={12}>
                                     <BlogPostList/>

@@ -16,3 +16,4 @@ export {default as EditBlogPostMenuItem} from './EditBlogPostMenuItem';
 export {default as PinBlogPostMenuItem} from './PinBlogPostMenuItem';
 export {default as SearchBlogPostsQueryTextField} from './SearchBlogPostsQueryTextField';
 export {default as SearchBlogPostsList} from './SearchBlogPostsList';
+export {default as CreateBlogPostDialog} from './CreateBlogPostDialog';
