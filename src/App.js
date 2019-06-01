@@ -3,8 +3,8 @@ import {MuiThemeProvider, withStyles} from '@material-ui/core/styles';
 import {MuiPickersUtilsProvider} from 'material-ui-pickers';
 import {MobxRouter} from 'mobx-router';
 import MomentUtils from 'material-ui-pickers/utils/moment-utils';
-import ruLocale from 'date-fns/locale/ru';
-import enLocale from 'date-fns/locale/en-US';
+import moment from 'moment';
+import 'moment/locale/ru';
 import {inject, observer} from 'mobx-react';
 import {Helmet} from 'react-helmet';
 import themes from './themes';
@@ -24,8 +24,8 @@ const styles = {
 };
 
 const muiPickersLocaleMap = {
-    ru: ruLocale,
-    en: enLocale
+    ru: 'ru',
+    en: 'en'
 };
 
 const __dirtyFixUrl = () => {
@@ -55,7 +55,8 @@ class App extends Component {
 
     render() {
         const {localeStore, settingsStore} = this.props;
-        const pickersLocale = muiPickersLocaleMap[localeStore.currentLocale] || enLocale;
+        const pickersLocale = muiPickersLocaleMap[localeStore.currentLocale] || 'en';
+        moment.locale(pickersLocale);
         const theme = themes[settingsStore.colorTheme] || themes.pink;
 
         return <div id="app" style={{
@@ -65,7 +66,7 @@ class App extends Component {
                 <meta name="theme-color" content={theme.palette.primary.main}/>
             </Helmet>
             <MuiThemeProvider theme={theme}>
-                <MuiPickersUtilsProvider utils={MomentUtils} locale={pickersLocale}>
+                <MuiPickersUtilsProvider utils={MomentUtils}>
                     <MobxRouter/>
                 </MuiPickersUtilsProvider>
             </MuiThemeProvider>

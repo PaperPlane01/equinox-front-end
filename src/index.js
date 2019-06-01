@@ -13,7 +13,12 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import {WEB_APP_BASE_URL} from "./Api/Routes";
 
-appStore.localeStore = new LocaleStore(localStorage.getItem("preferredLanguage") || "ru", {"en": en, "ru": ru});
+appStore.localeStore = new LocaleStore(
+    localStorage.getItem("preferredLanguage") || "ru",
+    {
+        "en": en,
+        "ru": ru
+    });
 
 const routerStore = {
     router: new RouterStore()
