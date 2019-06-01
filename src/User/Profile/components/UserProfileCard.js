@@ -32,7 +32,7 @@ class UserProfileCard extends React.Component {
                     {l('bio')}: {bio || l('notSpecified')}
                 </Typography>
                 <Typography variant="subheading">
-                    {l('birthDate')}: {moment(birthDate).format('DD-MM-YYYY') || l('notSpecified')}
+                    {l('birthDate')}: {birthDate ? moment(birthDate).format('DD-MM-YYYY') : l('notSpecified')}
                 </Typography>
             </CardContent>
         </Card>
