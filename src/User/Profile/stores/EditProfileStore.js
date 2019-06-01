@@ -7,7 +7,7 @@ export default class EditProfileStore {
     @observable editProfileFormValues = {
         displayedName: '',
         bio: '',
-        birthDate: undefined,
+        birthDate: null,
         avatarUri: '',
         email: ''
     };
@@ -30,7 +30,7 @@ export default class EditProfileStore {
         this.editProfileFormValues.avatarUri = "";
         this.editProfileFormValues.bio =  "";
         this.editProfileFormValues.email = "";
-        this.editProfileFormValues.birthDate = undefined;
+        this.editProfileFormValues.birthDate = null;
         this.authStore = authStore;
 
         reaction(
@@ -50,7 +50,9 @@ export default class EditProfileStore {
                     this.editProfileFormValues.avatarUri = this.user.avatarUri;
                     this.editProfileFormValues.bio = this.user.bio;
                     this.editProfileFormValues.email = this.user.email;
-                    this.editProfileFormValues.birthDate = moment(this.user.birthDate);
+                    this.editProfileFormValues.birthDate = this.user.birthDate
+                        ? moment(this.user.birthDate)
+                        : null;
                 }
             }
         );
