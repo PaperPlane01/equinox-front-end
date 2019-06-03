@@ -271,5 +271,6 @@ export default {
     blockBlogPostsAuthors: "Заблокировать авторов постов",
     deleteBlogPosts: "Удалить посты",
     profileUpdated: "Профиль был успешно обновлён",
-    errorWhenAttemptedToUpdateProfile: "Во время попытки обновить профиль произошла ошибка. Сервер ответил со статусом {errorStatus}. Пожалуйста, попробуйте позже"
+    errorWhenAttemptedToUpdateProfile: "Во время попытки обновить профиль произошла ошибка. Сервер ответил со статусом {errorStatus}. Пожалуйста, попробуйте позже",
+    addTag: "Добавить тэг"
 }

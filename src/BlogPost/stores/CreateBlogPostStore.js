@@ -1,4 +1,4 @@
-import {action, observable, reaction} from 'mobx';
+import {action, observable, reaction, toJS} from 'mobx';
 import {convertToRaw, EditorState} from 'draft-js';
 import {blogPostService, createErrorFromResponse} from "../../Api";
 import {validateBlogPostContent, validateBlogPostTags, validateBlogPostTitle} from "../validation";
@@ -42,6 +42,17 @@ export default class CreateBlogPostStore {
 
     @action setCreateBlogPostFormValue = (value, propertyName) => {
         this.createBlogPostFormValues[propertyName] = value;
+    };
+
+    @action addTag = tag => {
+        this.createBlogPostFormValues.tags.push(tag);
+    };
+
+    @action removeTag = tagIndex => {
+        console.log("Removing tag with index " + tagIndex);
+        this.createBlogPostFormValues.tags.splice(tagIndex, 1);
+        console.log("After removing");
+        console.log(toJS(this.createBlogPostFormValues.tags));
     };
 
     @action validateTitle = () => {
