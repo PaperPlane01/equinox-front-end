@@ -45,11 +45,15 @@ export default class CreateBlogPostStore {
     };
 
     @action addTag = tag => {
-        this.createBlogPostFormValues.tags.push(tag);
+        this.createBlogPostFormValues.tags = [
+            ...this.createBlogPostFormValues.tags,
+            tag
+        ]
     };
 
     @action removeTag = tagIndex => {
-        this.createBlogPostFormValues.tags.splice(tagIndex, 1);
+        this.createBlogPostFormValues.tags = this.createBlogPostFormValues.tags
+            .filter((tag, index) => index !== tagIndex);
     };
 
     @action validateTitle = () => {

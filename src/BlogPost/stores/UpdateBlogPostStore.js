@@ -53,11 +53,15 @@ export default class UpdateBlogPostStore {
     };
 
     @action addTag = tag => {
-        this.updateBlogPostFormValues.tags.push(tag);
+        this.updateBlogPostFormValues.tags = [
+            ...this.updateBlogPostFormValues.tags,
+            tag
+        ]
     };
 
     @action removeTag = tagIndex => {
-        this.updateBlogPostFormValues.tags.splice(tagIndex, 1);
+        this.updateBlogPostFormValues.tags = this.updateBlogPostFormValues.tags
+            .filter((tag, index) => tagIndex !== index);
     };
 
     @action setBlogPostId = id => {
