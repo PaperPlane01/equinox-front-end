@@ -41,7 +41,7 @@ class BlogPostTagsInput extends React.Component {
     };
 
     render() {
-        const {tags, l} = this.props;
+        const {tags, l, error, errorText} = this.props;
         const {inputValue} = this.state;
 
         return (
@@ -65,6 +65,8 @@ class BlogPostTagsInput extends React.Component {
                                    </InputAdornment>
                                )
                            }}
+                           error={error}
+                           helperText={errorText}
                 />
                 {tags.map((tag, index) => (
                     <Chip label={tag}
@@ -81,6 +83,8 @@ BlogPostTagsInput.propTypes = {
     onTagAdded: PropTypes.func,
     onTagRemoved: PropTypes.func,
     tags: PropTypes.array,
+    error: PropTypes.bool,
+    errorText: PropTypes.string,
     l: PropTypes.func
 };
 

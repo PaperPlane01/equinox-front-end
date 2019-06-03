@@ -52,6 +52,14 @@ export default class UpdateBlogPostStore {
         this.updateBlogPostFormValues[propertyName] = value;
     };
 
+    @action addTag = tag => {
+        this.updateBlogPostFormValues.tags.push(tag);
+    };
+
+    @action removeTag = tagIndex => {
+        this.updateBlogPostFormValues.tags.splice(tagIndex, 1);
+    };
+
     @action setBlogPostId = id => {
         this.blogPostId = id;
     };
@@ -66,7 +74,7 @@ export default class UpdateBlogPostStore {
                 this.updateBlogPostFormValues = {
                     title: response.data.title,
                     content: EditorState.createWithContent(convertFromRaw(response.data.content)),
-                    tags: response.data.tags
+                    tags: response.data.tags.map(tag => tag.name)
                 }
             }).catch(error => {
                 this.fetchingError = createErrorFromResponse(error.response);

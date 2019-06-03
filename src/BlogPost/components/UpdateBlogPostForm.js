@@ -8,6 +8,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import {Editor} from "react-draft-wysiwyg";
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import updateBlogPostFormStyle from "./UpdateBlogPostForm.css";
+import BlogPostTagsInput from './BlogPostTagsInput';
 import {canEditBlogPost} from "../permissions";
 import {withLocale} from "../../localization";
 
@@ -18,8 +19,16 @@ import {withLocale} from "../../localization";
 class UpdateBlogPostForm extends React.Component {
     render() {
         const {updateBlogPostStore, currentLocale, authStore, l} = this.props;
-        const {blogPost, fetchingBlogPost, updateBlogPostFormValues, fetchingError, updateBlogPostFormErrors, submitting,
-            submissionError, blogPostUpdatedSuccessfully} = updateBlogPostStore;
+        const {
+            blogPost,
+            fetchingBlogPost,
+            updateBlogPostFormValues,
+            fetchingError,
+            updateBlogPostFormErrors,
+            submitting,
+            submissionError,
+            blogPostUpdatedSuccessfully
+        } = updateBlogPostStore;
 
         if (fetchingBlogPost) {
             return <CircularProgress size={50}
@@ -58,6 +67,12 @@ class UpdateBlogPostForm extends React.Component {
                        helperText={updateBlogPostFormErrors.title && l(updateBlogPostFormErrors.title)}
                        fullWidth
                        margin="dense"
+            />
+            <BlogPostTagsInput onTagAdded={updateBlogPostStore.addTag}
+                               onTagRemoved={updateBlogPostStore.removeTag}
+                               tags={updateBlogPostFormValues.tags}
+                               error={Boolean(updateBlogPostFormErrors.tags)}
+                               errorText={l(updateBlogPostFormErrors.tags)}
             />
             <Editor style={{
                 width: '100%',
