@@ -274,5 +274,6 @@ export default {
     blockBlogPostsAuthors: "Block blog posts authors",
     deleteBlogPosts: "Delete blog posts",
     profileUpdated: "Profile has been updated successfully",
-    errorWhenAttemptedToUpdateProfile: "Error occurred when attempted to update profile. Server responded with {errorStatus} status. Please try again later"
+    errorWhenAttemptedToUpdateProfile: "Error occurred when attempted to update profile. Server responded with {errorStatus} status. Please try again later",
+    addTag: "Add tag"
 }

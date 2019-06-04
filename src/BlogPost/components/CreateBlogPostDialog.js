@@ -11,6 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import {Editor} from "react-draft-wysiwyg";
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import BlogPostTagsInput from './BlogPostTagsInput';
 import CreateBlogPostFormStyles from "./CreateBlogPostForm.css";
 import {withLocale} from "../../localization";
 
@@ -19,12 +20,13 @@ import {withLocale} from "../../localization";
 @observer
 class CreateBlogPostDialog extends React.Component {
     renderForm = () => {
-        const {createBlogPostStore, l, currentLocale, classes} = this.props;
+        const {createBlogPostStore, l, currentLocale} = this.props;
         const {
             createBlogPostFormErrors,
             createBlogPostFormValues,
             submissionError,
         } = createBlogPostStore;
+        console.log(createBlogPostFormValues.tags);
 
         return (
             <div>
@@ -35,6 +37,10 @@ class CreateBlogPostDialog extends React.Component {
                            helperText={createBlogPostFormErrors.title && l(createBlogPostFormErrors.title)}
                            fullWidth
                            margin="dense"
+                />
+                <BlogPostTagsInput tags={createBlogPostFormValues.tags}
+                                   onTagAdded={createBlogPostStore.addTag}
+                                   onTagRemoved={createBlogPostStore.removeTag}
                 />
                 <Editor style={{
                     width: '100%',

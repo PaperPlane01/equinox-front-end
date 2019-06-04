@@ -44,6 +44,18 @@ export default class CreateBlogPostStore {
         this.createBlogPostFormValues[propertyName] = value;
     };
 
+    @action addTag = tag => {
+        this.createBlogPostFormValues.tags = [
+            ...this.createBlogPostFormValues.tags,
+            tag
+        ]
+    };
+
+    @action removeTag = tagIndex => {
+        this.createBlogPostFormValues.tags = this.createBlogPostFormValues.tags
+            .filter((tag, index) => index !== tagIndex);
+    };
+
     @action validateTitle = () => {
         this.createBlogPostFormErrors.title = validateBlogPostTitle(this.createBlogPostFormValues.title);
     };
