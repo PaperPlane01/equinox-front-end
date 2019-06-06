@@ -4,3 +4,8 @@ export {default as SignUpDialog} from './SignUpDialog';
 export {default as UserMenuAppBar} from './UserMenuAppBar';
 export {default as SignUpMenuItem} from './SignUpMenuItem';
 export {default as LoginWithGoogleButton} from './LoginWithGoogleButton';
+export {default as EditProfileButton} from './EditProfileButton';
+export {default as EditProfileForm} from './EditProfileForm';
+export {default as MyProfileMenuItem} from './MyProfileMenuItem';
+export {default as UserProfileAvatar} from './UserProfileAvatar';
+export {default as UserProfileCard} from './UserProfileCard';
