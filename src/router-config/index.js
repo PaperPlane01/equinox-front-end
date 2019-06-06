@@ -48,7 +48,7 @@ export default {
         path: '/user/:id',
         component: <User/>,
         onEnter: (route, params) => {
-            appStore.userProfileStore.setUserId(params.id)
+            appStore.userProfileStore.setUserId(params.id);
         },
         onParamsChange: (route, params) => {
             appStore.userProfileStore.setUserId(params.id);

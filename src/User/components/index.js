@@ -9,3 +9,4 @@ export {default as EditProfileForm} from './EditProfileForm';
 export {default as MyProfileMenuItem} from './MyProfileMenuItem';
 export {default as UserProfileAvatar} from './UserProfileAvatar';
 export {default as UserProfileCard} from './UserProfileCard';
+export {default as UserSubscriptionsBlock} from './UserSubscriptionsBlock';

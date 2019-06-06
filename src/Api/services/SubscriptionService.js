@@ -34,11 +34,16 @@ const findByBlogAndUsername = (blogId, username, paginationParams) => {
     return Api.get(`/${Routes.BLOGS}/${blogId}/${Routes.SUBSCRIPTIONS}?${queryString.stringify(requestParameters)}`);
 };
 
+const findSubscriptionsOfUser = (userId, paginationParams) => {
+    return Api.get(`/${Routes.USERS}/${userId}/${Routes.SUBSCRIPTIONS}${paginationParams && `?${queryString.stringify(paginationParams)}`}`);
+};
+
 export default {
     save,
     delete: _delete,
     findByBlog,
     isUserSubscribedToBlog,
     findSubscriptionsOfCurrentUser,
-    findByBlogAndUsername
+    findByBlogAndUsername,
+    findSubscriptionsOfUser
 };
