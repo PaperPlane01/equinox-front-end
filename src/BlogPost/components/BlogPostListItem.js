@@ -10,6 +10,7 @@ import BlogPostBody from './BlogPostBody';
 import BlogPostLikeButton from './BlogPostLikeButton';
 import NumberOfViews from './NumberOfViews';
 import NumberOfComments from './NumberOfComments';
+import BlogPostTags from './BlogPostTags';
 
 @inject('authStore')
 @observer
@@ -25,6 +26,7 @@ class BlogPostListItem extends React.Component {
                 <BlogPostBody title={blogPost.title}
                               content={blogPost.content}
                 />
+                <BlogPostTags tags={blogPost.tags}/>
             </CardContent>
             <CardActions>
                 <Grid container justify="center">
