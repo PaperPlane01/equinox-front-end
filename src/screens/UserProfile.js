@@ -6,7 +6,13 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '../AppBar';
 import StandardLayout from '../StandardLayout';
-import {UserProfileAvatar, UserProfileCard, UserSubscriptionsBlock, canEditProfile} from "../User";
+import {
+    UserProfileAvatar,
+    UserProfileCard,
+    UserSubscriptionsBlock,
+    UserManagedBlogsBlock,
+    canEditProfile
+} from "../User";
 import {withLocale} from "../localization";
 
 @withLocale
@@ -37,10 +43,10 @@ class UserProfile extends React.Component {
 
         if (user) {
             return <Grid container spacing={16}>
-                <Grid item xs={12} lg={3}>
+                <Grid item xs={12} lg={4}>
                     <UserProfileAvatar avatarUri={user.avatarUri}/>
                 </Grid>
-                <Grid item xs={12} lg={9}>
+                <Grid item xs={12} lg={8}>
                     <UserProfileCard displayedName={user.displayedName}
                                      email={user.email}
                                      bio={user.bio}
@@ -48,8 +54,15 @@ class UserProfile extends React.Component {
                                      displayEditButton={canEditProfile(authStore.currentUser, user.id)}
                     />
                 </Grid>
-                <Grid item xs={12} lg={3}>
-                    <UserSubscriptionsBlock/>
+                <Grid item xs={12} lg={4}>
+                    <Grid container spacing={16}>
+                        <Grid item xs={12}>
+                            <UserSubscriptionsBlock/>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <UserManagedBlogsBlock/>
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Grid>
         }

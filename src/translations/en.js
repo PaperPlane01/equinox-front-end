@@ -276,5 +276,6 @@ export default {
     profileUpdated: "Profile has been updated successfully",
     errorWhenAttemptedToUpdateProfile: "Error occurred when attempted to update profile. Server responded with {errorStatus} status. Please try again later",
     addTag: "Add tag",
-    userDoesNotHaveSubscriptions: "User does not have subscriptions"
+    userDoesNotHaveSubscriptions: "User does not have subscriptions",
+    managedBlogs: "Managed blogs"
 }

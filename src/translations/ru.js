@@ -273,5 +273,6 @@ export default {
     profileUpdated: "Профиль был успешно обновлён",
     errorWhenAttemptedToUpdateProfile: "Во время попытки обновить профиль произошла ошибка. Сервер ответил со статусом {errorStatus}. Пожалуйста, попробуйте позже",
     addTag: "Добавить тэг",
-    userDoesNotHaveSubscriptions: "У пользователя нет подписок"
+    userDoesNotHaveSubscriptions: "У пользователя нет подписок",
+    managedBlogs: "Администрируемые блоги"
 }
