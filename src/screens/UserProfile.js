@@ -38,14 +38,7 @@ class UserProfile extends React.Component {
         if (user) {
             return <Grid container spacing={16}>
                 <Grid item xs={12} lg={3}>
-                    <Grid container spacing={16}>
-                        <Grid item xs={12}>
-                            <UserProfileAvatar avatarUri={user.avatarUri}/>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <UserSubscriptionsBlock/>
-                        </Grid>
-                    </Grid>
+                    <UserProfileAvatar avatarUri={user.avatarUri}/>
                 </Grid>
                 <Grid item xs={12} lg={9}>
                     <UserProfileCard displayedName={user.displayedName}
@@ -54,6 +47,9 @@ class UserProfile extends React.Component {
                                      birthDate={user.birthDate}
                                      displayEditButton={canEditProfile(authStore.currentUser, user.id)}
                     />
+                </Grid>
+                <Grid item xs={12} lg={3}>
+                    <UserSubscriptionsBlock/>
                 </Grid>
             </Grid>
         }

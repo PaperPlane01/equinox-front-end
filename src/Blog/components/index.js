@@ -18,3 +18,4 @@ export {default as AssignUserBlogManagerMenuItem} from '../../BlogManager/compon
 export {default as BlogSubscribersUsernameInput} from './BlogSubscribersUsernameInput';
 export {default as AssingUserBlogManagerDialog} from '../../BlogManager/components/AssignUserBlogManagerDialog';
 export {default as BlogRoleSelect} from '../../BlogManager/components/BlogRoleSelect';
+export {default as LinkToBlog} from './LinkToBlog';

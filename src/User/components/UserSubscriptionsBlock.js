@@ -9,6 +9,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Typography from "@material-ui/core/Typography";
+import UserSubscriptionsDialog from "./UserSubscriptionsDialog";
 import Avatar from "../../Avatar";
 import {withLocale} from "../../localization";
 import views from "../../router-config";
@@ -71,15 +72,24 @@ class UserSubscriptionsBlock extends React.Component {
     }
 
     render() {
-        const {l} = this.props;
+        const {l, userSubscriptionsStore} = this.props;
 
         return (
-            <Card>
-                <CardHeader title={l('subscriptions')}/>
-                <CardContent>
-                    {this.renderCardContent()}
-                </CardContent>
-            </Card>
+            <React.Fragment>
+                <Card>
+                    <CardHeader title={(
+                        <div onClick={() => userSubscriptionsStore.setSubscriptionsDialogOpen(true)}
+                             style={{cursor: 'pointer'}}
+                        >
+                            {l('subscriptions')}
+                        </div>
+                    )}/>
+                    <CardContent>
+                        {this.renderCardContent()}
+                    </CardContent>
+                </Card>
+                <UserSubscriptionsDialog/>
+            </React.Fragment>
         )
     }
 }

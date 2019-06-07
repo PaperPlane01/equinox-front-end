@@ -1,25 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import {inject, observer} from 'mobx-react';
-import {Link} from 'mobx-router';
-import Avatar from '../../Avatar';
-import views from '../../router-config';
-import closeDrawer from './closeDrawer';
+import React from "react";
+import PropTypes from "prop-types";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import {inject, observer} from "mobx-react";
+import {Link} from "mobx-router";
+import Avatar from "../../Avatar";
+import views from "../../router-config";
 
-@closeDrawer
 @inject('store')
 @observer
 class LinkToBlog extends React.Component {
     handleClick = () => {
-        const {closeDrawer, onClick} = this.props;
+        const {onClick} = this.props;
 
         if (onClick) {
             onClick();
         }
-
-        closeDrawer();
     };
 
     render() {
@@ -53,7 +49,6 @@ LinkToBlog.propTypes = {
     blogAvatarUri: PropTypes.string,
     blogLetterAvatarColor: PropTypes.string,
     store: PropTypes.object,
-    closeDrawer: PropTypes.func,
     onClick: PropTypes.func
 };
 
