@@ -11,3 +11,4 @@ export {default as UserProfileAvatar} from './UserProfileAvatar';
 export {default as UserProfileCard} from './UserProfileCard';
 export {default as UserSubscriptionsBlock} from './UserSubscriptionsBlock';
 export {default as UserManagedBlogsBlock} from './UserManagedBlogsBlock';
+export {default as UserBlogPostLikes} from './UserBlogPostLikes';
