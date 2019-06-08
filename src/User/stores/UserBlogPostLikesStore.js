@@ -35,12 +35,24 @@ export default class UserBlogPostLikesStore {
                     this.fetchBlogPostLikes();
                 }
             }
-        )
+        );
+
+        reaction(
+            () => this.authStore.loginSuccess,
+            () => {
+                if (this.userId && this.authStore.loginSuccess && !this.authStore.previousUser) {
+                    this.reset();
+                    this.fetchBlogPostLikes();
+                }
+            }
+        );
 
         reaction(
             () => authStore.currentUser,
             () => {
-                if (this.userId) {
+                if (this.userId && (!this.authStore.currentUser
+                    || (this.authStore.previousUser
+                        && (this.authStore.currentUser.id !== this.authStore.previousUser.id)))) {
                     this.reset();
                     this.fetchBlogPostLikes();
                 }
@@ -77,10 +89,7 @@ export default class UserBlogPostLikesStore {
             }
         ).then(({data}) => {
             if (data.length !== 0) {
-                this.blogPostLikes = [
-                    ...this.blogPostLikes,
-                    ...data
-                ];
+                this.blogPostLikes.push(...data);
                 this.currentPageNumber = this.currentPageNumber + 1;
             }
         }).catch(({response}) => {
@@ -95,21 +104,16 @@ export default class UserBlogPostLikesStore {
 
     @action
     setBlogPostLiked = (blogPostId, likeId, numberOfLikes) => {
-        this.blogPostLikes = this.blogPostLikes
-            .map(blogPostLike => {
-                if (blogPostLike.blogPost.id === blogPostId) {
-                    blogPostLike = {
-                        ...blogPostLike,
-                        blogPost: {
-                            ...blogPostLike.blogPost,
-                            likedByCurrentUser: Boolean(likeId),
-                            likeId,
-                            numberOfLikes
-                        }
-                    }
+        for (const blogPostLike of this.blogPostLikes) {
+            if (blogPostId === blogPostLike.blogPost.id) {
+                blogPostLike.blogPost = {
+                    ...blogPostLike.blogPost,
+                    likeId,
+                    numberOfLikes,
+                    likedByCurrentUser: Boolean(likeId)
                 }
-                return blogPostLike;
-            })
+            }
+        }
     };
 
     @action
