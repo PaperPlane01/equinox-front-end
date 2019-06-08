@@ -54,7 +54,7 @@ class UserBlogPostLikes extends React.Component {
                             />
                         </Grid>}
                         <Grid item xs={12}>
-                            <Button variant="contained"
+                            <Button variant="outlined"
                                     color="primary"
                                     onClick={userBlogPostLikesStore.fetchBlogPostLikes}
                             >
