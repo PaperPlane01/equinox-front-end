@@ -1,5 +1,5 @@
 import {action, observable, reaction} from 'mobx';
-import Api, {createErrorFromResponse, Routes} from "../../../Api/index";
+import Api, {createErrorFromResponse, Routes} from "../../Api";
 
 export default class UserProfileStore {
     @observable userId = undefined;

@@ -275,5 +275,10 @@ export default {
     deleteBlogPosts: "Delete blog posts",
     profileUpdated: "Profile has been updated successfully",
     errorWhenAttemptedToUpdateProfile: "Error occurred when attempted to update profile. Server responded with {errorStatus} status. Please try again later",
-    addTag: "Add tag"
+    addTag: "Add tag",
+    userDoesNotHaveSubscriptions: "User does not have subscriptions",
+    managedBlogs: "Managed blogs",
+    blogPostsLikedByUser: "Blog posts liked by user",
+    blogPostsLikedByUser_withUsername: "Blog posts liked by {username}",
+    userHasNotLikedAnyBlogPost: "User has not liked any blog post"
 }

@@ -5,7 +5,7 @@ import {isBlank} from "../utils";
 
 class Avatar extends React.Component {
     render() {
-        const {avatarUri, avatarLetter, avatarColor, width, height} = this.props;
+        const {avatarUri, avatarLetter, avatarColor, width, height, style} = this.props;
         const imgProps = (width && height)
             ? {
                 width: `${width}px`,
@@ -19,13 +19,15 @@ class Avatar extends React.Component {
         return isBlank(avatarUri)
             ? <MaterialUiAvatar imgProps={imgProps}
                                 style={{
-                                    backgroundColor: avatarColor
+                                    backgroundColor: avatarColor,
+                                    ...style
                                 }}
             >
                 {avatarLetter}
             </MaterialUiAvatar>
             : <MaterialUiAvatar src={avatarUri}
                                 imgProps={imgProps}
+                                style={{...style}}
             />
     }
 }
@@ -35,7 +37,8 @@ Avatar.propTypes = {
     avatarLetter: PropTypes.string,
     avatarColor: PropTypes.string,
     width: PropTypes.number,
-    height: PropTypes.number
+    height: PropTypes.number,
+    style: PropTypes.object
 };
 
 export default Avatar;

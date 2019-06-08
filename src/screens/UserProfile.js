@@ -4,9 +4,17 @@ import {inject, observer} from 'mobx-react';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
+import Hidden from '@material-ui/core/Hidden';
 import AppBar from '../AppBar';
 import StandardLayout from '../StandardLayout';
-import {UserProfileAvatar, UserProfileCard, canEditProfile} from "../User";
+import {
+    UserProfileAvatar,
+    UserProfileCard,
+    UserSubscriptionsBlock,
+    UserManagedBlogsBlock,
+    UserBlogPostLikes,
+    canEditProfile
+} from "../User";
 import {withLocale} from "../localization";
 
 @withLocale
@@ -36,19 +44,66 @@ class UserProfile extends React.Component {
         }
 
         if (user) {
-            return <Grid container spacing={16}>
-                <Grid item xs={12} lg={3}>
-                    <UserProfileAvatar avatarUri={user.avatarUri}/>
-                </Grid>
-                <Grid item xs={12} lg={9}>
-                    <UserProfileCard displayedName={user.displayedName}
-                                     email={user.email}
-                                     bio={user.bio}
-                                     birthDate={user.birthDate}
-                                     displayEditButton={canEditProfile(authStore.currentUser, user.id)}
-                    />
-                </Grid>
-            </Grid>
+            return (
+                <React.Fragment>
+                    <Hidden lgUp>
+                        <Grid container spacing={16}>
+                            <Grid item xs={12}>
+                                <UserProfileAvatar avatarUri={user.avatarUri}/>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <UserProfileCard displayedName={user.displayedName}
+                                                 email={user.email}
+                                                 bio={user.bio}
+                                                 birthDate={user.birthDate}
+                                                 displayEditButton={canEditProfile(authStore.currentUser, user.id)}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <UserSubscriptionsBlock/>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <UserManagedBlogsBlock/>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <UserBlogPostLikes/>
+                            </Grid>
+                        </Grid>
+                    </Hidden>
+                    <Hidden mdDown>
+                        <Grid container spacing={16}>
+                            <Grid item lg={4}>
+                                <Grid container spacing={16}>
+                                    <Grid item xs={12}>
+                                        <UserProfileAvatar avatarUri={user.avatarUri}/>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <UserSubscriptionsBlock/>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <UserManagedBlogsBlock/>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            <Grid item lg={8}>
+                                <Grid container spacing={16}>
+                                    <Grid item xs={12}>
+                                        <UserProfileCard displayedName={user.displayedName}
+                                                         email={user.email}
+                                                         bio={user.bio}
+                                                         birthDate={user.birthDate}
+                                                         displayEditButton={canEditProfile(authStore.currentUser, user.id)}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <UserBlogPostLikes/>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Hidden>
+                </React.Fragment>
+            )
         }
     };
 

@@ -52,5 +52,6 @@ export default {
     USER: 'user',
     HANDSHAKE: 'handshake',
     SEARCH: 'search',
-    MULTIPLE: 'multiple'
+    MULTIPLE: 'multiple',
+    MANAGED_BLOGS: 'managed-blogs'
 };

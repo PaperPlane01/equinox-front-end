@@ -6,8 +6,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import PersonIcon from '@material-ui/icons/Person';
-import {withLocale} from "../../../localization/index";
-import views from '../../../router-config/index';
+import {withLocale} from "../../localization";
+import views from '../../router-config';
 
 @withLocale
 @inject('store')

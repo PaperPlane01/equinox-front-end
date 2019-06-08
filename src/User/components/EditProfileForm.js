@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import {DatePicker} from 'material-ui-pickers';
-import {withLocale} from "../../../localization/index";
+import {withLocale} from "../../localization";
 
 @withLocale
 @inject('editProfileStore')

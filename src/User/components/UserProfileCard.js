@@ -6,7 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import moment from 'moment';
 import EditProfileButton from "./EditProfileButton";
-import {withLocale} from "../../../localization/index";
+import {withLocale} from "../../localization";
 
 @withLocale
 @observer

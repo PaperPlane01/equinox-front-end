@@ -10,7 +10,7 @@ import LoginMenuItem from './LoginMenuItem';
 import SignUpDialog from './SignUpDialog';
 import SignUpMenuItem from './SignUpMenuItem';
 import LogOutMenuItem from './LogOutMenuItem';
-import MyProfileMenuItem from '../Profile/components/MyProfileMenuItem';
+import MyProfileMenuItem from './MyProfileMenuItem';
 import {SettingsDialog, SettingsMenuItem} from '../../Settings';
 import {withLocale} from "../../localization";
 

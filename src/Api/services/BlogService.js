@@ -25,11 +25,16 @@ const findOwnedByCurrentUser = () => {
     return Api.get(`/${Routes.CURRENT_USER}/${Routes.OWNED_BLOGS}`);
 };
 
+const findManagedByUser = userId => {
+    return Api.get(`/${Routes.USERS}/${userId}/${Routes.MANAGED_BLOGS}`);
+};
+
 export default {
     save,
     update,
     delete: _delete,
     findById,
     findMinifiedById,
-    findOwnedByCurrentUser
+    findOwnedByCurrentUser,
+    findManagedByUser
 };

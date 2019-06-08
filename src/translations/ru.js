@@ -272,5 +272,10 @@ export default {
     deleteBlogPosts: "Удалить посты",
     profileUpdated: "Профиль был успешно обновлён",
     errorWhenAttemptedToUpdateProfile: "Во время попытки обновить профиль произошла ошибка. Сервер ответил со статусом {errorStatus}. Пожалуйста, попробуйте позже",
-    addTag: "Добавить тэг"
+    addTag: "Добавить тэг",
+    userDoesNotHaveSubscriptions: "У пользователя нет подписок",
+    managedBlogs: "Администрируемые блоги",
+    blogPostsLikedByUser: "Посты, лайкнутые пользователем",
+    blogPostsLikedByUser_withUsername: "Посты, лайкнутые {username}",
+    userHasNotLikedAnyBlogPost: "Пользователь не поставил ни одного лайка"
 }

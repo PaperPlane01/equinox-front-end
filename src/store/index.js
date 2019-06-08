@@ -1,4 +1,5 @@
-import {AuthStore, SignUpStore, EditProfileStore, UserProfileStore, GoogleAuthStore} from '../User';
+import {AuthStore, SignUpStore, EditProfileStore, UserProfileStore, GoogleAuthStore,
+    UserSubscriptionsStore, UserManagedBlogsStore, UserBlogPostLikesStore} from '../User';
 import {CreateGlobalBlockingStore, GlobalBlockingsStore, UpdateGlobalBlockingStore,
     DeleteGlobalBlockingStore} from '../GlobalBlocking';
 import {SettingsStore} from '../Settings';
@@ -83,6 +84,9 @@ const blogPostReportListStore = new BlogPostReportListStore(authStore);
 const deleteSelectedReportedBlogPostsStore = new DeleteSelectedReportedBlogPostsStore(blogPostReportListStore);
 const rejectSelectedBlogPostReportsStore = new RejectSelectedBlogPostReportsStore(blogPostReportListStore);
 const blockSelectedBlogPostsAuthorsStore = new BlockSelectedBlogPostsAuthorsStore(blogPostReportListStore);
+const userSubscriptionsStore = new UserSubscriptionsStore(userProfileStore);
+const userManagedBlogsStore = new UserManagedBlogsStore(userProfileStore);
+const userBlogPostLikesStore = new UserBlogPostLikesStore(authStore, userProfileStore, blogPostLikeStore, deleteBlogPostDialogStore);
 
 export default {
     authStore,
@@ -143,5 +147,8 @@ export default {
     blogPostReportListStore,
     deleteSelectedReportedBlogPostsStore,
     rejectSelectedBlogPostReportsStore,
-    blockSelectedBlogPostsAuthorsStore
+    blockSelectedBlogPostsAuthorsStore,
+    userSubscriptionsStore,
+    userManagedBlogsStore,
+    userBlogPostLikesStore
 };

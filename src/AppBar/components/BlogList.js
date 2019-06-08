@@ -4,7 +4,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import ListItemText from "@material-ui/core/ListItemText";
-import LinkToBlog from "./LinkToBlog";
+import DrawerLinkToBlog from "./DrawerLinkToBlog";
 import {withLocale} from "../../localization";
 
 @withLocale
@@ -37,11 +37,11 @@ class BlogList extends React.Component {
                         </ListItemText>
                     </ListItem>
                     : blogs.map(blog =>
-                        (<LinkToBlog blogName={blog.name}
-                                     blogId={blog.id}
-                                     blogLetterAvatarColor={blog.letterAvatarColor}
-                                     blogAvatarUri={blog.avatarUri}
-                                     onClick={this.handleClick}
+                        (<DrawerLinkToBlog blogName={blog.name}
+                                           blogId={blog.id}
+                                           blogLetterAvatarColor={blog.letterAvatarColor}
+                                           blogAvatarUri={blog.avatarUri}
+                                           onClick={this.handleClick}
                         />)
                     )
                 }
