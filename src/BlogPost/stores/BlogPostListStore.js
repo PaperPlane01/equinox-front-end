@@ -3,8 +3,20 @@ import {action, computed, observable, reaction, toJS} from 'mobx';
 import {blogPostListSchema} from "./schemas";
 import {mergeNormalizedBlogPosts} from "./mergeNormalizedBlogPosts";
 import {blogPostService, createErrorFromResponse} from "../../Api";
+import {Component} from "../../simple-ioc";
 
-export default class BlogPostListStore {
+@Component({
+    dependencies: [
+        {propertyName: 'authStore'},
+        {propertyName: 'blogStore'},
+        {propertyName: 'createBlogPostStore'},
+        {propertyName: 'blogPostLikeStore'},
+        {propertyName: 'pinBlogPostStore'},
+        {propertyName: 'unpinBlogPostStore'}
+    ],
+    order: Component.Order.MEDIUM
+})
+class BlogPostListStore {
     @observable pending = false;
     @observable error = undefined;
     @observable pinnedBlogPosts = {
@@ -40,14 +52,7 @@ export default class BlogPostListStore {
         return this.createBlogPostStore.persistedBlogPost;
     }
 
-    constructor(blogStore, authStore, createBlogPostStore, blogPostLikeStore, pinBlogPostStore, unpinBlogPostStore) {
-        this.blogStore = blogStore;
-        this.authStore = authStore;
-        this.createBlogPostStore = createBlogPostStore;
-        this.blogPostLikeStore = blogPostLikeStore;
-        this.pinBlogPostStore = pinBlogPostStore;
-        this.unpinBlogPostStore = unpinBlogPostStore;
-
+    constructor() {
         reaction(
             () => this.paginationParams,
             () => {
@@ -233,3 +238,5 @@ export default class BlogPostListStore {
             })
     }
 }
+
+export default BlogPostListStore;

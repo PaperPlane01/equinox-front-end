@@ -1,9 +1,15 @@
 import {action, observable, reaction} from 'mobx';
 import moment from 'moment';
 import userValidators from '../validation';
+import {Component} from "../../simple-ioc";
 import {createErrorFromResponse, userService} from "../../Api";
 
-export default class EditProfileStore {
+@Component({
+    dependencies: [
+        {propertyName: 'authStore'}
+    ]
+})
+class EditProfileStore {
     @observable editProfileFormValues = {
         displayedName: '',
         bio: '',
@@ -23,15 +29,14 @@ export default class EditProfileStore {
     @observable fetchingError = undefined;
     @observable persistedProfile = undefined;
     @observable user = undefined;
-    @observable authStore;
+    @observable authStore = undefined;
 
-    constructor(authStore) {
+    constructor() {
         this.editProfileFormValues.displayedName = "";
         this.editProfileFormValues.avatarUri = "";
         this.editProfileFormValues.bio =  "";
         this.editProfileFormValues.email = "";
         this.editProfileFormValues.birthDate = null;
-        this.authStore = authStore;
 
         reaction(
             () => this.authStore.currentUser,
@@ -126,3 +131,5 @@ export default class EditProfileStore {
         return !(displayedName && bio && birthDate && email && avatarUri)
     };
 }
+
+export default EditProfileStore;

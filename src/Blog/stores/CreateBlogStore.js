@@ -1,8 +1,12 @@
 import {observable, action, reaction} from 'mobx';
 import {validateBlogAvatarUri, validateBlogDescription, validateBlogName} from "../validation";
 import Api, {Routes, createErrorFromResponse} from "../../Api";
+import {Component} from "../../simple-ioc";
 
-export default class CreateBlogStore {
+@Component({
+    order: Component.Order.HIGH
+})
+class CreateBlogStore {
     @observable createBlogFormValues = {
         name: '',
         description: '',
@@ -80,3 +84,5 @@ export default class CreateBlogStore {
             && !this.createBlogFormErrors.avatarUri;
     }
 }
+
+export default CreateBlogStore;

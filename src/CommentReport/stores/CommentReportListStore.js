@@ -4,6 +4,7 @@ import {commentReportListSchema} from "./schemas";
 import {commentReportService, createErrorFromResponse} from "../../Api";
 import {ReportStatus} from "../../Report";
 import {canSeeCommentReports} from "../permissions";
+import {Component} from "../../simple-ioc";
 
 const COMMENT_REPORTS_INITIAL_STATE = {
     result: [],
@@ -13,7 +14,13 @@ const COMMENT_REPORTS_INITIAL_STATE = {
     }
 };
 
-export default class CommentReportListStore {
+@Component({
+    dependencies: [
+        {propertyName: 'authStore'}
+    ],
+    order: Component.Order.LOW
+})
+class CommentReportListStore {
     @observable authStore = undefined;
     @observable normalizedCommentReports = COMMENT_REPORTS_INITIAL_STATE;
     @observable paginationParameters = {
@@ -29,9 +36,7 @@ export default class CommentReportListStore {
         return this.authStore.currentUser;
     }
 
-    constructor(authStore) {
-        this.authStore = authStore;
-
+    constructor() {
         reaction(
             () => this.currentUser,
             () => {
@@ -134,3 +139,5 @@ export default class CommentReportListStore {
         };
     }
 }
+
+export default CommentReportListStore;

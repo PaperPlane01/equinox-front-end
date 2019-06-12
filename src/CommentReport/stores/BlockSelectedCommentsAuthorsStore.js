@@ -1,8 +1,15 @@
 import {observable, action, computed, reaction} from 'mobx';
 import {createErrorFromResponse, globalBlockingService} from "../../Api";
 import {validateEndDate, validateReason} from "../../GlobalBlocking/validation";
+import {Component} from "../../simple-ioc";
 
-export default class BlockSelectedCommentsAuthorsStore {
+@Component({
+    dependencies: [
+        {propertyName: 'commentReportListStore'},
+    ],
+    order: Component.Order.MEDIUM
+})
+class BlockSelectedCommentsAuthorsStore {
     @observable commentReportListStore = undefined;
     @observable globalBlockingForm = {
         reason: '',
@@ -32,9 +39,7 @@ export default class BlockSelectedCommentsAuthorsStore {
         return result;
     }
 
-    constructor(commentReportListStore) {
-        this.commentReportListStore = commentReportListStore;
-
+    constructor() {
         reaction(
             () => this.globalBlockingForm.endDate,
             endDate => {
@@ -112,3 +117,5 @@ export default class BlockSelectedCommentsAuthorsStore {
         return !(reason && endDate);
     };
 }
+
+export default BlockSelectedCommentsAuthorsStore;

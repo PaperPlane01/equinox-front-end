@@ -1,17 +1,20 @@
 import {action, observable} from 'mobx';
 import {blogPostService, createErrorFromResponse} from "../../Api";
+import {Component} from "../../simple-ioc";
 
-export default class DeleteBlogPostDialogStore {
+@Component({
+    dependencies: [
+        {propertyName: 'blogPostListStore'}
+    ],
+    order: Component.Order.HIGH
+})
+class DeleteBlogPostDialogStore {
     @observable error = undefined;
     @observable pending = undefined;
     @observable deleteBlogPostDialogOpened = undefined;
     @observable blogPostListStore = undefined;
     @observable blogPostId = undefined;
     @observable deletedBlogPostId = undefined;
-
-    constructor(blogPostListStore) {
-        this.blogPostListStore = blogPostListStore;
-    }
 
     @action setDeleteBlogPostDialogOpened = opened => {
         this.deleteBlogPostDialogOpened = opened;
@@ -34,3 +37,5 @@ export default class DeleteBlogPostDialogStore {
             })
     }
 }
+
+export default DeleteBlogPostDialogStore;

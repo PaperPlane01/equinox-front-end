@@ -1,6 +1,10 @@
 import {observable, action} from 'mobx';
+import {Component} from "../../simple-ioc";
 
-export default class BlockCommentAuthorInBlogStore {
+@Component({
+    order: Component.Order.LOW
+})
+class BlockCommentAuthorInBlogStore {
     @observable commentId = undefined;
 
     @action setCommentId = id => {

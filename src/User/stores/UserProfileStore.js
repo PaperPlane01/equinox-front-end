@@ -1,16 +1,21 @@
 import {action, observable, reaction} from 'mobx';
+import {Component} from "../../simple-ioc";
 import Api, {createErrorFromResponse, Routes} from "../../Api";
 
-export default class UserProfileStore {
+@Component({
+    dependencies: [
+        {propertyName: 'authStore'}
+    ],
+    order: Component.Order.LOW
+})
+class UserProfileStore {
     @observable userId = undefined;
     @observable user = undefined;
     @observable pending = false;
     @observable error = undefined;
     @observable authStore = undefined;
 
-    constructor(authStore) {
-        this.authStore = authStore;
-
+    constructor() {
         reaction(
             () => this.userId,
             () => this.fetchUser()
@@ -58,3 +63,5 @@ export default class UserProfileStore {
             })
     }
 }
+
+export default UserProfileStore;

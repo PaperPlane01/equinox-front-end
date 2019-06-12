@@ -1,11 +1,19 @@
 import {observable, action, reaction, computed} from 'mobx';
 import localStorage from 'mobx-localstorage';
 import _ from 'lodash';
+import {canSeeGlobalBlockings} from "../permissions";
 import {createErrorFromResponse, globalBlockingService} from "../../Api";
 import {isBlank} from "../../utils";
-import {canSeeGlobalBlockings} from "../permissions";
+import {Component} from "../../simple-ioc";
 
-export default class GlobalBlockingsStore {
+@Component({
+    dependencies: [
+        {propertyName: 'authStore'},
+        {propertyName: 'deleteGlobalBlockingStore'},
+        {propertyName: 'updateGlobalBlockingStore'}
+    ]
+})
+class GlobalBlockingsStore {
     @observable globalBlockings = [];
     @observable paginationParameters = {
         pageSize: 20,
@@ -28,12 +36,7 @@ export default class GlobalBlockingsStore {
         return this.authStore.currentUser;
     }
 
-    constructor(authStore, deleteGlobalBlockingStore, updateGlobalBlockingStore) {
-        this.authStore = authStore;
-        this.deleteGlobalBlockingStore = deleteGlobalBlockingStore;
-        this.updateGlobalBlockingStore = updateGlobalBlockingStore;
-        console.log(localStorage.getItem('includeNotEndedGlobalBlockingsOnly'));
-
+    constructor() {
         reaction(
             () => this.username,
             () => {
@@ -147,3 +150,5 @@ export default class GlobalBlockingsStore {
         }
     };
 }
+
+export default GlobalBlockingsStore;

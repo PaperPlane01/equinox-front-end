@@ -1,9 +1,13 @@
-import {action, observable, reaction, toJS} from 'mobx';
+import {action, observable, reaction} from 'mobx';
 import moment from 'moment';
+import {validateEndDate, validateReason} from "../validation";
 import {createErrorFromResponse, globalBlockingService} from "../../Api";
-import {validateReason, validateEndDate} from "../validation";
+import {Component} from "../../simple-ioc";
 
-export default class UpdateGlobalBlockingStore {
+@Component({
+    order: Component.Order.LOW
+})
+class UpdateGlobalBlockingStore {
     @observable globalBlockingId = undefined;
     @observable updateGlobalBlockingDialogOpen = false;
     @observable globalBlocking = undefined;
@@ -114,3 +118,5 @@ export default class UpdateGlobalBlockingStore {
         return !Boolean(reason && endDate);
     }
 }
+
+export default UpdateGlobalBlockingStore;

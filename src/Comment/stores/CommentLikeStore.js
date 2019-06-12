@@ -1,7 +1,13 @@
 import {observable, action} from 'mobx';
 import {commentLikeService, createErrorFromResponse} from "../../Api";
+import {Component} from "../../simple-ioc";
 
-export default class CommentLikeStore {
+@Component({
+    dependencies: [
+        {propertyName: 'commentListStore'}
+    ]
+})
+class CommentLikeStore {
     @observable pending = false;
     @observable error = undefined;
     @observable commentListStore = undefined;
@@ -10,10 +16,6 @@ export default class CommentLikeStore {
         numberOfLikes: undefined,
         likeId: undefined
     };
-
-    constructor(commentListStore) {
-        this.commentListStore = commentListStore;
-    }
 
     @action createCommentLike = commentId => {
         this.pending = true;
@@ -55,3 +57,5 @@ export default class CommentLikeStore {
             })
     }
 }
+
+export default CommentLikeStore;

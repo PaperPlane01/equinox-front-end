@@ -15,7 +15,7 @@ import CurrentUserBlogsAppBarMenu from "./CurrentUserBlogsAppBarMenu";
 import CurrentUserSubscriptionsAppBarMenu from "./CurrentUserSubscriptionsAppBarMenu";
 import FeedAppBarItem from "./FeedAppBarItem";
 import {SearchBlogPostsQueryTextField} from "../../BlogPost/components";
-import {NotificationsHolder} from "../../Notification/components";
+import {NotificationsHolder} from "../../Notification";
 import {UserMenuAppBar} from "../../User/components";
 import views from "../../router-config";
 

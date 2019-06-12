@@ -1,9 +1,16 @@
 import {observable, action, reaction} from 'mobx';
 import _ from 'lodash';
-import {blogManagerService, blogService, createErrorFromResponse} from "../../Api/index";
-import {isBlank} from "../../utils/index";
+import {blogManagerService, blogService, createErrorFromResponse} from "../../Api";
+import {isBlank} from "../../utils";
+import {Component} from "../../simple-ioc";
 
-export default class BlogManagersStore {
+@Component({
+    dependencies: [
+        {propertyName: 'updateBlogManagerStore'}
+    ],
+    order: 3
+})
+class BlogManagersStore {
     @observable blogId = undefined;
     @observable managers = [];
     @observable currentPage = 0;
@@ -19,9 +26,7 @@ export default class BlogManagersStore {
     @observable blog = undefined;
     @observable fetchingBlog = false;
 
-    constructor(updateBlogManagerStore) {
-        this.updateBlogManagerStore = updateBlogManagerStore;
-
+    constructor() {
         reaction(
             () => this.blogId,
             () => {
@@ -138,3 +143,5 @@ export default class BlogManagersStore {
         this.username = '';
     }
 }
+
+export default BlogManagersStore;

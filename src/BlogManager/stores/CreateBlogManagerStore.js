@@ -1,8 +1,10 @@
 import {observable, action, reaction} from 'mobx';
-import {userService, blogManagerService, createErrorFromResponse} from "../../Api";
 import {validateBlogManagerRole, validateBlogManagerUser} from "../validation";
+import {userService, blogManagerService, createErrorFromResponse} from "../../Api";
+import {Component} from "../../simple-ioc";
 
-export default class CreateBlogManagerStore {
+@Component()
+class CreateBlogManagerStore {
     @observable userId = undefined;
     @observable user = undefined;
     @observable createBlogManagerFormValues = {

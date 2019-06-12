@@ -1,7 +1,13 @@
 import {action, observable, computed, reaction} from 'mobx';
 import {blogManagerService, createErrorFromResponse} from "../../Api";
+import {Component} from "../../simple-ioc";
 
-export default class DeleteBlogManagerStore {
+@Component({
+    dependencies: [
+        {propertyName: 'blogManagersStore'}
+    ]
+})
+class DeleteBlogManagerStore {
     @observable deleteBlogManagerDialogOpen = false;
     @observable managerId = undefined;
     @observable blogManagersStore = undefined;
@@ -13,9 +19,7 @@ export default class DeleteBlogManagerStore {
         return this.blogManagersStore.blogId;
     }
 
-    constructor(blogManagersStore) {
-        this.blogManagersStore = blogManagersStore;
-
+    constructor() {
         reaction(
             () => this.blogManagerDeleted,
             () => {
@@ -47,3 +51,5 @@ export default class DeleteBlogManagerStore {
             });
     }
 }
+
+export default DeleteBlogManagerStore;

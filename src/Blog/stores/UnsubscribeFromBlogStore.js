@@ -1,7 +1,14 @@
 import {action, computed, observable} from 'mobx';
 import {createErrorFromResponse, subscriptionService} from '../../Api';
+import {Component} from "../../simple-ioc";
 
-export default class UnsubscribeFromBlogStore {
+@Component({
+    dependencies: [
+        {propertyName: 'blogStore'},
+        {propertyName: 'currentUserSubscriptionsStore'}
+    ]
+})
+class UnsubscribeFromBlogStore {
     @observable blogStore = undefined;
     @observable currentUserSubscriptionsStore = undefined;
     @observable pending = false;
@@ -9,11 +16,6 @@ export default class UnsubscribeFromBlogStore {
 
     @computed get subscriptionId() {
         return this.blogStore.blog ? this.blogStore.blog.subscriptionId : undefined;
-    }
-
-    constructor(blogStore, currentUserSubscriptionsStore) {
-        this.blogStore = blogStore;
-        this.currentUserSubscriptionsStore = currentUserSubscriptionsStore;
     }
 
     @action unsubscribeFromBlog = () => {
@@ -33,3 +35,5 @@ export default class UnsubscribeFromBlogStore {
         }
     }
 }
+
+export default UnsubscribeFromBlogStore;

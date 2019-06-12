@@ -1,7 +1,17 @@
 import {action, reaction, computed, observable} from "mobx";
 import {createErrorFromResponse, blogPostLikeService} from "../../Api";
+import {Component} from "../../simple-ioc";
 
-export default class UserBlogPostLikesStore {
+@Component({
+    dependencies: [
+        {propertyName: 'authStore'},
+        {propertyName: 'userProfileStore'},
+        {propertyName: 'blogPostLikeStore'},
+        {propertyName: 'deleteBlogPostStore', componentName: 'deleteBlogPostDialogStore'}
+    ],
+    order: Component.Order.MEDIUM
+})
+class UserBlogPostLikesStore {
     @observable blogPostLikes = [];
     @observable pending = false;
     @observable error = undefined;
@@ -21,12 +31,7 @@ export default class UserBlogPostLikesStore {
         return this.userProfileStore.userId;
     }
 
-    constructor(authStore, userProfileStore, blogPostLikeStore, deleteBlogPostStore) {
-        this.authStore = authStore;
-        this.userProfileStore = userProfileStore;
-        this.blogPostLikeStore = blogPostLikeStore;
-        this.deleteBlogPostStore = deleteBlogPostStore;
-
+    constructor() {
         reaction(
             () => this.userId,
             id => {
@@ -48,7 +53,7 @@ export default class UserBlogPostLikesStore {
         );
 
         reaction(
-            () => authStore.currentUser,
+            () => this.authStore.currentUser,
             () => {
                 if (this.userId && (!this.authStore.currentUser
                     || (this.authStore.previousUser
@@ -60,7 +65,7 @@ export default class UserBlogPostLikesStore {
         );
 
         reaction(
-            () => deleteBlogPostStore.deletedBlogPostId,
+            () => this.deleteBlogPostStore.deletedBlogPostId,
             id => {
                 if (id) {
                     this.removeBlogPost(id);

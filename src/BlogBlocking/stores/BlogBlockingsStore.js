@@ -1,9 +1,15 @@
 import {action, computed, observable, reaction} from 'mobx';
+import {canSeeUsersBlockedInBlog} from "../permissions";
 import {blogBlockingService, blogService, createErrorFromResponse} from "../../Api";
 import {isBlank} from "../../utils";
-import {canSeeUsersBlockedInBlog} from "../permissions";
+import {Component} from "../../simple-ioc";
 
-export default class BlogBlockingsStore {
+@Component({
+    dependencies: [
+        {propertyName: 'authStore'}
+    ]
+})
+class BlogBlockingsStore {
     @observable blogId = undefined;
     @observable blogBlockings = [];
     @observable currentPage = 0;
@@ -19,9 +25,7 @@ export default class BlogBlockingsStore {
         return this.authStore.currentUser;
     }
 
-    constructor(authStore) {
-        this.authStore = authStore;
-
+    constructor() {
         reaction(
             () => this.blogId,
             () => {
@@ -140,3 +144,5 @@ export default class BlogBlockingsStore {
         this.blockedUserUsername = "";
     }
 }
+
+export default BlogBlockingsStore;

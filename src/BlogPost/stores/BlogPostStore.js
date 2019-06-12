@@ -1,7 +1,17 @@
 import {observable, action, reaction} from 'mobx';
 import {blogPostService, createErrorFromResponse} from "../../Api";
+import {Component} from "../../simple-ioc";
 
-export default class BlogPostStore {
+@Component({
+    dependencies: [
+        {propertyName: 'authStore'},
+        {propertyName: 'blogPostLikeStore'},
+        {propertyName: 'pinBlogPostStore'},
+        {propertyName: 'unpinBlogPostStore'}
+    ],
+    order: Component.Order.HIGH
+})
+class BlogPostStore {
     @observable blogPostId = undefined;
     @observable blogPost = undefined;
     @observable authStore = undefined;
@@ -11,12 +21,7 @@ export default class BlogPostStore {
     @observable pinBlogPostStore = undefined;
     @observable unpinBlogPostStore = undefined;
 
-    constructor(authStore, blogPostLikeStore, pinBlogPostStore, unpinBlogPostStore) {
-        this.authStore = authStore;
-        this.blogPostLikeStore = blogPostLikeStore;
-        this.pinBlogPostStore = pinBlogPostStore;
-        this.unpinBlogPostStore = unpinBlogPostStore;
-
+    constructor() {
         reaction(
             () => this.blogPostId,
             () => {
@@ -106,3 +111,5 @@ export default class BlogPostStore {
         this.blogPost.numberOfComments = this.blogPost.numberOfComments - 1;
     }
 }
+
+export default BlogPostStore;

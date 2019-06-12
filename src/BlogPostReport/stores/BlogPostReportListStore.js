@@ -1,10 +1,10 @@
-import {observable, action, reaction, computed} from "mobx";
+import {action, computed, observable, reaction} from "mobx";
 import {normalize} from "normalizr";
 import {blogPostReportListSchema} from "./schemas";
 import {canSeeBlogPostReports} from "../permissions";
 import {ReportStatus} from "../../Report";
 import {blogPostReportService, createErrorFromResponse} from "../../Api";
-import {toJS} from "mobx";
+import {Component} from "../../simple-ioc";
 
 const BLOG_POST_REPORTS_INITIAL_STATE = {
     result: [],
@@ -13,7 +13,13 @@ const BLOG_POST_REPORTS_INITIAL_STATE = {
     }
 };
 
-export default class BlogPostReportListStore {
+@Component({
+    dependencies: [
+        {propertyName: 'authStore'}
+    ],
+    order: Component.Order.LOW
+})
+class BlogPostReportListStore {
     @observable authStore = undefined;
     @observable normalizedBlogPostReports = BLOG_POST_REPORTS_INITIAL_STATE;
     @observable selectedBlogPostReports = [];
@@ -33,16 +39,12 @@ export default class BlogPostReportListStore {
 
     @computed
     get selectedBlogPostsIds() {
-        console.log(toJS(this.selectedBlogPostReports));
-        console.log(toJS(this.normalizedBlogPostReports));
         return this.selectedBlogPostReports.map(blogPostReportId => {
             return this.normalizedBlogPostReports.entities.blogPostReports[blogPostReportId].blogPost.id;
         })
     }
 
-    constructor(authStore) {
-        this.authStore = authStore;
-
+    constructor() {
         reaction(
             () => this.currentUser,
             () => {
@@ -156,3 +158,5 @@ export default class BlogPostReportListStore {
         }
     };
 }
+
+export default BlogPostReportListStore;

@@ -2,6 +2,7 @@ import {action, observable, reaction} from 'mobx';
 import {convertToRaw, EditorState} from 'draft-js';
 import {blogPostService, createErrorFromResponse} from "../../Api";
 import {validateBlogPostContent, validateBlogPostTags, validateBlogPostTitle} from "../validation";
+import {Component} from "../../simple-ioc";
 
 const CREATE_BLOG_POST_FORM_VALUES_INITIAL_STATE = {
     title: "",
@@ -14,7 +15,10 @@ const CREATE_BLOG_POST_FORM_ERRORS_INITIAL_STATE = {
     tags: undefined
 };
 
-export default class CreateBlogPostStore {
+@Component({
+    order: Component.Order.LOW
+})
+class CreateBlogPostStore {
     @observable createBlogPostFormValues = CREATE_BLOG_POST_FORM_VALUES_INITIAL_STATE;
     @observable createBlogPostFormErrors = CREATE_BLOG_POST_FORM_ERRORS_INITIAL_STATE;
     @observable submissionError = undefined;
@@ -102,3 +106,5 @@ export default class CreateBlogPostStore {
             && !this.createBlogPostFormErrors.content;
     }
 }
+
+export default CreateBlogPostStore;

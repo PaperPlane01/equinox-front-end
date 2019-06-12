@@ -1,19 +1,25 @@
 import {action, observable, reaction} from 'mobx';
+import {Component} from "../../simple-ioc";
 
-export default class AppBarStore {
+@Component({
+    dependencies: [
+        {propertyName: 'authStore'}
+    ],
+    order: 1
+})
+class AppBarStore {
     @observable drawerOpened = false;
     @observable subscriptionsOpened = false;
     @observable reportsOpened = false;
     @observable blogsOpened = false;
     @observable authStore = undefined;
 
-    constructor(authStore) {
-        this.authStore = authStore;
+    constructor() {
 
         reaction(
-            () => authStore.loggedIn,
+            () => this.authStore.loggedIn,
             () => {
-                if (!authStore.loggedIn) {
+                if (!this.authStore.loggedIn) {
                     this.subscriptionsOpened = false;
                 }
             }
@@ -36,3 +42,5 @@ export default class AppBarStore {
         this.reportsOpened = opened;
     }
 }
+
+export default AppBarStore;

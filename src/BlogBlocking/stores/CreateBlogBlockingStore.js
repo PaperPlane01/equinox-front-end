@@ -1,9 +1,11 @@
 import addHours from 'date-fns/addHours';
 import {action, observable, reaction} from 'mobx';
-import {blogBlockingService, createErrorFromResponse} from "../../Api";
 import {validateEndDate, validateReason} from "../validation";
+import {blogBlockingService, createErrorFromResponse} from "../../Api";
+import {Component} from "../../simple-ioc";
 
-export default class CreateBlogBlockingStore {
+@Component()
+class CreateBlogBlockingStore {
     @observable createBlogBlockingFormValues = {
         endDate: addHours(new Date(), 1),
         reason: ""
@@ -78,3 +80,5 @@ export default class CreateBlogBlockingStore {
         return !Boolean(endDate || reason);
     }
 }
+
+export default CreateBlogBlockingStore;

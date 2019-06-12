@@ -1,7 +1,13 @@
 import {observable, action, reaction, computed} from "mobx";
 import {subscriptionService, createErrorFromResponse} from "../../Api"
+import {Component} from "../../simple-ioc";
 
-export default class UserSubscriptionsStore {
+@Component({
+    dependencies: [
+        {propertyName: 'userProfileStore'}
+    ]
+})
+class UserSubscriptionsStore {
     @observable subscriptions = [];
     @observable paginationParameters = {
         pageSize: 50,
@@ -19,9 +25,7 @@ export default class UserSubscriptionsStore {
         return this.userProfileStore.userId;
     }
 
-    constructor(userProfileStore) {
-        this.userProfileStore = userProfileStore;
-
+    constructor() {
         reaction(
             () => this.userId,
             () => {

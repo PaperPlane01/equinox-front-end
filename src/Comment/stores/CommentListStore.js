@@ -2,9 +2,10 @@ import {normalize} from 'normalizr';
 import {action, computed, observable, reaction} from 'mobx';
 import _ from 'lodash';
 import localStorage from 'mobx-localstorage';
+import {commentListSchema} from "./schemas";
 import CommentsDisplayMode from '../CommentsDisplayMode';
 import {commentService, createErrorFromResponse} from "../../Api";
-import {commentListSchema} from "./schemas";
+import {Component} from "../../simple-ioc";
 
 const PAGES_INITIAL_STATE = {
     pageNumbers: [0],
@@ -25,7 +26,15 @@ const COMMENTS_INITIAL_STATE = {
     }
 };
 
-export default class CommentListStore {
+@Component({
+    dependencies: [
+        {propertyName: 'blogPostStore'},
+        {propertyName: 'createCommentStore'},
+        {propertyName: 'authStore'}
+    ],
+    order: Component.Order.HIGH + 1
+})
+class CommentListStore {
     @observable pages = PAGES_INITIAL_STATE;
     @observable comments = COMMENTS_INITIAL_STATE;
     @observable blogPostStore = undefined;
@@ -49,11 +58,7 @@ export default class CommentListStore {
         return this.createCommentStore.persistedComment;
     }
 
-    constructor(blogPostStore, authStore, createCommentStore) {
-        this.blogPostStore = blogPostStore;
-        this.authStore = authStore;
-        this.createCommentStore = createCommentStore;
-
+    constructor() {
         reaction(
             () => this.pages,
             () => {
@@ -337,3 +342,5 @@ export default class CommentListStore {
         this.currentPageNumber = 0;
     }
 }
+
+export default CommentListStore;

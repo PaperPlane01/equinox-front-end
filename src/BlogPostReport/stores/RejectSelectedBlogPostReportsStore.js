@@ -3,8 +3,14 @@ import {normalize} from "normalizr";
 import {blogPostReportListSchema} from "./schemas";
 import {createErrorFromResponse, blogPostReportService} from "../../Api";
 import {ReportStatus} from "../../Report";
+import {Component} from "../../simple-ioc";
 
-export default class RejectSelectedBlogPostReportsStore {
+@Component({
+    dependencies: [
+        {propertyName: 'blogPostReportListStore'}
+    ]
+})
+class RejectSelectedBlogPostReportsStore {
     @observable blogPostReportListStore = undefined;
     @observable persistedBlogPostReports = undefined;
     @observable pending = false;
@@ -16,9 +22,7 @@ export default class RejectSelectedBlogPostReportsStore {
         return this.blogPostReportListStore.selectedBlogPostReports;
     }
 
-    constructor(blogPostReportListStore) {
-        this.blogPostReportListStore = blogPostReportListStore;
-
+    constructor() {
         reaction(
             () => this.persistedBlogPostReports,
             reports => {
@@ -66,3 +70,5 @@ export default class RejectSelectedBlogPostReportsStore {
         this.showSnackBar = showSnackBar;
     }
 }
+
+export default RejectSelectedBlogPostReportsStore;

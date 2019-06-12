@@ -1,7 +1,14 @@
 import {action, computed, observable, reaction} from 'mobx';
 import {createErrorFromResponse, subscriptionService} from "../../Api";
+import {Component} from "../../simple-ioc";
 
-export default class CurrentUserSubscriptionsStore {
+@Component({
+    dependencies: [
+        {propertyName: 'authStore'},
+        {propertyName: 'appBarStore'}
+    ]
+})
+class CurrentUserSubscriptionsStore {
     @observable appBarStore = undefined;
     @observable authStore = undefined;
     @observable subscriptions = [];
@@ -19,10 +26,7 @@ export default class CurrentUserSubscriptionsStore {
         return this.appBarStore.subscriptionsOpened;
     }
 
-    constructor(authStore, appBarStore) {
-        this.authStore= authStore;
-        this.appBarStore = appBarStore;
-
+    constructor() {
         reaction(
             () => this.subscriptionsExpanded,
             () => {
@@ -79,3 +83,5 @@ export default class CurrentUserSubscriptionsStore {
         this.subscriptions.push(subscription);
     }
 }
+
+export default CurrentUserSubscriptionsStore;

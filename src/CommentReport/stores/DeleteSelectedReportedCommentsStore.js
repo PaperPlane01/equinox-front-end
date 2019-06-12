@@ -1,7 +1,13 @@
 import {action, computed, observable} from 'mobx';
 import {commentService, createErrorFromResponse} from "../../Api";
+import {Component} from "../../simple-ioc";
 
-export default class DeleteSelectedReportedCommentsStore {
+@Component({
+    dependencies: [
+        {propertyName: 'commentReportListStore'}
+    ]
+})
+class DeleteSelectedReportedCommentsStore {
     @observable pending = false;
     @observable error = undefined;
     @observable showSnackBar = false;
@@ -13,10 +19,6 @@ export default class DeleteSelectedReportedCommentsStore {
             result.push(this.commentReportListStore.normalizedCommentReports.entities.commentReports[reportId].comment.id);
         });
         return result;
-    };
-
-    constructor(commentReportListStore) {
-        this.commentReportListStore = commentReportListStore;
     };
 
     @action deleteComments = () => {
@@ -39,3 +41,5 @@ export default class DeleteSelectedReportedCommentsStore {
         this.showSnackBar = showSnackBar;
     };
 }
+
+export default DeleteSelectedReportedCommentsStore;

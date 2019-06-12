@@ -1,16 +1,18 @@
 import {observable, action} from 'mobx';
 import {commentService, createErrorFromResponse} from "../../Api";
+import {Component} from "../../simple-ioc";
 
-export default class DeleteCommentStore {
+@Component({
+    dependencies: [
+        {propertyName: 'commentListStore'}
+    ],
+    order: Component.Order.HIGH - 1
+})
+class DeleteCommentStore {
     @observable pending = false;
     @observable error = undefined;
     @observable commentListStore = undefined;
     @observable deletedCommentId = undefined;
-
-    constructor(commentListStore) {
-        this.commentListStore = commentListStore;
-    }
-
 
     @action deleteComment = id => {
         this.error = undefined;
@@ -28,3 +30,5 @@ export default class DeleteCommentStore {
             })
     }
 }
+
+export default DeleteCommentStore;

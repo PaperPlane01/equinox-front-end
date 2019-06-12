@@ -1,8 +1,15 @@
 import {action, reaction, observable, computed} from 'mobx';
-import {blogManagerService, createErrorFromResponse} from "../../Api/index";
-import {canSeeBlogManagers} from "../../Blog/permissions/index";
+import {blogManagerService, createErrorFromResponse} from "../../Api";
+import {canSeeBlogManagers} from "../../Blog/permissions";
+import {Component} from "../../simple-ioc";
 
-export default class BlogManagersBlockStore {
+@Component({
+    dependencies: [
+        {propertyName: 'authStore'},
+        {propertyName: 'blogStore'}
+    ]
+})
+class BlogManagersBlockStore {
     @observable blogManagers = [];
     @observable pending = false;
     @observable error = undefined;
@@ -25,10 +32,7 @@ export default class BlogManagersBlockStore {
         return this.blogStore.blog && this.blogStore.blog.owner;
     }
 
-    constructor(authStore, blogStore) {
-        this.authStore = authStore;
-        this.blogStore = blogStore;
-
+    constructor() {
         reaction(
             () => this.currentUser,
             () => {

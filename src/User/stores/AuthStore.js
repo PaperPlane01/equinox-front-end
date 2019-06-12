@@ -4,8 +4,12 @@ import addSeconds from 'date-fns/addSeconds';
 import {createErrorFromResponse, userService} from "../../Api";
 import {validateLoginPassword, validateLoginUsername} from "../validation";
 import {getUTCDate} from "../../utils";
+import {Component} from "../../simple-ioc";
 
-export default class AuthStore {
+@Component({
+    order: Component.Order.LOWEST
+})
+class AuthStore {
     @observable pending = false;
     @observable loginFormValues = {
         username: '',
@@ -137,3 +141,5 @@ export default class AuthStore {
         this.loginDialogOpen = open;
     }
 }
+
+export default AuthStore;

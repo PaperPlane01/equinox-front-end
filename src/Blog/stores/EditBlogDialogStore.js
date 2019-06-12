@@ -1,6 +1,7 @@
 import {observable, action, reaction, computed} from 'mobx';
-import {blogService, createErrorFromResponse} from "../../Api";
 import * as blogValidators from '../validation';
+import {blogService, createErrorFromResponse} from "../../Api";
+import {Component} from "../../simple-ioc";
 
 const EDIT_BLOG_FORM_VALUES_INITIAL_STATE = {
     name: "",
@@ -18,7 +19,12 @@ const EDIT_BLOG_FORM_ERRORS_INITIAL_STATE = {
     defaultPublisherType: undefined
 };
 
-export default class EditBlogDialogStore {
+@Component({
+    dependencies: [
+        {propertyName: 'blogStore'}
+    ]
+})
+class EditBlogDialogStore {
     @observable blogStore = undefined;
     @observable editBlogFormValues = EDIT_BLOG_FORM_VALUES_INITIAL_STATE;
     @observable editBlogFormErrors = EDIT_BLOG_FORM_ERRORS_INITIAL_STATE;
@@ -33,9 +39,7 @@ export default class EditBlogDialogStore {
         return this.blogStore.blogId;
     }
 
-    constructor(blogStore) {
-        this.blogStore = blogStore;
-
+    constructor() {
         reaction(
             () => this.editBlogDialogOpen,
             dialogOpen => {
@@ -156,3 +160,5 @@ export default class EditBlogDialogStore {
         return !(name, description, avatarUri, blogManagersVisibilityLevel, defaultPublisherType);
     }
 }
+
+export default EditBlogDialogStore;

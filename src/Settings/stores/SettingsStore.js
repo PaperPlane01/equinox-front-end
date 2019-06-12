@@ -1,7 +1,11 @@
 import {observable, action} from 'mobx';
 import localStorage from 'mobx-localstorage';
+import {Component} from "../../simple-ioc";
 
-export default class SettingsStore {
+@Component({
+    order: Component.Order.MEDIUM
+})
+class SettingsStore {
     @observable settingsDialogOpened = false;
     @observable colorTheme = localStorage.getItem('colorTheme') || 'pink';
     @observable useWebSocketForNotifications = localStorage.get('useWebSocketForNotifications') || false;
@@ -20,3 +24,5 @@ export default class SettingsStore {
         localStorage.setItem('useWebSocketForNotifications', useWebSocketForNotifications);
     };
 }
+
+export default SettingsStore;

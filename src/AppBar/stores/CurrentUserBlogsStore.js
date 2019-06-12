@@ -1,7 +1,15 @@
 import {observable, action, reaction, computed} from 'mobx';
-import {blogService, createErrorFromResponse} from "../../Api/index";
+import {blogService, createErrorFromResponse} from "../../Api";
+import {Component} from "../../simple-ioc";
 
-export default class CurrentUserBlogsStore {
+@Component({
+    dependencies: [
+        {propertyName: 'authStore'},
+        {propertyName: 'createBlogStore'},
+        {propertyName: 'appBarStore'}
+    ]
+})
+class CurrentUserBlogsStore {
     @observable authStore = undefined;
     @observable createBlogStore = undefined;
     @observable blogs = [];
@@ -18,11 +26,7 @@ export default class CurrentUserBlogsStore {
         return this.appBarStore.blogsOpened;
     }
 
-    constructor(authStore, createBlogStore, appBarStore) {
-        this.authStore = authStore;
-        this.createBlogStore = createBlogStore;
-        this.appBarStore = appBarStore;
-
+    constructor() {
         reaction(
             () => this.currentUser,
             user => {
@@ -66,3 +70,5 @@ export default class CurrentUserBlogsStore {
             })
     }
 }
+
+export default CurrentUserBlogsStore;

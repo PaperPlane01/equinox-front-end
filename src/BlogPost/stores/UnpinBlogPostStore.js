@@ -1,7 +1,11 @@
 import {action, reaction, observable} from 'mobx';
 import {createErrorFromResponse, blogPostService} from "../../Api";
+import {Component} from "../../simple-ioc";
 
-export default class UnpinBlogPostStore {
+@Component({
+    order: Component.Order.LOWEST
+})
+class UnpinBlogPostStore {
     @observable blogPostId = undefined;
     @observable pending = false;
     @observable error = undefined;
@@ -51,3 +55,5 @@ export default class UnpinBlogPostStore {
             });
     }
 }
+
+export default UnpinBlogPostStore;

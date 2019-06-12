@@ -3,8 +3,15 @@ import {normalize, denormalize} from 'normalizr';
 import {blogPostListSchema} from "./schemas";
 import {mergeNormalizedBlogPosts} from "./mergeNormalizedBlogPosts";
 import {createErrorFromResponse, blogPostService} from "../../Api";
+import {Component} from "../../simple-ioc";
 
-export default class SearchBlogPostsStore {
+@Component({
+    dependencies: [
+        {propertyName: 'blogPostLikeStore'},
+        {propertyName: 'deleteBlogPostStore', componentName: 'deleteBlogPostDialogStore'}
+    ]
+})
+class SearchBlogPostsStore {
     @observable query = '';
     @observable normalizedBlogPosts = {
         result: [],
@@ -22,10 +29,7 @@ export default class SearchBlogPostsStore {
         return denormalize(this.normalizedBlogPosts.result, blogPostListSchema, this.normalizedBlogPosts.entities);
     }
 
-    constructor(blogPostLikeStore, deleteBlogPostStore) {
-        this.blogPostLikeStore = blogPostLikeStore;
-        this.deleteBlogPostStore = deleteBlogPostStore;
-
+    constructor() {
         reaction(
             () => this.blogPostLikeStore.result,
             result => {
@@ -95,3 +99,5 @@ export default class SearchBlogPostsStore {
         this.currentPageNumber = 0;
     }
 }
+
+export default SearchBlogPostsStore;

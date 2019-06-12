@@ -1,8 +1,10 @@
 import {observable, action, reaction} from 'mobx';
 import _ from 'lodash';
 import {createErrorFromResponse, subscriptionService, blogService} from "../../Api";
+import {Component} from "../../simple-ioc";
 
-export default class BlogSubscribersListStore {
+@Component()
+class BlogSubscribersListStore {
     @observable subscriptions = [];
     @observable fetchingBlog = false;
     @observable fetchingSubscriptions = false;
@@ -111,3 +113,5 @@ export default class BlogSubscribersListStore {
         this.pending = false;
     }
 }
+
+export default BlogSubscribersListStore;

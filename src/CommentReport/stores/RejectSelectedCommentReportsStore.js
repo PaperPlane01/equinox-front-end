@@ -3,8 +3,14 @@ import {createErrorFromResponse, commentReportService} from "../../Api";
 import {ReportStatus} from "../../Report";
 import {normalize} from "normalizr";
 import {commentReportListSchema} from "./schemas";
+import {Component} from "../../simple-ioc";
 
-export default class RejectSelectedCommentReportsStore {
+@Component({
+    dependencies: [
+        {propertyName: 'commentReportListStore'}
+    ]
+})
+class RejectSelectedCommentReportsStore {
     @observable persistedCommentReports = undefined;
     @observable pending = false;
     @observable error = undefined;
@@ -15,9 +21,7 @@ export default class RejectSelectedCommentReportsStore {
         return this.commentReportListStore.normalizedCommentReports.selectedCommentReports;
     }
 
-    constructor(commentReportListStore) {
-        this.commentReportListStore = commentReportListStore;
-
+    constructor() {
         reaction(
             () => this.persistedCommentReports,
             reports => {
@@ -63,3 +67,5 @@ export default class RejectSelectedCommentReportsStore {
         this.showSnackBar = showShackBar;
     }
 }
+
+export default RejectSelectedCommentReportsStore;

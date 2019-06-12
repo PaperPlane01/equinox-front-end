@@ -1,15 +1,17 @@
 import {observable, action} from 'mobx';
 import {commentService, createErrorFromResponse} from "../../Api";
+import {Component} from "../../simple-ioc";
 
-export default class RestoreCommentStore {
+@Component({
+    dependencies: [
+        {propertyName: 'commentListStore'}
+    ]
+})
+class RestoreCommentStore {
     @observable pending = false;
     @observable error = undefined;
     @observable restoredComment = undefined;
     @observable commentListStore = undefined;
-
-    constructor(commentListStore) {
-        this.commentListStore = commentListStore;
-    }
 
     @action restoreComment = id => {
         this.error = undefined;
@@ -26,3 +28,5 @@ export default class RestoreCommentStore {
             })
     }
 }
+
+export default RestoreCommentStore;

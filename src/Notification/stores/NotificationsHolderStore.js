@@ -4,8 +4,15 @@ import localStorage from 'mobx-localstorage';
 import SockJS from 'sockjs-client';
 import {Stomp} from '@stomp/stompjs';
 import {notificationService, createErrorFromResponse, Routes} from "../../Api";
+import {Component} from "../../simple-ioc";
 
-export default class NotificationsHolderStore {
+@Component({
+    dependencies: [
+        {propertyName: 'authStore'},
+        {propertyName: 'settingsStore'}
+    ]
+})
+class NotificationsHolderStore {
     @observable authStore = undefined;
     @observable settingsStore = undefined;
     @observable notifications = [];
@@ -32,10 +39,7 @@ export default class NotificationsHolderStore {
         return this.notifications.filter(notification => notification.read);
     }
 
-    constructor(authStore, settingsStore) {
-        this.authStore = authStore;
-        this.settingsStore = settingsStore;
-
+    constructor() {
         reaction(
             () => this.currentUser,
             currentUser => {
@@ -138,3 +142,5 @@ export default class NotificationsHolderStore {
         })
     }
 }
+
+export default NotificationsHolderStore;

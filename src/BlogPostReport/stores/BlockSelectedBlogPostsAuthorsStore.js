@@ -1,8 +1,14 @@
 import {action, computed, observable, reaction} from "mobx";
 import {createErrorFromResponse, globalBlockingService} from "../../Api";
 import {validateEndDate, validateReason} from "../../GlobalBlocking/validation";
+import {Component} from "../../simple-ioc";
 
-export default class BlockSelectedBlogPostsAuthorsStore {
+@Component({
+    dependencies: [
+        {propertyName: 'blogPostReportListStore'}
+    ]
+})
+class BlockSelectedBlogPostsAuthorsStore {
     @observable blogPostReportListStore = undefined;
     @observable globalBlockingForm = {
         reason: '',
@@ -27,9 +33,7 @@ export default class BlockSelectedBlogPostsAuthorsStore {
         return result;
     }
 
-    constructor(blogPostReportListStore) {
-        this.blogPostReportListStore = blogPostReportListStore;
-
+    constructor() {
         reaction(
             () => this.globalBlockingForm.reason,
             reason => {
@@ -95,3 +99,5 @@ export default class BlockSelectedBlogPostsAuthorsStore {
         this.showSnackBar = showSnackBar;
     };
 }
+
+export default BlockSelectedBlogPostsAuthorsStore;

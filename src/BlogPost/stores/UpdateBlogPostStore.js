@@ -2,8 +2,12 @@ import {observable, action, reaction} from 'mobx';
 import {convertFromRaw, convertToRaw, EditorState} from 'draft-js';
 import {validateBlogPostContent, validateBlogPostTags, validateBlogPostTitle} from "../validation";
 import {createErrorFromResponse, blogPostService} from "../../Api";
+import {Component} from "../../simple-ioc";
 
-export default class UpdateBlogPostStore {
+@Component({
+    order: Component.Order.LOWEST
+})
+class UpdateBlogPostStore {
     @observable blogPost = undefined;
     @observable updateBlogPostFormValues = {
         content: EditorState.createEmpty(),
@@ -134,3 +138,5 @@ export default class UpdateBlogPostStore {
         return !content && !tags && !title;
     }
 }
+
+export default UpdateBlogPostStore;

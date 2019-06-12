@@ -2,8 +2,15 @@ import {action, observable, reaction, computed} from 'mobx';
 import {normalize} from 'normalizr'
 import {blogPostListSchema} from "./schemas";
 import {createErrorFromResponse, blogPostService} from "../../Api";
+import {Component} from "../../simple-ioc";
 
-export default class FeedStore {
+@Component({
+    dependencies: [
+        {propertyName: 'authStore'},
+        {propertyName: 'blogPostLikeStore'}
+    ]
+})
+class FeedStore {
     @observable blogPosts = {
         result: [],
         entities: {
@@ -136,3 +143,5 @@ export default class FeedStore {
         this.shouldRefresh = shouldRefresh;
     }
 }
+
+export default FeedStore;

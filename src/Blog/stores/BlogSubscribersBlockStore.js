@@ -1,19 +1,23 @@
 import {action, observable, reaction} from 'mobx';
 import {createErrorFromResponse, subscriptionService} from "../../Api";
+import {Component} from "../../simple-ioc";
 
-export default class BlogSubscribersBlockStore {
+@Component({
+    dependencies: [
+        {propertyName: 'blogStore'}
+    ]
+})
+class BlogSubscribersBlockStore {
     @observable blogId = undefined;
     @observable subscribers = [];
     @observable pending = false;
     @observable error = undefined;
     @observable blogStore = undefined;
 
-    constructor(blogStore) {
-        this.blogStore = blogStore;
-
+    constructor() {
         reaction(
-            () => blogStore.blogId,
-            () => this.blogId = blogStore.blogId
+            () => this.blogStore.blogId,
+            () => this.blogId = this.blogStore.blogId
         );
 
         reaction(
@@ -48,3 +52,5 @@ export default class BlogSubscribersBlockStore {
         this.blogId = blogId;
     }
 }
+
+export default BlogSubscribersBlockStore;

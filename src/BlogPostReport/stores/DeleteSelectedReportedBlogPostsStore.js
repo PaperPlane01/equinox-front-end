@@ -1,7 +1,13 @@
 import {action, computed, observable, toJS} from "mobx";
 import {blogPostService, createErrorFromResponse} from "../../Api";
+import {Component} from "../../simple-ioc";
 
-export default class DeleteSelectedReportedBlogPostsStore {
+@Component({
+    dependencies: [
+        {propertyName: 'blogPostReportListStore'}
+    ]
+})
+class DeleteSelectedReportedBlogPostsStore {
     @observable blogPostReportListStore = undefined;
     @observable pending = false;
     @observable error = undefined;
@@ -14,10 +20,6 @@ export default class DeleteSelectedReportedBlogPostsStore {
             result.push(this.blogPostReportListStore.normalizedBlogPostReports.entities.blogPostReports[reportId].blogPost.id);
         });
         return result;
-    }
-
-    constructor(blogPostReportListStore) {
-        this.blogPostReportListStore = blogPostReportListStore;
     }
 
     @action
@@ -43,3 +45,5 @@ export default class DeleteSelectedReportedBlogPostsStore {
         this.showSnackBar = showSnackBar;
     };
 }
+
+export default DeleteSelectedReportedBlogPostsStore;

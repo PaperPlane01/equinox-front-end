@@ -1,7 +1,14 @@
 import {action, reaction, computed, observable} from "mobx";
 import {blogService, createErrorFromResponse} from "../../Api";
+import {Component} from "../../simple-ioc";
 
-export default class UserManagedBlogsStore {
+@Component({
+    dependencies: [
+        {propertyName: 'userProfileStore'},
+    ],
+    order: Component.Order.MEDIUM
+})
+class UserManagedBlogsStore {
     @observable managedBlogsHolder = {
         ownedBlogs: [],
         managedBlogs: []
@@ -16,9 +23,7 @@ export default class UserManagedBlogsStore {
         return this.userProfileStore.userId;
     }
 
-    constructor(userProfileStore) {
-        this.userProfileStore = userProfileStore;
-
+    constructor() {
         reaction(
             () => this.userId,
             userId => {
@@ -45,3 +50,5 @@ export default class UserManagedBlogsStore {
             }).then(() => this.pending = false);
     }
 }
+
+export default UserManagedBlogsStore;

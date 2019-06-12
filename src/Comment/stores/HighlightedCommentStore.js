@@ -3,6 +3,7 @@ import {denormalize, normalize} from 'normalizr';
 import {commentListSchema, commentSchema} from "./schemas";
 import {commentService} from "../../Api/services";
 import {isValidNumericalId} from "../../utils";
+import {Component} from "../../simple-ioc";
 
 const HIGHLIGHTED_COMMENT_INITIAL_STATE = {
     result: undefined,
@@ -12,7 +13,16 @@ const HIGHLIGHTED_COMMENT_INITIAL_STATE = {
     }
 };
 
-export default class RootCommentAtTopStore {
+@Component({
+    name: 'highlightedCommentStore',
+    dependencies: [
+        {propertyName: 'createCommentStore'},
+        {propertyName: 'commentLikeStore'},
+        {propertyName: 'deleteCommentStore'},
+        {propertyName: 'restoreCommentStore'}
+    ],
+})
+class RootCommentAtTopStore {
     @observable createCommentStore = undefined;
     @observable commentLikeStore = undefined;
     @observable deleteCommentStore = undefined;
@@ -43,12 +53,7 @@ export default class RootCommentAtTopStore {
         return this.deleteCommentStore.deletedCommentId;
     }
 
-    constructor(createCommentStore, commentLikeStore, deleteCommentStore, restoreCommentStore) {
-        this.createCommentStore = createCommentStore;
-        this.commentLikeStore = commentLikeStore;
-        this.deleteCommentStore = deleteCommentStore;
-        this.restoreCommentStore = restoreCommentStore;
-
+    constructor() {
         reaction(
             () => this.highlightedCommentId,
             () => {
@@ -195,3 +200,5 @@ export default class RootCommentAtTopStore {
         this.normalizedRootCommentAtTop = HIGHLIGHTED_COMMENT_INITIAL_STATE;
     }
 }
+
+export default RootCommentAtTopStore;

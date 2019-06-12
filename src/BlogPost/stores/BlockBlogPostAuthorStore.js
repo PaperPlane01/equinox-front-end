@@ -1,7 +1,13 @@
 import {observable, action, reaction} from 'mobx';
 import {createErrorFromResponse, blogPostService} from "../../Api";
+import {Component} from "../../simple-ioc";
 
-export default class BlockBlogPostAuthorStore {
+@Component({
+    dependencies: [
+        {propertyName: 'createGlobalBlockingStore'}
+    ]
+})
+class BlockBlogPostAuthorStore {
     @observable blogPostId = undefined;
     @observable blogPostPublisher = undefined;
     @observable blogPostAuthor = undefined;
@@ -50,3 +56,5 @@ export default class BlockBlogPostAuthorStore {
             })
     }
 }
+
+export default BlockBlogPostAuthorStore;

@@ -3,8 +3,14 @@ import localStorage from 'mobx-localstorage';
 import {userService, createErrorFromResponse} from "../../Api";
 import addSeconds from "date-fns/addSeconds";
 import {getUTCDate} from "../../utils";
+import {Component} from "../../simple-ioc";
 
-export default class GoogleAuthStore {
+@Component({
+    dependencies: [
+        {propertyName: 'authStore'}
+    ]
+})
+class GoogleAuthStore {
     @observable googleToken = undefined;
     @observable authStore = undefined;
     @observable pending = false;
@@ -22,8 +28,7 @@ export default class GoogleAuthStore {
         return JSON.parse(localStorage.getItem('originalQueryParams'));
     };
 
-    constructor(authStore) {
-        this.authStore = authStore;
+    constructor() {
 
         reaction(
             () => this.googleToken,
@@ -65,3 +70,5 @@ export default class GoogleAuthStore {
             })
     }
 }
+
+export default GoogleAuthStore;

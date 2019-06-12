@@ -1,8 +1,13 @@
 import {action, observable, reaction} from 'mobx';
 import {validateReason, validateEndDate} from "../validation";
 import {createErrorFromResponse, globalBlockingService} from "../../Api";
+import {Component} from "../../simple-ioc";
 
-export default class GlobalBlockingStore {
+@Component({
+    name: 'createGlobalBlockingStore',
+    order: Component.Order.LOW
+})
+class GlobalBlockingStore {
     @observable globalBlockingDialogOpened = false;
     @observable globalBlockingFormValues = {
         endDate: new Date(),
@@ -77,3 +82,5 @@ export default class GlobalBlockingStore {
         return !(reason && endDate);
     }
 }
+
+export default GlobalBlockingStore;

@@ -4,8 +4,16 @@ import {normalize} from 'normalizr'
 import {blogPostListSchema} from "./schemas";
 import MostPopularBlogPostsPeriod from '../MostPopularBlogPostsPeriod';
 import {blogPostService, createErrorFromResponse} from "../../Api";
+import {Component} from "../../simple-ioc";
 
-export default class MostPopularBlogPostsStore {
+@Component({
+    dependencies: [
+        {propertyName: 'authStore'},
+        {propertyName: 'blogPostLikeStore'},
+        {propertyName: 'deleteBlogPostDialogStore'}
+    ]
+})
+class MostPopularBlogPostsStore {
     @observable blogPosts = {
         result: [],
         entities: {
@@ -27,11 +35,7 @@ export default class MostPopularBlogPostsStore {
         return this.authStore.currentUser;
     }
 
-    constructor(authStore, blogPostLikeStore, deleteBlogPostDialogStore) {
-        this.authStore = authStore;
-        this.blogPostLikeStore = blogPostLikeStore;
-        this.deleteBlogPostDialogStore = deleteBlogPostDialogStore;
-
+    constructor() {
         reaction(
             () => this.currentUser,
             () => {
@@ -137,3 +141,5 @@ export default class MostPopularBlogPostsStore {
         }
     }
 }
+
+export default MostPopularBlogPostsStore;

@@ -1,8 +1,10 @@
 import {action, observable, reaction} from 'mobx';
 import {createErrorFromResponse, commentReportService} from "../../Api";
 import {validateReportReason, validateReportDescription} from "../../Report";
+import {Component} from "../../simple-ioc";
 
-export default class CreateCommentReportStore {
+@Component()
+class CreateCommentReportStore {
     @observable commentId = undefined;
     @observable createCommentReportFormValues = {
         description: '',
@@ -104,3 +106,5 @@ export default class CreateCommentReportStore {
         return !(reason || description);
     }
 }
+
+export default CreateCommentReportStore;

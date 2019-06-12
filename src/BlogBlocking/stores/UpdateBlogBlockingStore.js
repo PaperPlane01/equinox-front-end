@@ -1,8 +1,10 @@
 import {observable, action, reaction} from 'mobx';
 import {validateEndDate, validateReason} from "../validation";
 import {blogBlockingService, createErrorFromResponse} from "../../Api";
+import {Component} from "../../simple-ioc";
 
-export default class UpdateBlogBlockingStore {
+@Component
+class UpdateBlogBlockingStore {
     @observable blogBlockingFormValues = {
         endDate: undefined,
         reason: ""
@@ -91,3 +93,5 @@ export default class UpdateBlogBlockingStore {
         return !Boolean(endDate || reason);
     }
 }
+
+export default UpdateBlogBlockingStore;

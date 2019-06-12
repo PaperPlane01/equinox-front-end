@@ -1,8 +1,15 @@
 import {action, reaction, observable, computed} from 'mobx';
-import {commentService, createErrorFromResponse} from "../../Api";
 import {validateContent} from "../validation";
+import {commentService, createErrorFromResponse} from "../../Api";
+import {Component} from "../../simple-ioc";
 
-export default class CreateCommentStore {
+@Component({
+    dependencies: [
+        {propertyName: 'blogPostStore'}
+    ],
+    order: Component.Order.HIGH
+})
+class CreateCommentStore {
     @observable content = undefined;
     @observable rootCommentId = undefined;
     @observable referredCommentId = undefined;
@@ -16,9 +23,7 @@ export default class CreateCommentStore {
         return this.blogPostStore.blogPostId;
     }
 
-    constructor(blogPostStore) {
-        this.blogPostStore = blogPostStore;
-
+    constructor() {
         reaction(
             () => this.content,
             () => {
@@ -72,3 +77,5 @@ export default class CreateCommentStore {
         return !this.validationError;
     }
 }
+
+export default CreateCommentStore;

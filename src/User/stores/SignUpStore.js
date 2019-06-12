@@ -1,8 +1,10 @@
 import {action, observable, reaction} from 'mobx';
+import {Component} from "../../simple-ioc";
 import {createErrorFromResponse, userService} from '../../Api';
 import validators from '../validation';
 
-export default class SignUpStore {
+@Component()
+class SignUpStore {
     @observable signUpFormValues = {
         loginUsername: '',
         displayedUsername: '',
@@ -120,3 +122,5 @@ export default class SignUpStore {
         this.signUpDialogOpen = open;
     }
 }
+
+export default SignUpStore;

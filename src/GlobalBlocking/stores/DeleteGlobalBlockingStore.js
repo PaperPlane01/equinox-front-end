@@ -1,7 +1,11 @@
 import {observable, action, reaction} from 'mobx';
 import {createErrorFromResponse, globalBlockingService} from "../../Api";
+import {Component} from "../../simple-ioc";
 
-export default class DeleteGlobalBlockingStore {
+@Component({
+    order: Component.Order.LOW
+})
+class DeleteGlobalBlockingStore {
     @observable globalBlockingId = undefined;
     @observable deleteGlobalBlockingDialogOpen = false;
     @observable deleteSuccess = false;
@@ -43,3 +47,5 @@ export default class DeleteGlobalBlockingStore {
             })
     }
 }
+
+export default DeleteGlobalBlockingStore;

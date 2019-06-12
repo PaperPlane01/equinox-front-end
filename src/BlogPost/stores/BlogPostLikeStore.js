@@ -1,7 +1,11 @@
 import {action, observable} from 'mobx';
 import {blogPostLikeService, createErrorFromResponse} from "../../Api";
+import {Component} from "../../simple-ioc";
 
-export default class BlogPostLikeStore {
+@Component({
+    order: Component.Order.LOW
+})
+class BlogPostLikeStore {
     @observable pending;
     @observable error;
     @observable persistedBlogPostLikeId = undefined;

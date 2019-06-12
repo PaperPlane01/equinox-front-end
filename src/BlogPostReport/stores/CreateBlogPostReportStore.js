@@ -1,8 +1,10 @@
 import {observable, action, reaction} from 'mobx';
 import {createErrorFromResponse, blogPostReportService} from "../../Api";
 import {validateReportReason, validateReportDescription} from "../../Report";
+import {Component} from "../../simple-ioc";
 
-export default class CreateBlogPostReportStore {
+@Component()
+class CreateBlogPostReportStore {
     @observable blogPostId = undefined;
     @observable createBlogPostReportFormValues = {
         reason: '',
@@ -97,3 +99,5 @@ export default class CreateBlogPostReportStore {
         return !(reason || description);
     }
 }
+
+export default CreateBlogPostReportStore;
