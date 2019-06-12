@@ -42,7 +42,7 @@ class UpdateGlobalBlockingDialog extends React.Component {
                        value={updateGlobalBlockingFormValues.reason}
                        error={Boolean(updateGlobalBlockingFormErrors.reason)}
                        helperText={updateGlobalBlockingFormErrors.reason && l(updateGlobalBlockingFormErrors.reason)}
-                       onChange={event => updateGlobalBlockingStore.setUpdateBlogBlockingFormValue(event.target.value, 'reason')}
+                       onChange={event => updateGlobalBlockingStore.setUpdateGlobalBlockingFormValue(event.target.value, 'reason')}
                        fullWidth
                        margin="dense"
             />
