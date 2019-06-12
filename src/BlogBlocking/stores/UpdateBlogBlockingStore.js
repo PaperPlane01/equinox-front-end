@@ -3,7 +3,7 @@ import {validateEndDate, validateReason} from "../validation";
 import {blogBlockingService, createErrorFromResponse} from "../../Api";
 import {Component} from "../../simple-ioc";
 
-@Component
+@Component()
 class UpdateBlogBlockingStore {
     @observable blogBlockingFormValues = {
         endDate: undefined,
