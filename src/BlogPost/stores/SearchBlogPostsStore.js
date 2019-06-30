@@ -12,7 +12,10 @@ import {Component} from "../../simple-ioc";
     ]
 })
 class SearchBlogPostsStore {
-    @observable query = '';
+    @observable searchForm = {
+        query: '',
+        tags: []
+    };
     @observable normalizedBlogPosts = {
         result: [],
         entities: {
@@ -46,17 +49,42 @@ class SearchBlogPostsStore {
         )
     };
 
-    @action search = query => {
-        if (query && query !== this.query) {
+    @action
+    updateSearchFormValue = (key, value) => {
+        this.searchForm[key] = value;
+    };
+
+    @action
+    addTag = tag => {
+        this.searchForm.tags.push(tag);
+    };
+
+    @action
+    removeTag = index => {
+        this.searchForm.tags = this.searchForm.tags.filter((tag, tagIndex) => tagIndex !== index);
+    };
+
+    @action
+    search = () => {
+        this.searchByQueryAndTags(this.searchForm.query, this.searchForm.tags);
+    };
+
+    @action
+    searchByQueryAndTags = (query, tags) => {
+        if (query && tags && (query !== this.searchForm.query || tags !== this.searchForm.tags)) {
             this.reset();
         }
-        const queryToSearch = query ? query : this.query;
+        const queryToSearch = query ? query : this.searchForm.query;
         if (query) {
-            this.query = query;
+            this.searchForm.query = query;
         }
+        if (tags) {
+            this.searchForm.tags = tags;
+        }
+
         this.pending = true;
         this.error = undefined;
-        return blogPostService.search(queryToSearch, {page: this.currentPageNumber})
+        return blogPostService.search(queryToSearch, tags, {page: this.currentPageNumber})
             .then(response => {
                 if (response.data.length !== 0) {
                     const normalizedResponse = normalize(response.data, blogPostListSchema);

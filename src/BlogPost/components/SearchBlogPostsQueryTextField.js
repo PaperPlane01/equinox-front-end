@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {inject, observer} from 'mobx-react';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
 import withStyles from '@material-ui/core/styles/withStyles';
 import {withLocale} from "../../localization";
-import views from '../../router-config';
 
 const style = () => ({
     searchQueryTextField: {
@@ -26,30 +24,18 @@ const style = () => ({
 });
 
 @withLocale
-@inject('store')
-@observer
 class SearchBlogPostsQueryTextField extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            query: ''
-        };
-    }
-
     handleInput = query => {
-        this.setState({query});
+        if (this.props.onInputChange) {
+            this.props.onInputChange(query);
+        }
     };
 
     handleSearchButtonClick = () => {
-        const {store, onSearchButtonClick} = this.props;
-        const {query} = this.state;
-
+        const {onSearchButtonClick} = this.props;
         if (onSearchButtonClick) {
             onSearchButtonClick();
         }
-
-        store.router.goTo(views.search, {}, store, {query});
     };
 
     render() {
@@ -59,7 +45,7 @@ class SearchBlogPostsQueryTextField extends React.Component {
             <div style={{color: 'inherit'}}>
                 <TextField fullWidth={fullWidth}
                            onChange={event => this.handleInput(event.target.value)}
-                           value={this.state.query}
+                           value={this.props.query}
                            placeholder={l('search')}
                            InputProps={{
                                className: classes.searchQueryTextField,
@@ -83,7 +69,8 @@ class SearchBlogPostsQueryTextField extends React.Component {
 SearchBlogPostsQueryTextField.propTypes = {
     fullWidth: PropTypes.bool,
     onSearchButtonClick: PropTypes.func,
-    store: PropTypes.object,
+    query: PropTypes.string,
+    onInputChange: PropTypes.func,
     classes: PropTypes.object,
     l: PropTypes.func
 };

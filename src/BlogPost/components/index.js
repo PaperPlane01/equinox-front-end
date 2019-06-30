@@ -17,3 +17,5 @@ export {default as PinBlogPostMenuItem} from './PinBlogPostMenuItem';
 export {default as SearchBlogPostsQueryTextField} from './SearchBlogPostsQueryTextField';
 export {default as SearchBlogPostsList} from './SearchBlogPostsList';
 export {default as CreateBlogPostDialog} from './CreateBlogPostDialog';
+export {default as SearchBlogPostsQueryTextFieldWrapper} from './SearchBlogPostsQueryTextFieldWrapper';
+export {default as SearchBlogPostsForm} from './SearchBlogPostsForm';

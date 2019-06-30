@@ -4,11 +4,9 @@ import {inject, observer} from 'mobx-react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import BlogPostListItem from './BlogPostListItem';
-import SearchBlogPostsQueryTextField from './SearchBlogPostsQueryTextField';
 import LoadMoreBlogPostsButton from './LoadMoreBlogPostsButton';
 import CircularProgress from "@material-ui/core/CircularProgress";
 import {withLocale} from "../../localization";
-
 
 @withLocale
 @inject('searchBlogPostsStore')
@@ -21,9 +19,6 @@ class SearchBlogPostsList extends React.Component {
 
         return (
             <Grid container spacing={16}>
-                <Grid item xs={12}>
-                    <SearchBlogPostsQueryTextField fullWidth/>
-                </Grid>
                 {blogPosts.length === 0 && pending && (
                     <Grid item xs={12}>
                         <CircularProgress size={50}

@@ -178,10 +178,21 @@ export default {
         path: '/search',
         component: <Search/>,
         onEnter: (router, params, store, queryParams) => {
-            appStore.searchBlogPostsStore.search(queryParams.query);
+            let tags = Array.isArray(queryParams.tags)
+                ? queryParams.tags
+                : [queryParams.tags];
+            appStore.searchBlogPostsStore.reset();
+            appStore.searchBlogPostsStore.searchByQueryAndTags(queryParams.query, tags);
         },
         onParamsChange: (router, params, store, queryParams) => {
-            appStore.searchBlogPostsStore.search(queryParams.query);
+            let tags = Array.isArray(queryParams.tags)
+                ? queryParams.tags
+                : [queryParams.tags];
+            appStore.searchBlogPostsStore.reset();
+            appStore.searchBlogPostsStore.searchByQueryAndTags(queryParams.query, tags);
+        },
+        onExit: () => {
+            appStore.searchBlogPostsStore.reset();
         }
     }),
     commentReports: new Route({

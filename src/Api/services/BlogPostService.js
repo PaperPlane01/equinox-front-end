@@ -54,12 +54,18 @@ const findPinnedByBlog = blogId => {
     return Api.get(`/${Routes.BLOGS}/${blogId}/${Routes.BLOG_POSTS}/${Routes.PINNED}`);
 };
 
-const search = (query, paginationParameters) => {
+const search = (query, tags, paginationParameters) => {
     let queryParameters = {query};
     if (paginationParameters) {
         queryParameters = {
             ...queryParameters,
             ...paginationParameters
+        }
+    }
+    if (tags && tags.length !== 0) {
+        queryParameters = {
+            ...queryParameters,
+            tags
         }
     }
     const _queryString = queryString.stringify(queryParameters);

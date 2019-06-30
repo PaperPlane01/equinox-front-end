@@ -14,9 +14,9 @@ import Drawer from './Drawer';
 import CurrentUserBlogsAppBarMenu from "./CurrentUserBlogsAppBarMenu";
 import CurrentUserSubscriptionsAppBarMenu from "./CurrentUserSubscriptionsAppBarMenu";
 import FeedAppBarItem from "./FeedAppBarItem";
-import {SearchBlogPostsQueryTextField} from "../../BlogPost/components";
+import {SearchBlogPostsQueryTextFieldWrapper} from "../../BlogPost";
 import {NotificationsHolder} from "../../Notification";
-import {UserMenuAppBar} from "../../User/components";
+import {UserMenuAppBar} from "../../User";
 import views from "../../router-config";
 
 const styles = {
@@ -77,7 +77,7 @@ class AppBar extends React.Component {
                     </Typography>
                     <React.Fragment>
                         <Hidden smDown>
-                            <SearchBlogPostsQueryTextField/>
+                            <SearchBlogPostsQueryTextFieldWrapper/>
                         </Hidden>
                         {currentUser && (
                             <React.Fragment>
