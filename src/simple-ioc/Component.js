@@ -1,6 +1,6 @@
 import {Container} from "./Container";
 
-const _Component = (componentOptions) => decoratedClass => {
+const _Component = componentOptions => decoratedClass => {
     if (!componentOptions) {
         componentOptions = {};
     }

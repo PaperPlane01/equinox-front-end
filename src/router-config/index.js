@@ -17,7 +17,8 @@ import {
     GlobalBlockings,
     Search,
     CommentReports,
-    BlogPostReports
+    BlogPostReports,
+    ConfirmEmail
 } from '../screens';
 import appStore from '../store';
 import _getViewByPath from './getViewByPath';
@@ -217,6 +218,16 @@ export default {
         onExit: () => {
             appStore.blogPostReportListStore.setFetchReportsOnUserChange(false);
             appStore.blogPostReportListStore.reset();
+        }
+    }),
+    confirmEmail: new Route({
+        path: '/confirm-email',
+        component: <ConfirmEmail/>,
+        onEnter: (route, params, store, queryParams) => {
+            appStore.confirmEmailStore.confirmEmail(queryParams.confirmationId);
+        },
+        onExit: () => {
+            appStore.confirmEmailStore.reset();
         }
     })
 };

@@ -6,3 +6,4 @@ export {default as UserSubscriptionsStore} from './UserSubscriptionsStore';
 export {default as EditProfileStore} from './EditProfileStore';
 export {default as UserManagedBlogsStore} from './UserManagedBlogsStore';
 export {default as UserBlogPostLikesStore} from './UserBlogPostLikesStore';
+export {default as ConfirmEmailStore} from './ConfirmEmailStore';

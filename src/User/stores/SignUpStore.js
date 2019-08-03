@@ -1,34 +1,41 @@
 import {action, observable, reaction} from 'mobx';
+import _ from "lodash";
 import {Component} from "../../simple-ioc";
 import {createErrorFromResponse, userService} from '../../Api';
 import validators from '../validation';
+import {isBlank} from "../../utils";
 
 @Component()
 class SignUpStore {
     @observable signUpFormValues = {
         loginUsername: '',
         displayedUsername: '',
+        email: '',
         password: '',
         repeatedPassword: ''
     };
     @observable signUpFormErrors = {
         loginUsername: undefined,
         displayedUsername: undefined,
+        email: undefined,
         password: undefined,
         repeatedPassword: undefined
     };
     @observable submissionError = undefined;
     @observable submitting = false;
     @observable checkingUsername = false;
+    @observable checkingEmail = false;
     @observable persistedUser = undefined;
     @observable signUpDialogOpen = false;
+    @observable requireEmail = true;
 
     constructor() {
         reaction(
             () => this.signUpFormValues.loginUsername,
             () => {
                 this.validateLoginUsername();
-                this.checkUsernameAvailability();
+                const checkUsernameAvailabilityDebounced = _.debounce(this.checkUsernameAvailability, 300);
+                checkUsernameAvailabilityDebounced();
             }
         );
 
@@ -49,33 +56,60 @@ class SignUpStore {
             () => this.signUpFormValues.displayedUsername,
             () => this.validateDisplayedUsername()
         );
+
+        reaction(
+            () => this.signUpFormValues.email,
+            () => {
+                this.validateEmail();
+                const checkEmailAvailabilityDebounced = _.debounce(this.checkEmailAvailability, 300);
+                checkEmailAvailabilityDebounced();
+            }
+        )
     }
 
-    @action setSignUpFormValue = (value, propertyName) => {
+    @action
+    setSignUpFormValue = (propertyName, value) => {
         this.signUpFormValues[propertyName] = value;
     };
 
-    @action validateLoginUsername = () => {
+    @action
+    setRequireEmail = requireEmail => {
+        this.requireEmail = requireEmail;
+    };
+
+    @action
+    validateLoginUsername = () => {
         this.signUpFormErrors.loginUsername = validators.validateLoginUsernameForSignUp(this.signUpFormValues.loginUsername);
     };
 
-    @action validateDisplayedUsername = () => {
+    @action
+    validateDisplayedUsername = () => {
         this.signUpFormErrors.displayedUsername = validators.validateDisplayedUsername(this.signUpFormValues.displayedUsername);
     };
 
-    @action validatePassword = () => {
+    @action
+    validatePassword = () => {
         this.signUpFormErrors.password = validators.validatePassword(this.signUpFormValues.password);
     };
 
-    @action validateRepeatedPassword = () => {
+    @action
+    validateRepeatedPassword = () => {
         this.signUpFormErrors.repeatedPassword = validators.validateRepeatedPassword(
             this.signUpFormValues.password, this.signUpFormValues.repeatedPassword
         );
     };
 
-    @action checkUsernameAvailability = () => {
-        const loginUsername = this.signUpFormValues.loginUsername;
-        if (loginUsername && loginUsername !== '' && !this.signUpFormErrors.loginUsername) {
+    @action
+    validateEmail = () => {
+        const {email} = this.signUpFormValues;
+        this.signUpFormErrors.email = validators.validateEmail(email, this.requireEmail);
+    };
+
+    @action
+    checkUsernameAvailability = () => {
+        console.log('Checking username availability');
+        const {loginUsername} = this.signUpFormValues;
+        if (!isBlank(loginUsername) && !this.signUpFormErrors.loginUsername) {
             this.checkingUsername = true;
             return userService.checkUsernameAvailability(loginUsername)
                 .catch(error => {
@@ -88,7 +122,25 @@ class SignUpStore {
         }
     };
 
-    @action doSignUp = () => {
+    @action
+    checkEmailAvailability = () => {
+        const email = this.signUpFormValues.email;
+        if (email && email !== '' && !this.signUpFormErrors.email) {
+            this.checkingEmail = true;
+
+            return userService.checkEmailAvailability(email)
+                .catch(({response}) => {
+                    if (response && response.status === 409) {
+                        this.signUpFormErrors.email = 'emailIsAlreadyInUse';
+                    }
+                }).then(() => {
+                    this.checkingEmail = false;
+                })
+        }
+    };
+
+    @action
+    doSignUp = () => {
         if (this.isFormValid()) {
             this.submitting = true;
 
@@ -106,19 +158,21 @@ class SignUpStore {
     isFormValid = () => {
         this.validateForm();
 
-        const {loginUsername, password, repeatedPassword, displayedUsername} = this.signUpFormErrors;
+        const {loginUsername, password, repeatedPassword, displayedUsername, email} = this.signUpFormErrors;
 
-        return !loginUsername && !password && !repeatedPassword && !displayedUsername;
+        return !loginUsername && !password && !repeatedPassword && !displayedUsername && !(this.requireEmail && email);
     };
 
-    @action validateForm() {
+    @action
+    validateForm() {
         this.validatePassword();
         this.validateRepeatedPassword();
         this.validateLoginUsername();
         this.validateDisplayedUsername();
     }
 
-    @action setSignUpDialogOpen = open => {
+    @action
+    setSignUpDialogOpen = open => {
         this.signUpDialogOpen = open;
     }
 }

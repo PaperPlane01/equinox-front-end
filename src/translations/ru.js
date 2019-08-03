@@ -277,5 +277,17 @@ export default {
     managedBlogs: "Администрируемые блоги",
     blogPostsLikedByUser: "Посты, лайкнутые пользователем",
     blogPostsLikedByUser_withUsername: "Посты, лайкнутые {username}",
-    userHasNotLikedAnyBlogPost: "Пользователь не поставил ни одного лайка"
+    userHasNotLikedAnyBlogPost: "Пользователь не поставил ни одного лайка",
+    loginRequiredForEmailConfirmation: "Вы должны войти в аккаунт, чтобы подтвердить e-mail",
+    emailConfirmationSuccess: "Ваш e-mail был успешно подтверждён",
+    emailConfirmationExpired: "Ваша ссылка для подтверждения e-mail истекла",
+    requestAnotherEmailConfirmationLink: "Запросить ещё одну ссылку для подтверждения e-mail",
+    requestEmailConfirmationLink: "Запросить ссылку на подтверждение e-nail",
+    emailConfirmationLinkBelongsToDifferentUser: "Эта ссылка для подтверждения e-mail предназначена для другого пользователя",
+    emailConfirmationHasAlreadyBeenActivated: "Эта ссылка для подтверждения e-mail уже была использована",
+    errorWhenAttemptedToConfirmEmail: "Во время попытки подтвердить e-mail произошла ошибка. Сервер ответил со статусом {errorStatus}. Пожалуйста, попробуйте позже",
+    emailIsAlreadyInUse: "Этот e-mail уже используется",
+    emailIsRequired: "По умолчанию, e-mail обязателен к заполнению. Если вы не хотите указывать свой e-mail, поставьте галочку напротив \"Я не хочу указывать свой e-mail\"",
+    doNotProvideEmail: "Я не хочу указывать e-mail",
+    recommendedToProvideEmail: "Рекомендуется предоставить свой e-mail. Это сделает ваш аккаунт безопаснее"
 }

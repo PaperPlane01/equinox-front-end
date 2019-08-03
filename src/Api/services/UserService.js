@@ -30,6 +30,10 @@ const checkUsernameAvailability = username => {
     return Api.get(`/${Routes.USERS}/${Routes.USERNAME}/${username}/${Routes.IS_AVAILABLE}`);
 };
 
+const checkEmailAvailability = email => {
+    return Api.get(`/${Routes.USERS}/${Routes.EMAIL}/${email}/${Routes.IS_AVAILABLE}`);
+};
+
 const doLogin = (username, password) => {
     return Api({
         method: 'POST',
@@ -89,5 +93,6 @@ export default {
     checkUsernameAvailability,
     doLogin,
     doLogOut,
-    doLoginWithGoogle
+    doLoginWithGoogle,
+    checkEmailAvailability
 };
