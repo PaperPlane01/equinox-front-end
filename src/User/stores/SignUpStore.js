@@ -1,11 +1,15 @@
-import {action, observable, reaction} from 'mobx';
+import {action, observable, reaction, computed} from 'mobx';
 import _ from "lodash";
 import {Component} from "../../simple-ioc";
 import {createErrorFromResponse, userService} from '../../Api';
 import validators from '../validation';
 import {isBlank} from "../../utils";
 
-@Component()
+@Component({
+    dependencies: [
+        {propertyName: 'localeStore'}
+    ]
+})
 class SignUpStore {
     @observable signUpFormValues = {
         loginUsername: '',
@@ -28,6 +32,12 @@ class SignUpStore {
     @observable persistedUser = undefined;
     @observable signUpDialogOpen = false;
     @observable requireEmail = true;
+    @observable localeStore = undefined;
+
+    @computed
+    get confirmationEmailLanguage() {
+        return this.localeStore.currentLocale;
+    }
 
     constructor() {
         reaction(
@@ -144,7 +154,10 @@ class SignUpStore {
         if (this.isFormValid()) {
             this.submitting = true;
 
-            return userService.save(this.signUpFormValues, 'usernameAndPassword')
+            return userService.save({
+                ...this.signUpFormValues,
+                confirmationEmailLanguage: this.confirmationEmailLanguage
+            }, 'usernameAndPassword')
                 .then(response => {
                     this.persistedUser = response.data;
                 }).catch(error => {

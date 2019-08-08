@@ -2,23 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'mobx-react';
 import {RouterStore, startRouter} from 'mobx-router';
-import localStorage from 'mobx-localstorage';
 import {SnackbarProvider} from 'notistack';
 import views from './router-config';
-import {en, ru} from './translations';
-import {LocaleStore} from './localization';
 import appStore from './store';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import {WEB_APP_BASE_URL} from "./Api/Routes";
-
-appStore.localeStore = new LocaleStore(
-    localStorage.getItem("preferredLanguage") || "ru",
-    {
-        "en": en,
-        "ru": ru
-    });
 
 const routerStore = {
     router: new RouterStore()
