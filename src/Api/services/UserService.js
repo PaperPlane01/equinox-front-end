@@ -83,6 +83,14 @@ const doLogOut = (accessToken, refreshToken) => {
     })
 };
 
+const updateEmailOfCurrentUser = email => {
+    return Api.patch(`/${Routes.CURRENT_USER}/${Routes.EMAIL}`, {email});
+};
+
+const getEmailOfCurrentUser = () => {
+    return Api.get(`/${Routes.CURRENT_USER}/${Routes.EMAIL}`);
+};
+
 export default {
     save,
     updateCurrentUser,
@@ -94,5 +102,7 @@ export default {
     doLogin,
     doLogOut,
     doLoginWithGoogle,
-    checkEmailAvailability
+    checkEmailAvailability,
+    updateEmailOfCurrentUser,
+    getEmailOfCurrentUser
 };

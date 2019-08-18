@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import {withLocale} from "../localization";
 import StandardLayout from '../StandardLayout';
 import AppBar from '../AppBar';
-import {EditProfileForm} from '../User';
+import {EditProfileCard} from '../User';
 
 @withLocale
 @inject('authStore')
@@ -24,13 +24,7 @@ class EditProfile extends React.Component {
                 </Grid>
                 <StandardLayout>
                     {authStore.loggedIn
-                        ? <Card raised style={{
-                            marginTop: '18px'
-                        }}>
-                            <CardContent>
-                                <EditProfileForm/>
-                            </CardContent>
-                        </Card>
+                        ? <EditProfileCard/>
                         : <Typography variant="headline">
                             {l('loginRequired')}
                         </Typography>}

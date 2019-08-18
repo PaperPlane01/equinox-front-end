@@ -289,5 +289,10 @@ export default {
     emailIsAlreadyInUse: "Этот e-mail уже используется",
     emailIsRequired: "По умолчанию, e-mail обязателен к заполнению. Если вы не хотите указывать свой e-mail, поставьте галочку напротив \"Я не хочу указывать свой e-mail\"",
     doNotProvideEmail: "Я не хочу указывать e-mail",
-    recommendedToProvideEmail: "Рекомендуется предоставить свой e-mail. Это сделает ваш аккаунт безопаснее"
+    recommendedToProvideEmail: "Рекомендуется предоставить свой e-mail. Это сделает ваш аккаунт безопаснее",
+    emailUpdatedSuccessfully: "E-mail был успешно обновлён",
+    errorWhenAttemptedToUpdateEmail: "Во время попытки обновить e-mail произошла ошибка. Сервер ответил со статусом {errorStatus}. Пожалуйста, попробуйте позже",
+    generalInfo: "Общая информация",
+    changeEmail: "Изменить e-mail",
+    updateEmail: "Обновить e-mail"
 }

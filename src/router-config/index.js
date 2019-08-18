@@ -22,6 +22,7 @@ import {
 } from '../screens';
 import appStore from '../store';
 import _getViewByPath from './getViewByPath';
+import {isBlank} from "../utils";
 
 export const getViewByPath = _getViewByPath;
 
@@ -43,7 +44,24 @@ export default {
     editProfile: new Route({
         path: '/edit-profile',
         component: <EditProfile/>,
-        onEnter: () => appStore.editProfileStore.fetchCurrentUserProfile()
+        onEnter: (route, params, store, queryParams) => {
+            let tab = queryParams ? queryParams.tab : undefined;
+
+            if (isBlank(tab)) {
+                tab = 'generalInfo';
+            }
+
+            appStore.editProfileStore.setSelectedTab(tab);
+        },
+        onParamsChange: (route, params, store, queryParams) => {
+            let tab = queryParams ? queryParams.tab : undefined;
+
+            if (isBlank(tab)) {
+                tab = 'generalInfo';
+            }
+
+            appStore.editProfileStore.setSelectedTab(tab);
+        }
     }),
     userProfile: new Route({
         path: '/user/:id',

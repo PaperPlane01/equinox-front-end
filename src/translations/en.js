@@ -292,5 +292,10 @@ export default {
     emailIsAlreadyInUse: "This email is already in use",
     emailIsRequired: "By default, email is required. If you don't want do provide email, check the box \"I don't want to provide an email\"",
     doNotProvideEmail: "I don't want to provide an email",
-    recommendedToProvideEmail: "It is recommended to provide your email because it will make your account more secure"
+    recommendedToProvideEmail: "It is recommended to provide your email because it will make your account more secure",
+    emailUpdatedSuccessfully: "Email has been successfully updated",
+    errorWhenAttemptedToUpdateEmail: "Error occurred when attempted to update email. Server responded with {errorStatus} status. Please try again later",
+    generalInfo: 'General info',
+    changeEmail: 'Change email',
+    updateEmail: "Update email"
 }
