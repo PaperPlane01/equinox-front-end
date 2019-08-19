@@ -280,5 +280,22 @@ export default {
     managedBlogs: "Managed blogs",
     blogPostsLikedByUser: "Blog posts liked by user",
     blogPostsLikedByUser_withUsername: "Blog posts liked by {username}",
-    userHasNotLikedAnyBlogPost: "User has not liked any blog post"
+    userHasNotLikedAnyBlogPost: "User has not liked any blog post",
+    loginRequiredForEmailConfirmation: "You have to be logged in to confirm your email",
+    emailConfirmationSuccess: "You have successfully confirmed your email",
+    emailConfirmationExpired: "Your email confirmation link has expired",
+    requestAnotherEmailConfirmationLink: "Request another email confirmation link",
+    requestEmailConfirmationLink: "Request email confirmation link",
+    emailConfirmationLinkBelongsToDifferentUser: "This email confirmation link is designated for another user",
+    emailConfirmationHasAlreadyBeenActivated: "This email confirmation link is not valid because it has already been used to confirm email",
+    errorWhenAttemptedToConfirmEmail: "Error occurred when attempted to confirm email. Server responded with {errorStatus} status. Please try again later",
+    emailIsAlreadyInUse: "This email is already in use",
+    emailIsRequired: "By default, email is required. If you don't want do provide email, check the box \"I don't want to provide an email\"",
+    doNotProvideEmail: "I don't want to provide an email",
+    recommendedToProvideEmail: "It is recommended to provide your email because it will make your account more secure",
+    emailUpdatedSuccessfully: "Email has been successfully updated",
+    errorWhenAttemptedToUpdateEmail: "Error occurred when attempted to update email. Server responded with {errorStatus} status. Please try again later",
+    generalInfo: 'General info',
+    changeEmail: 'Change email',
+    updateEmail: "Update email"
 }

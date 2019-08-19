@@ -11,3 +11,4 @@ export {default as blogBlockingService} from './BlogBlockingService';
 export {default as globalBlockingService} from './GlobalBlockingService';
 export {default as commentReportService} from './CommentReportService';
 export {default as blogPostReportService} from './BlogPostReportService';
+export {default as emailConfirmationService} from './EmailConfirmationService';

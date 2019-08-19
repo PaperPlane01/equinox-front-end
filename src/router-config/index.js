@@ -17,10 +17,12 @@ import {
     GlobalBlockings,
     Search,
     CommentReports,
-    BlogPostReports
+    BlogPostReports,
+    ConfirmEmail
 } from '../screens';
 import appStore from '../store';
 import _getViewByPath from './getViewByPath';
+import {isBlank} from "../utils";
 
 export const getViewByPath = _getViewByPath;
 
@@ -42,7 +44,24 @@ export default {
     editProfile: new Route({
         path: '/edit-profile',
         component: <EditProfile/>,
-        onEnter: () => appStore.editProfileStore.fetchCurrentUserProfile()
+        onEnter: (route, params, store, queryParams) => {
+            let tab = queryParams ? queryParams.tab : undefined;
+
+            if (isBlank(tab)) {
+                tab = 'generalInfo';
+            }
+
+            appStore.editProfileStore.setSelectedTab(tab);
+        },
+        onParamsChange: (route, params, store, queryParams) => {
+            let tab = queryParams ? queryParams.tab : undefined;
+
+            if (isBlank(tab)) {
+                tab = 'generalInfo';
+            }
+
+            appStore.editProfileStore.setSelectedTab(tab);
+        }
     }),
     userProfile: new Route({
         path: '/user/:id',
@@ -217,6 +236,16 @@ export default {
         onExit: () => {
             appStore.blogPostReportListStore.setFetchReportsOnUserChange(false);
             appStore.blogPostReportListStore.reset();
+        }
+    }),
+    confirmEmail: new Route({
+        path: '/confirm-email',
+        component: <ConfirmEmail/>,
+        onEnter: (route, params, store, queryParams) => {
+            appStore.confirmEmailStore.confirmEmail(queryParams.confirmationId);
+        },
+        onExit: () => {
+            appStore.confirmEmailStore.reset();
         }
     })
 };

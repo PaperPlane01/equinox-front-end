@@ -39,7 +39,13 @@ class _Container {
     };
 
     getComponentByName = name => {
-        return this.registeredComponents.filter(component => component.name === name)[0].component;
+        const component = this.registeredComponents.filter(component => component.name === name)[0];
+
+        if (!component) {
+            throw new Error(`Could not find component with name ${name}`);
+        }
+
+        return component.component;
     }
 }
 

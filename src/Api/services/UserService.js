@@ -30,6 +30,10 @@ const checkUsernameAvailability = username => {
     return Api.get(`/${Routes.USERS}/${Routes.USERNAME}/${username}/${Routes.IS_AVAILABLE}`);
 };
 
+const checkEmailAvailability = email => {
+    return Api.get(`/${Routes.USERS}/${Routes.EMAIL}/${email}/${Routes.IS_AVAILABLE}`);
+};
+
 const doLogin = (username, password) => {
     return Api({
         method: 'POST',
@@ -79,6 +83,14 @@ const doLogOut = (accessToken, refreshToken) => {
     })
 };
 
+const updateEmailOfCurrentUser = (email, emailConfirmationLanguage) => {
+    return Api.patch(`/${Routes.CURRENT_USER}/${Routes.EMAIL}`, {email, emailConfirmationLanguage});
+};
+
+const getEmailOfCurrentUser = () => {
+    return Api.get(`/${Routes.CURRENT_USER}/${Routes.EMAIL}`);
+};
+
 export default {
     save,
     updateCurrentUser,
@@ -89,5 +101,8 @@ export default {
     checkUsernameAvailability,
     doLogin,
     doLogOut,
-    doLoginWithGoogle
+    doLoginWithGoogle,
+    checkEmailAvailability,
+    updateEmailOfCurrentUser,
+    getEmailOfCurrentUser
 };

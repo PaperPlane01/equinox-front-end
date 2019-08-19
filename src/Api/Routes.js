@@ -53,5 +53,7 @@ export default {
     HANDSHAKE: 'handshake',
     SEARCH: 'search',
     MULTIPLE: 'multiple',
-    MANAGED_BLOGS: 'managed-blogs'
+    MANAGED_BLOGS: 'managed-blogs',
+    EMAIL_CONFIRMATIONS: 'email-confirmations',
+    EMAIL: 'email'
 };

@@ -81,9 +81,9 @@ export const validateBio = bio => {
     return undefined;
 };
 
-export const validateEmail = email => {
+export const validateEmail = (email, required = false) => {
     if (isBlank(email)) {
-        return undefined;
+        return required ? "emailIsRequired" : undefined;
     }
 
     if (!isEmail(email)) {
