@@ -61,7 +61,7 @@
     "query-string": "^6.1.0",
     "raf": "3.4.0",
     "react": "^16.5.2",
-    "react-dev-utils": "^5.0.2",
+    "react-dev-utils": "^11.0.4",
     "react-document-title": "^2.0.3",
     "react-dom": "^16.5.2",
     "react-draft-wysiwyg": "^1.12.13",
